@@ -5,11 +5,11 @@
 #include <sys/types.h>
 #include <regex.h>
 
-#define geometric_vertices "^v[ \b]([ \t]*[+-]?[0-9]*.[0-9]*[ \t]*)*"         //List of geometric vertices
-#define texture_coordinates "^vn[ \b]([ \t]*[+-]?[0-9]*.[0-9]*[ \t]*)*"       //List of texture coordinates
-#define vertex_normals "^vt[ \b]([ \t]*[+-]?[0-9]*.[0-9]*[ \t]*)*"            //List of vertex normals
-#define space_vertices "^vp[ \b]([ \t]*[+-]?[0-9]*.[0-9]*[ \t]*)*"            //Parameter space vertices
-#define face_elements "^f[ \b]([ \t]*[+-]?[0-9]*.[0-9]*[ \t]*)*"              //Polygonal face elements
+#define geometric_vertice    "^v[ \b]([ \t]*[+-]?[0-9]*.[0-9]*[ \t]*)*"              //List of geometric vertices
+#define texture_coordinates  "^vn[ \b]([ \t]*[+-]?[0-9]*.[0-9]*[ \t]*)*"             //List of texture coordinates
+#define vertex_normals       "^vt[ \b]([ \t]*[+-]?[0-9]*.[0-9]*[ \t]*)*"             //List of vertex normals
+#define space_vertices       "^vp[ \b]([ \t]*[+-]?[0-9]*.[0-9]*[ \t]*)*"             //Parameter space vertices
+#define face_elements        "^f[ \b]([ \t]*[+-]?[0-9]*.[0-9]*[ \t]*)*"              //Polygonal face elements
 
 int main(int argc, char **argv)
 {
