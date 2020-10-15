@@ -11,27 +11,35 @@ v 0.0 0.1 0.0
 v 1.0 0.0 0.0
 v 1.0 1.0 0.0
 v 0.0 1.0 0.0
+
+vt 0.0 0.0
+vt 1.0 0.0
+vt 1.0 1.0
+vt 0.0 1.0
+
+vn 1.0 0.0 0.0 
+
+f 1/1/1 2/2/1 3/3/1 4/4/1
 \end{cpp}
-
-\noindent vt 0.0 0.0\\
-vt 1.0 0.0\\
-vt 1.0 1.0\\
-vt 0.0 1.0\\
-
-\noindent vn 1.0 0.0 0.0 \\
-
-\noindent f 1/1/1 2/2/1 3/3/1 4/4/1\\
 
 A fájl először felsorolja a csúcspontokat \textbf{v} (vertex), utána a textúra pontokat \textbf{vt} (vertex texture) és a normálvektorokat \textbf{vn} (vertex normal) utána  az \textbf{f} (face) kulcsszóval egymáshoz rendeli ezeket. A lap utasításban például a lapot négy csúcsponttal adtuk meg (ez egy négyszög), és / jellel elválasztva minden csúcshoz közöltük a csúcspont, a textúra pont és a normálvektor sorsszámát. Most következzen pár gyakran előforduló face definíció:\\
 
 \noindent Csak vertexekből áll a felület.
-\begin{center} f v1 v2 v3 v4 ...\end{center}
+\begin{cpp} 
+f v1 v2 v3 v4 ...
+\end{cpp}
 Minden vertexhez hozzá van rendelve egy textúra koordináta is.
-\begin{center} f v1/vt1 v2/vt2 v3/vt3 ...\end{center}
+\begin{cpp} 
+f v1/vt1 v2/vt2 v3/vt3 ...
+\end{cpp}
 Minden vertex tartalmaz textúra koordinátát és normál vektort.
-\begin{center} f v1/vt1/vn1 v2/vt2/vn2 v3/vt3/vn3 ...\end{center}
+\begin{cpp} 
+f v1/vt1/vn1 v2/vt2/vn2 v3/vt3/vn3 ...
+\end{cpp}
 A vertexekhez csak a felületi normális lett hozzárendelve, a textúra pont opcionális.
-\begin{center} f v1//vn1 v2//vn2 v3//vn3 ...\end{center}
+\begin{cpp} 
+f v1/ /vn1 v2/ /vn2 v3/ /vn3 ...
+\end{cpp}
 Összefoglalva, az OBJ formális nyelv kulcsszavakból (<\textbf{v}>, <\textbf{vt}>, <\textbf{vn}>, <\textbf{f}>), speciális karakterekből (<\textbf{/}>) és számokból (<\textbf{Float}>, <\textbf{Integer}>) épül fel. Az OBJ nyelvtanát következő szabályokkal adhatjuk meg:\\
 
 \noindent(OBJFile) = {(Vertex)}+{(VertexTexture)}+{(VertexNormal)}+{(Face)}\\
