@@ -1,0 +1,8 @@
+*.a
+*.o
+test_runner
+sempre-c.config
+sempre-c.creator
+sempre-c.creator.user
+sempre-c.files
+sempre-c.includes
