@@ -1,7 +1,7 @@
 #This is a makefile
 
 CC = gcc
-CFLAGS = -Iinclude/ -c -Wall -lregex -fno-stack-protector
+CFLAGS = -Iinclude/ -Wall -lregex -lglut -lSOIL -lGL -lGLU -fno-stack-protector
 
 OBJ = func
 
@@ -28,4 +28,3 @@ clean:
 	rm -rf src/func
 	rm -rf src/*.exe
 	rm -rf src/*.o
-		

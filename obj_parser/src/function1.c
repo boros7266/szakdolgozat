@@ -4,6 +4,8 @@
 
 #define BUFFER 1024
 
+struct Model model;
+
 void OBJ_LOAD(){
     char* files[NrOfFiles];
     files[0] ="OBJ/cube.obj";
@@ -93,17 +95,16 @@ void OBJ_LOAD(){
         else if ((retval = regexec(&re3, line, 2, rm, 0)) == 0)
         {
 	    n_faces++;
+		fprintf(frp,"%s",line + rm[0].rm_so);
+          		fprintf(frp,"\n");
 		if ((retval = regexec(&re5, line, 2, rm, 0)) == 0)
 		{
            	n_triangles++;
 		}
         	
-		 if ((retval = regexec(&re6, line, 2, rm, 0)) == 0)
-       		 {
-			fprintf(frp,"%s",line + rm[0].rm_so);
-          		fprintf(frp,"\n");
+		else if ((retval = regexec(&re6, line, 2, rm, 0)) == 0)
+       		 {	
             		n_quads++;
-			n_triangles--;
         		}
         }
         else if ((retval = regexec(&re4, line, 2, rm, 0)) == 0)

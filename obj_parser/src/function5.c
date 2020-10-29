@@ -5,7 +5,7 @@ void texture_count (){
     size_t count = 0;
     struct dirent *res;
     struct stat sb;
-    const char *path = "/home/bence/Asztal/dolgozat/OBJ/";
+    const char *path = "/home/bence/Asztal/obj_parser/";
 
     if (stat(path, &sb) == 0 && S_ISDIR(sb.st_mode)){
         DIR *folder = opendir ( path );
