@@ -19,30 +19,16 @@
 #define space_vertices          "^vp[ \b]([ \t]*[+-]?[0-9]*.[0-9]*[ \t]*)*"             //Parameter space vertices
 #define triangles		"^f[ \b]([ \t]*[+-]?[0-9]*.[0-9]*.[0-9]*){3}[\\ ]*$"		//Parameter triangle
 #define quads			"^f[ \b]([ \t]*[+-]?[0-9]*.[0-9]*.[0-9]*){4}[\\ ]*"		//Parameter quads
-#define picture1		"^.*.png"
-#define picture2		"^.*.jpg"
-#define NrOfFiles 6
-#define NrOfFiles2 1
+#define NrOfFiles 5
 
 struct timeval start, finish;
 
 typedef GLubyte Pixel[3];
 
-struct Model
-{
-    int n_vertices;
-    int n_texture_vertices;
-    int n_normals;
-    int n_faces;
-    int n_space;
-    int n_triangles;
-    int n_quads;
-};
 
 void begin();
 void OBJ_LOAD();
-void texture_count();
-void findSize();
+void texture();
 void end();
 
 #endif /* FUNCTIONS_H */

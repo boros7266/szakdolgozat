@@ -8,10 +8,8 @@ int main(void){
 	begin();
 	//OBJ Reading
 	OBJ_LOAD();
-	//texture count
-	texture_count();
-	//texture size
-	findSize();
+	//texture
+	texture();
 	//Program Stop
 	end();
 return 0;
