@@ -1,41 +1,44 @@
 #include <stdio.h>
+#include <limits.h>
 #include "functions.h"
 
 void texture() {
+  int i=0;
+  char resultName[CHAR_MAX][CHAR_MAX];
   int n_textures =0;
   DIR *d;
   struct dirent *dir;
-  char path[1000]="./OBJ";
+  char path[1000]="./";
   d = opendir(path);
   if (d) {
     while ((dir = readdir(d)) != NULL) {
+    if (!strcmp (dir->d_name, ".") || !strcmp (dir->d_name, ".."))
+            continue;
       int length = strlen(dir->d_name);
-      if (strncmp(dir->d_name + length - 4, ".jpg", 4) == 0) {
-          puts(dir->d_name);
+      if ((strncmp(dir->d_name + length - 4, ".jpg", 4) == 0) || (strncmp(dir->d_name + length - 4, ".png", 4) == 0) || (strncmp(dir->d_name + length - 4, ".tga", 4) == 0)){
+      strcpy(resultName[i], dir->d_name);
           n_textures++;
+          i++;
       }
-      else if (strncmp(dir->d_name + length - 4, ".png", 4) == 0) {
-          puts(dir->d_name);
-          n_textures++;
-      }
-      else if (strncmp(dir->d_name + length - 4, ".tga", 4) == 0) {
-          puts(dir->d_name);
-          n_textures++;
-        }
     }
-    if(n_textures == 0)
+	if(n_textures == 0)
         {
             printf("0 Texture files found!\n");
         }
         else{
-            printf("\nTexture files found: %d\n\n", n_textures);
+            printf("Texture files found: %d\n\n", n_textures);
     }
+    for( int i=0; i<n_textures;i++){
+    printf("Textures:\t");
+    puts (resultName[i]);
+    }
+    printf("\n");
     closedir(d);
   }
-  for(int i = 0; i < 1; i++)
+  for(int i = 0; i < n_textures; i++)
     {
     char* filename;
-    filename ="./OBJ/5.png";
+    filename =resultName[i];
 	FILE *fp;
 	fp = fopen(filename, "r");
 	if (fp == NULL) {
