@@ -1,4 +1,4 @@
 #This is a makefile
 
 linux:
-	gcc -Iinclude/ src/main.c src/timer.c src/model.c src/vertices.c src/texture_vertices.c src/normal_vertices.c src/texture.c src/triangles.c src/quads.c -lSOIL -lobj -lGL -lGLU -lglut -lm -fno-stack-protector -o func 
+	gcc -Iinclude/ src/main.c src/timer.c src/model.c src/vertex.c src/texture_vertex.c src/normal_vertex.c src/texture.c src/triangle.c src/quad.c src/texture_box.c src/bounding_box.c -lSOIL -lobj -lGL -lGLU -lglut -lm -o func 

@@ -1,9 +1,11 @@
-#ifndef TRIANGLES_H
-#define TRIANGLES_H
+#ifndef TRIANGLE_H
+#define TRIANGLE_H
 
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <model.h>
+
 
 typedef struct FacePoint
 {
@@ -17,8 +19,7 @@ typedef struct Triangle
     struct FacePoint points[3];
 } Triangle;
 
-int is_numeric(char c);
 
 int read_triangle(Triangle* triangle, const char* text);
 
-#endif /* TRIANGLES_H */
+#endif /* TRIANGLE_H */

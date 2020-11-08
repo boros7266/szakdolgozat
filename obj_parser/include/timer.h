@@ -9,7 +9,8 @@
 
 struct timeval start, finish;
 
-void timer_start();
-void timer_finish();
+void start_timer();
+
+void calc_timer_elapsed_time();
 
 #endif /* TIMER_H */

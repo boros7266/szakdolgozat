@@ -1,9 +1,10 @@
-#ifndef TEXTURE_VERTICES_H
-#define TEXTURE_VERTICES_H
+#ifndef TEXTURE_VERTEX_H
+#define TEXTURE_VERTEX_H
 
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <model.h>
 
 typedef struct TextureVertex
 {
@@ -11,8 +12,7 @@ typedef struct TextureVertex
     double v;
 }TextureVertex;
 
-int is_numeric(char c);
 
 int read_texture_vertex(TextureVertex* texture_vertex, const char* text);
 
-#endif /* TEXTURE_VERTICES_H */
+#endif /* TEXTURE_VERTEX_H */

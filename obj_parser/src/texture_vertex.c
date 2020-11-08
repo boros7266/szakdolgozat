@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "texture_vertices.h"
+#include "texture_vertex.h"
 
 
 int read_texture_vertex(TextureVertex* texture_vertex, const char* text)

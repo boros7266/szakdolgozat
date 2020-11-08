@@ -1,9 +1,11 @@
-#ifndef NORMAL_VERTICES_H
-#define NORMAL_VERTICES_H
+#ifndef NORMAL_VERTEX_H
+#define NORMAL_VERTEX_H
 
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <model.h>
+
 
 typedef struct NormalVertex
 {
@@ -12,8 +14,7 @@ typedef struct NormalVertex
     double z;
 }NormalVertex;
 
-int is_numeric(char c);
 
 int read_normal(NormalVertex* normal, const char* text);
 
-#endif /* NORMAL_VERTICES_H */
+#endif /* NORMAL_VERTEX_H */

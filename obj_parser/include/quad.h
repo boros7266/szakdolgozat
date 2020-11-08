@@ -1,10 +1,10 @@
-#ifndef QUADS_H
-#define QUADS_H
+#ifndef QUAD_H
+#define QUAD_H
 
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include "triangles.h"
+#include "triangle.h"
 
 
 typedef struct Quad
@@ -15,4 +15,4 @@ typedef struct Quad
 
 int read_quad(Quad* Quad, const char* text);
 
-#endif /* QUADS_H */
+#endif /* QUAD_H */

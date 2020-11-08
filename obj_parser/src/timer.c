@@ -2,11 +2,14 @@
 #include "timer.h"
 
 
-void timer_start(){
+void start_timer()
+{
 	printf("\nProgram Started!\n");
 	gettimeofday(&start, NULL);
 }
-void timer_finish(){
+
+void calc_timer_elapsed_time()
+{
 
 	gettimeofday(&finish, NULL);
 	long seconds = (finish.tv_sec - start.tv_sec);

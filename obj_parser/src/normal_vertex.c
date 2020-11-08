@@ -1,8 +1,7 @@
 #include <stdio.h>
-#include "vertices.h"
+#include "normal_vertex.h"
 
-
-int read_vertex(Vertex* vertex, const char* text)
+int read_normal(NormalVertex* normal, const char* text)
 {
     int i;
 
@@ -11,10 +10,10 @@ int read_vertex(Vertex* vertex, const char* text)
         ++i;
     }
     if (text[i] != 0) {
-        vertex->x = atof(&text[i]);
+        normal->x = atof(&text[i]);
     }
     else {
-        printf("The x value of vertex is missing!\n");
+        printf("The x value of normal vector is missing!\n");
         return false;
     }
     while (text[i] != 0 && text[i] != ' ') {
@@ -24,10 +23,10 @@ int read_vertex(Vertex* vertex, const char* text)
         ++i;
     }
     if (text[i] != 0) {
-        vertex->y = atof(&text[i]);
+        normal->y = atof(&text[i]);
     }
     else {
-        printf("The y value of vertex is missing!\n");
+        printf("The y value of normal vector is missing!\n");
         return false;
     }
     while (text[i] != 0 && text[i] != ' ') {
@@ -37,12 +36,11 @@ int read_vertex(Vertex* vertex, const char* text)
         ++i;
     }
     if (text[i] != 0) {
-        vertex->z = atof(&text[i]);
+        normal->z = atof(&text[i]);
     }
     else {
-        printf("The z value of vertex is missing!\n");
+        printf("The z value of normal vector is missing!\n");
         return false;
     }
-    return true;
+    return false;
 }
-

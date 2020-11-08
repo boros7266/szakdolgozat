@@ -13,33 +13,13 @@
 
 typedef struct Regular
 {
-    regex_t re;
-    regex_t re1;
-    regex_t re2;
-    regex_t re3;
-    regex_t re4;
-    regex_t re5;
-    regex_t re6;
+    regex_t vertex_regex;
+    regex_t texture_vertex_regex;
+    regex_t vertex_normal_regex;
+    regex_t face_regex;
+    regex_t triangle_regex;
+    regex_t quad_regex;
 }Regular;
-
-typedef struct BoundingBox
-{
-    double min_x;
-    double min_y;
-    double min_z;
-    double max_x;
-    double max_y;
-    double max_z;
-}BoundingBox;
-
-typedef struct TextureBox
-{
-    double min_u;
-    double max_u;
-    double min_v;
-    double max_v;
-}TextureBox;
-
 
 typedef struct Model
 {
@@ -47,7 +27,6 @@ typedef struct Model
     int n_texture_vertices;
     int n_normals;
     int n_faces;
-    int n_spaces;
     int n_triangles;
     int n_quads;
     struct Vertex* vertices;
@@ -57,7 +36,7 @@ typedef struct Model
     struct Quad* quads;
 }Model;
 
-int load_model(char* filename, Model* model,Regular* regular,BoundingBox* bounding_box,TextureBox* texture_box);
+int load_model(char* filename, Model* model,Regular* regular);
 
 void regex_check(Regular* regular);
 
@@ -72,13 +51,5 @@ void read_elements(FILE* file,Model* model, Regular* regular);
 void create_arrays(Model* model);
 
 void free_model(Model* model);
-
-void count_bounding_box(Model* model,BoundingBox* bounding_box);
-
-void print_bounding_box(BoundingBox* bounding_box);
-
-void count_texture_box(Model* model,TextureBox* texture_box);
-
-void print_texture_box(TextureBox* texture_box);
 
 #endif /* MODEL_H */

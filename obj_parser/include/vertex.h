@@ -1,9 +1,10 @@
-#ifndef VERTICES_H
-#define VERTICES_H
+#ifndef VERTEX_H
+#define VERTEX_H
 
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <model.h>
 
 typedef struct Vertex
 {
@@ -12,8 +13,7 @@ typedef struct Vertex
     double z;
 }Vertex;
 
-int is_numeric(char c);
 
 int read_vertex(Vertex* vertex, const char* text);
 
-#endif /* VERTICES_H */
+#endif /* VERTEX_H */
