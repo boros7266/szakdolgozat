@@ -187,8 +187,8 @@ void create_arrays(Model* model)
     model->vertices =(Vertex*)malloc((model->n_vertices + 1) * sizeof(Vertex));
     model->texture_vertices =(TextureVertex*)malloc((model->n_texture_vertices + 1) * sizeof(TextureVertex));
     model->normals =(NormalVertex*)malloc((model->n_normals + 1) * sizeof(NormalVertex));
-    model->triangles =(Triangle*)malloc(model->n_triangles * sizeof(Triangle));
-    model->quads =(Quad*)malloc(model->n_quads * sizeof(Quad));
+    model->triangles =(Triangle*)malloc((model->n_triangles + 1) * sizeof(Triangle));
+    model->quads =(Quad*)malloc((model->n_quads + 1) * sizeof(Quad));
 }
 
 void print_model_info(Model* model)
