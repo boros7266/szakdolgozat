@@ -1,4 +1,4 @@
 #This is a makefile
 
 linux:
-	gcc -Iinclude/ src/main.c src/model.c src/texture.c src/texture_verticles.c src/normal_verticles.c src/time.c -lSOIL -fno-stack-protector -o func 
+	gcc -Iinclude/ src/main.c src/timer.c src/model.c src/vertices.c src/texture_vertices.c src/normal_vertices.c src/texture.c -lSOIL -lobj -lGL -lGLU -lglut -lm -fno-stack-protector -o func 

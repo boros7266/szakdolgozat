@@ -1,26 +1,23 @@
 #include <stdio.h>
 #include "model.h"
-#include "texture_verticles.h"
+#include "timer.h"
 #include "texture.h"
-#include "normal_verticles.h"
-#include "time.h"
 
 
 int main(int argc, char* argv[])
 {
-    begin();
-    Texture texture;
+    timer_start();
     Model model;
-    Vertex vertex;
-    TextureVertex texturevertex;
-    NormalVertex normalvertex;
+    Regular regular;
+    BoundingBox bounding_box;
+    TextureBox texture_box;
+    Texture texture;
 
-    load_model("OBJ/cube.obj", &model);
+    load_model("OBJ/10050_RattleSnake_v4_L3.obj", &model, &regular, &bounding_box, &texture_box);
     print_model_info(&model);
-    print_bounding_box(&model,&vertex);
-    texture_coords(&texturevertex);
-    normal_coords(&normalvertex);
+    print_bounding_box(&bounding_box);
+    print_texture_box(&texture_box);
     load_texture("OBJ/12248_Bird_v1_diff.jpg",&texture);
-    end();
+    timer_finish();
     return 0;
 }

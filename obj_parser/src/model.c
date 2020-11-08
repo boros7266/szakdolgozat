@@ -1,175 +1,252 @@
 #include <stdio.h>
 #include "model.h"
+#include "vertices.h"
+#include "texture_vertices.h"
+#include "normal_vertices.h"
 
-int load_model(char* filename,struct Model* model)
-{
-    FILE* obj_file = fopen(filename, "r");
-    printf("Load model\t%s\n", filename);
-    if (obj_file == NULL) {
-        printf("ERROR: Unable to open '%s' file!\n", filename);
-    	return FALSE;
-    }
-    printf("Filename:\t%s\n",filename);
-        n_coords(obj_file, model);
-	return TRUE;
-}
+const char *geometric_vertices  = "^v[ \b]([ \t]*[+-]?[0-9]*.[0-9]*[ \t]*)*";
+const char *texture_coordinates = "^vt[ \b]([ \t]*[+-]?[0-9]*.[0-9]*[ \t]*)*";
+const char *vertex_normals      = "^vn[ \b]([ \t]*[+-]?[0-9]*.[0-9]*[ \t]*)*";
+const char *face_elements       = "^f[ \b]([ \t]*[+-]?[0-9]*.[0-9]*[ \t]*)*";
+const char *space_vertices      = "^vp[ \b]([ \t]*[+-]?[0-9]*.[0-9]*[ \t]*)*";
 
-void init_model_counters(struct Model* model)
+void init_model_counters(Model* model)
 {
     model->n_vertices = 0;
     model->n_texture_vertices = 0;
     model->n_normals = 0;
     model->n_faces = 0;
     model->n_spaces = 0;
-    model->n_triangles = 0;
-    model->n_polygons = 0;
 }
 
-void n_coords(FILE* file, struct Model* model)
+int load_model(char* filename, Model* model,Regular* regular, BoundingBox* bounding_box, TextureBox* texture_box)
 {
-    init_model_counters(model);
-    char* line = malloc(BUFFER_SIZE);
-    int retval = 0;
-    regmatch_t rm[2];
-    regex_t re,re1,re2,re3,re4,re5,re6;
-    if (regcomp(&re, geometric_vertices, REG_EXTENDED) != 0)
+    FILE* obj_file = fopen(filename, "r");
+    printf("Load model\t%s\n", filename);
+    if (obj_file == NULL) {
+        printf("ERROR: Unable to open '%s' file!\n", filename);
+    	return false;
+    }
+    	printf("Filename:\t%s\n",filename);
+	count_elements(obj_file, model, regular);
+	create_arrays(model);
+        read_elements(obj_file, model, regular);
+	count_bounding_box(model, bounding_box);
+	count_texture_box(model, texture_box);
+	return true;
+}
+
+void regex_check(Regular* regular)
+{
+    if (regcomp(&regular->re, geometric_vertices, REG_EXTENDED) != 0)
     {
         fprintf(stderr, "Failed to compile regex '%s'\n", geometric_vertices);
         return ;
     }
-    else if (regcomp(&re1, texture_coordinates, REG_EXTENDED) != 0)
+    else if (regcomp(&regular->re1, texture_coordinates, REG_EXTENDED) != 0)
     {
         fprintf(stderr, "Failed to compile regex '%s'\n", texture_coordinates);
         return ;
     }
-    else if (regcomp(&re2, vertex_normals, REG_EXTENDED) != 0)
+    else if (regcomp(&regular->re2, vertex_normals, REG_EXTENDED) != 0)
     {
         fprintf(stderr, "Failed to compile regex '%s'\n", vertex_normals);
         return ;
     }
-    else if (regcomp(&re3, face_elements, REG_EXTENDED) != 0)
+    else if (regcomp(&regular->re3, face_elements, REG_EXTENDED) != 0)
     {
         fprintf(stderr, "Failed to compile regex '%s'\n", face_elements);
         return ;
     }
-    else if (regcomp(&re4, space_vertices, REG_EXTENDED) != 0)
+    else if (regcomp(&regular->re4, space_vertices, REG_EXTENDED) != 0)
     {
         fprintf(stderr, "Failed to compile regex '%s'\n", space_vertices);
-        return ;
-    }
-    else if (regcomp(&re5, triangles, REG_EXTENDED) != 0)
-    {
-        fprintf(stderr, "Failed to compile regex '%s'\n", triangles);
-        return ;
-    }
-   else if (regcomp(&re6, polygons, REG_EXTENDED) != 0)
-    {
-        fprintf(stderr, "Failed to compile regex '%s'\n", polygons);
         return ;
     }
     else
     {
         printf("\nRegex compile completed!\n\n");
     }
-    FILE *frp;
-    frp=fopen("Vertex_output.txt", "w");
-    FILE *frp1;
-    frp1=fopen("Texture_output.txt", "w");
-    FILE *frp2;
-    frp2=fopen("Normal_output.txt", "w");
+}
+
+void count_elements(FILE* file,Model* model,Regular* regular)
+{
+    init_model_counters(model);
+    regex_check(regular);
+    char* line = malloc(BUFFER_SIZE);
+    int retval = 0;
+    regmatch_t rm[2];
 	while (fgets(line, BUFFER_SIZE, file) != NULL)
     {
         line[strlen(line)-1] = '\0';
-        if ((retval = regexec(&re, line, 2, rm, 0)) == 0)
+        if ((retval = regexec(&regular->re, line, 2, rm, 0)) == 0)
         {
-          fprintf(frp,"%s",line + 2);
-          fprintf(frp,"\n");
           model->n_vertices++;
         }
-        else if ((retval = regexec(&re1, line, 2, rm, 0)) == 0)
+        else if ((retval = regexec(&regular->re1, line, 2, rm, 0)) == 0)
         {
-            fprintf(frp1,"%s",line + 2);
-            fprintf(frp1,"\n");
-	    model->n_texture_vertices++;
+            model->n_texture_vertices++;
         }
-        else if ((retval = regexec(&re2, line, 2, rm, 0)) == 0)
+        else if ((retval = regexec(&regular->re2, line, 2, rm, 0)) == 0)
         {
-	    fprintf(frp2,"%s",line + 2);
-            fprintf(frp2,"\n");
             model->n_normals++;
         }
-        else if ((retval = regexec(&re3, line, 2, rm, 0)) == 0)
+        else if ((retval = regexec(&regular->re3, line, 2, rm, 0)) == 0)
         {
             model->n_faces++;
-	    if ((retval = regexec(&re5, line, 2, rm, 0)) == 0)
-		{
-           	model->n_triangles++;
-		}
-        	
-		else if ((retval = regexec(&re6, line, 2, rm, 0)) == 0)
-       		 {	
-            	model->n_polygons++;
-        	}
-       		 }
-        else if ((retval = regexec(&re4, line, 2, rm, 0)) == 0)
+        }
+        else if ((retval = regexec(&regular->re4, line, 2, rm, 0)) == 0)
+        {
+           	model->n_spaces++;
+        }
+    }
+}
+
+int is_numeric(char c)
+{
+    if ((c >= '0' && c <= '9') || c == '-' || c == '.') {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+void read_elements(FILE* file,Model* model, Regular* regular){
+    init_model_counters(model);
+    char* line = malloc(BUFFER_SIZE);
+    int retval = 0;
+    regmatch_t rm[2];
+    fseek(file, 0, SEEK_SET);
+	while (fgets(line, BUFFER_SIZE, file) != NULL)
+    {
+        line[strlen(line)-1] = '\0';
+        if ((retval = regexec(&regular->re, line, 2, rm, 0)) == 0)
+        {
+            read_vertex(&(model->vertices[model->n_vertices]), line);
+            model->n_vertices++;
+        }
+        else if ((retval = regexec(&regular->re1, line, 2, rm, 0)) == 0)
+        {
+            read_texture_vertex(&(model->texture_vertices[model->n_texture_vertices]), line);
+            model->n_texture_vertices++;
+        }
+        else if ((retval = regexec(&regular->re2, line, 2, rm, 0)) == 0)
+        {
+            read_normal(&(model->normals[model->n_normals]), line);
+            model->n_normals++;
+        }
+        else if ((retval = regexec(&regular->re3, line, 2, rm, 0)) == 0)
+        {
+            model->n_faces++;
+        }
+        else if ((retval = regexec(&regular->re4, line, 2, rm, 0)) == 0)
         {
            model->n_spaces++;
         }
     }
-    fclose (frp);
-    fclose (frp1);
-    fclose (frp2);
+
 }
-void print_model_info(const struct Model* model)
+
+void create_arrays(Model* model)
+{
+    model->vertices =(Vertex*)malloc((model->n_vertices + 1) * sizeof(Vertex));
+    model->texture_vertices =(TextureVertex*)malloc((model->n_texture_vertices + 1) * sizeof(TextureVertex));
+    model->normals =(NormalVertex*)malloc((model->n_normals + 1) * sizeof(NormalVertex));
+}
+
+void print_model_info(Model* model)
 {
     printf("Vertices:\t\t%d\n",model->n_vertices);
     printf("Texture vertices:\t%d\n",model->n_texture_vertices);
     printf("Vertex normals:\t\t%d\n",model->n_normals);
     printf("Face elements:\t\t%d\n",model->n_faces);
     printf("Space vertices:\t\t%d\n\n",model->n_spaces);
-    printf("Triangles:\t\t%d\n\n",model->n_triangles);
-    printf("Polygons:\t\t%d\n\n",model->n_polygons);
 }
 
-void print_bounding_box(struct Model*model,struct Vertex* vertex)
+void count_bounding_box(Model* model,BoundingBox* bounding_box)
 {
-    int i=0;
-    int j=0;
-    double max_x,min_x,max_y,min_y,max_z,min_z;
-    FILE *archive;
-    archive = fopen("Vertex_output.txt","r");
-    if (archive== NULL)
-        exit(1);
-    while (feof(archive) == 0)
-    {
-        fscanf(archive, "%lf %lf %lf", &vertex->x[i][0],&vertex->y[i][1],&vertex->z[i][2]);
-        for (j=0; j < model->n_vertices ;j++){
-        if(vertex->x[i][0] < min_x){
-            min_x = vertex->x[i][0];
-            }
-        else if(vertex->x[i][0] > max_x){
-            max_x = vertex->x[i][0];
-            }
-        if(vertex->y[i][1] < min_y){
-            min_y = vertex->y[i][1];
-            }
-        else if(vertex->y[i][1] > max_y){
-            max_y = vertex->y[i][1];
-            }
-        if(vertex->z[i][2] < min_z){
-            min_z = vertex->z[i][2];
-            }
-        else if(vertex->z[i][2] > max_z){
-            max_z = vertex->z[i][2];
-            }
+    int i;
+    double x, y, z;
+
+    if (model->n_vertices == 0) {
+        return;
+    }
+
+    bounding_box->min_x = model->vertices[0].x;
+    bounding_box->max_x = model->vertices[0].x;
+    bounding_box->min_y = model->vertices[0].y;
+    bounding_box->max_y = model->vertices[0].y;
+    bounding_box->min_z = model->vertices[0].z;
+    bounding_box->max_z = model->vertices[0].z;
+
+    for (i = 0; i < model->n_vertices; ++i) {
+        x = model->vertices[i].x;
+        y = model->vertices[i].y;
+        z = model->vertices[i].z;
+        if (x < bounding_box->min_x) {
+            bounding_box->min_x = x;
+        }
+        else if (x > bounding_box->max_x) {
+            bounding_box->max_x = x;
+        }
+        if (y < bounding_box->min_y) {
+            bounding_box->min_y = y;
+        }
+        else if (y > bounding_box->max_y) {
+            bounding_box->max_y = y;
+        }
+        if (z < bounding_box->min_z) {
+            bounding_box->min_z = z;
+        }
+        else if (z > bounding_box->max_z) {
+            bounding_box->max_z = z;
         }
     }
-    fclose(archive);
-    remove("Vertex_output.txt");
-    printf("x\t(%lf, %lf)\n", min_x, max_x);
-    printf("y\t(%lf, %lf)\n", min_y, max_y);
-    printf("z\t(%lf, %lf)\n", min_z, max_z);
-    printf("x size =\t%lf\n",max_x-min_x);
-    printf("y size =\t%lf\n",max_y-min_y);
-    printf("z size =\t%lf\n\n",max_z-min_z);
+}
+void print_bounding_box(BoundingBox* bounding_box)
+{
+    printf("Bounding box:\n");
+    printf("x in [%lf, %lf]\n", bounding_box->min_x, bounding_box->max_x);
+    printf("y in [%lf, %lf]\n", bounding_box->min_y, bounding_box->max_y);
+    printf("z in [%lf, %lf]\n\n", bounding_box->min_z, bounding_box->max_z);
+}
+
+void count_texture_box(Model* model,TextureBox* texture_box)
+{
+    int i;
+    double u, v;
+
+    if (model->n_texture_vertices == 0) {
+        return;
+    }
+
+    texture_box->min_u = model->texture_vertices[0].u;
+    texture_box->max_u = model->texture_vertices[0].u;
+    texture_box->min_v = model->texture_vertices[0].v;
+    texture_box->max_v = model->texture_vertices[0].v;
+
+    for (i = 0; i < model->n_texture_vertices; ++i) {
+        u = model->texture_vertices[i].u;
+        v = model->texture_vertices[i].v;
+        if (u < texture_box->min_u) {
+            texture_box->min_u = u;
+        }
+        else if (u > texture_box->max_u) {
+            texture_box->max_u = u;
+        }
+        if (v < texture_box->min_v) {
+            texture_box->min_v = v;
+        }
+        else if (v > texture_box->max_v) {
+            texture_box->max_v = v;
+        }
+    }
+}
+
+void print_texture_box(TextureBox* texture_box)
+{
+    printf("Texture box:\n");
+    printf("u in [%lf, %lf]\n", texture_box->min_u, texture_box->max_u);
+    printf("v in [%lf, %lf]\n", texture_box->min_v, texture_box->max_v);
 }

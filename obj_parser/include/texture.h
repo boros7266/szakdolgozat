@@ -14,6 +14,6 @@ typedef struct Texture
 }Texture;
 
 
-GLuint load_texture(char* filename,struct Texture* texture);
+void load_texture(char* filename, Texture* texture);
 
 #endif /* TEXTURE_H */
