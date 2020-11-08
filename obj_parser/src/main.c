@@ -7,6 +7,7 @@
 int main(int argc, char* argv[])
 {
     timer_start();
+
     Model model;
     Regular regular;
     BoundingBox bounding_box;

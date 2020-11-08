@@ -3,12 +3,16 @@
 #include "vertices.h"
 #include "texture_vertices.h"
 #include "normal_vertices.h"
+#include "triangles.h"
+#include "quads.h"
 
 const char *geometric_vertices  = "^v[ \b]([ \t]*[+-]?[0-9]*.[0-9]*[ \t]*)*";
 const char *texture_coordinates = "^vt[ \b]([ \t]*[+-]?[0-9]*.[0-9]*[ \t]*)*";
 const char *vertex_normals      = "^vn[ \b]([ \t]*[+-]?[0-9]*.[0-9]*[ \t]*)*";
 const char *face_elements       = "^f[ \b]([ \t]*[+-]?[0-9]*.[0-9]*[ \t]*)*";
 const char *space_vertices      = "^vp[ \b]([ \t]*[+-]?[0-9]*.[0-9]*[ \t]*)*";
+const char *triangles		= "^f[ \b]([ \t]*[+-]?[0-9]*.[0-9]*.[0-9]*){3}[\\ ]*$";
+const char *quads		= "^f[ \b]([ \t]*[+-]?[0-9]*.[0-9]*.[0-9]*){4}[\\ ]*$";
 
 void init_model_counters(Model* model)
 {
@@ -17,6 +21,8 @@ void init_model_counters(Model* model)
     model->n_normals = 0;
     model->n_faces = 0;
     model->n_spaces = 0;
+    model->n_triangles = 0;
+    model->n_quads = 0;
 }
 
 int load_model(char* filename, Model* model,Regular* regular, BoundingBox* bounding_box, TextureBox* texture_box)
@@ -63,6 +69,16 @@ void regex_check(Regular* regular)
         fprintf(stderr, "Failed to compile regex '%s'\n", space_vertices);
         return ;
     }
+    else if (regcomp(&regular->re5, triangles, REG_EXTENDED) != 0)
+    {
+        fprintf(stderr, "Failed to compile regex '%s'\n", triangles);
+        return ;
+    }
+    else if (regcomp(&regular->re6, quads, REG_EXTENDED) != 0)
+    {
+        fprintf(stderr, "Failed to compile regex '%s'\n", quads);
+        return ;
+    }
     else
     {
         printf("\nRegex compile completed!\n\n");
@@ -94,6 +110,14 @@ void count_elements(FILE* file,Model* model,Regular* regular)
         else if ((retval = regexec(&regular->re3, line, 2, rm, 0)) == 0)
         {
             model->n_faces++;
+		if ((retval = regexec(&regular->re5, line, 2, rm, 0)) == 0)
+		{
+           	model->n_triangles++;
+		}
+		else if ((retval = regexec(&regular->re6, line, 2, rm, 0)) == 0)
+       		{	
+            	model->n_quads++;
+        	}
         }
         else if ((retval = regexec(&regular->re4, line, 2, rm, 0)) == 0)
         {
@@ -139,6 +163,16 @@ void read_elements(FILE* file,Model* model, Regular* regular){
         else if ((retval = regexec(&regular->re3, line, 2, rm, 0)) == 0)
         {
             model->n_faces++;
+		if ((retval = regexec(&regular->re5, line, 2, rm, 0)) == 0)
+		{
+ 		read_triangle(&(model->triangles[model->n_triangles]), line);
+           	model->n_triangles++;
+		}
+		else if ((retval = regexec(&regular->re6, line, 2, rm, 0)) == 0)
+       		{
+		read_quad(&(model->quads[model->n_quads]), line);	
+            	model->n_quads++;
+        	}
         }
         else if ((retval = regexec(&regular->re4, line, 2, rm, 0)) == 0)
         {
@@ -153,6 +187,8 @@ void create_arrays(Model* model)
     model->vertices =(Vertex*)malloc((model->n_vertices + 1) * sizeof(Vertex));
     model->texture_vertices =(TextureVertex*)malloc((model->n_texture_vertices + 1) * sizeof(TextureVertex));
     model->normals =(NormalVertex*)malloc((model->n_normals + 1) * sizeof(NormalVertex));
+    model->triangles =(Triangle*)malloc(model->n_triangles * sizeof(Triangle));
+    model->quads =(Quad*)malloc(model->n_quads * sizeof(Quad));
 }
 
 void print_model_info(Model* model)
@@ -162,6 +198,8 @@ void print_model_info(Model* model)
     printf("Vertex normals:\t\t%d\n",model->n_normals);
     printf("Face elements:\t\t%d\n",model->n_faces);
     printf("Space vertices:\t\t%d\n\n",model->n_spaces);
+    printf("Triangles:\t\t%d\n",model->n_triangles);
+    printf("Quads:\t\t\t%d\n\n",model->n_quads);
 }
 
 void count_bounding_box(Model* model,BoundingBox* bounding_box)

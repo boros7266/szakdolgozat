@@ -18,19 +18,9 @@ typedef struct Regular
     regex_t re2;
     regex_t re3;
     regex_t re4;
+    regex_t re5;
+    regex_t re6;
 }Regular;
-
-typedef struct Model
-{
-    int n_vertices;
-    int n_texture_vertices;
-    int n_normals;
-    int n_spaces;
-    int n_faces;
-    struct Vertex* vertices;
-    struct TextureVertex* texture_vertices;
-    struct NormalVertex* normals;
-}Model;
 
 typedef struct BoundingBox
 {
@@ -51,6 +41,21 @@ typedef struct TextureBox
 }TextureBox;
 
 
+typedef struct Model
+{
+    int n_vertices;
+    int n_texture_vertices;
+    int n_normals;
+    int n_faces;
+    int n_spaces;
+    int n_triangles;
+    int n_quads;
+    struct Vertex* vertices;
+    struct TextureVertex* texture_vertices;
+    struct NormalVertex* normals;
+    struct Triangle* triangles;
+    struct Quad* quads;
+}Model;
 
 int load_model(char* filename, Model* model,Regular* regular,BoundingBox* bounding_box,TextureBox* texture_box);
 
