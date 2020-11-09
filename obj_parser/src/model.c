@@ -169,11 +169,11 @@ void read_elements(FILE* file,Model* model, Regular* regular){
 
 void create_arrays(Model* model)
 {
-    model->vertices =(Vertex*)malloc((model->n_vertices + 1) * sizeof(Vertex));
-    model->texture_vertices =(TextureVertex*)malloc((model->n_texture_vertices + 1) * sizeof(TextureVertex));
-    model->normals =(NormalVertex*)malloc((model->n_normals + 1) * sizeof(NormalVertex));
-    model->triangles =(Triangle*)malloc((model->n_triangles + 1) * sizeof(Triangle));
-    model->quads =(Quad*)malloc((model->n_quads + 1) * sizeof(Quad));
+    model->vertices =(Vertex*)malloc(model->n_vertices * sizeof(Vertex));
+    model->texture_vertices =(TextureVertex*)malloc(model->n_texture_vertices * sizeof(TextureVertex));
+    model->normals =(NormalVertex*)malloc(model->n_normals * sizeof(NormalVertex));
+    model->triangles =(Triangle*)malloc(model->n_triangles * sizeof(Triangle));
+    model->quads =(Quad*)malloc(model->n_quads * sizeof(Quad));
 }
 
 void print_model_info(Model* model)
@@ -184,4 +184,13 @@ void print_model_info(Model* model)
     printf("Face elements:\t\t%d\n\n",model->n_faces);
     printf("Triangles:\t\t%d\n",model->n_triangles);
     printf("Quads:\t\t\t%d\n\n",model->n_quads);
+}
+
+void free_model(struct Model* model)
+{
+    free(model->vertices);
+    free(model->texture_vertices);
+    free(model->normals);
+    free(model->triangles);
+    free(model->quads);
 }
