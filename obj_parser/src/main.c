@@ -36,7 +36,7 @@ void initialize_texture()
 {
 	glPixelStorei(GL_UNPACK_ALIGNMENT,1);
 	
-    char texture_filename[] = "OBJ/house.png";
+    char texture_filename[] = "OBJ/cube.png";
 
     int width;
     int height;
@@ -112,7 +112,7 @@ void initialize()
 	glLoadIdentity();
 
 	gluLookAt(
-        0.0, 0.0, -200, // eye
+        0.0, 0.0, -8, // eye
         0.0, 0.0, 0.0, // look at
         0.0, 1.0, 0.0  // up
     );
@@ -135,7 +135,7 @@ int main(int argc, char* argv[])
     TextureBox texture_box;
     //Texture texture;
 
-    load_model("OBJ/house.obj", &model, &regular);
+    load_model("OBJ/cube.obj", &model, &regular);
     print_model_info(&model);
     calc_bounding_box(&model,&bounding_box);
     calc_texture_box(&model,&texture_box);

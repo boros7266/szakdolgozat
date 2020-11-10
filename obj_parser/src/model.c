@@ -138,7 +138,6 @@ int is_numeric(char c)
 
 
 void read_elements(FILE* file,Model* model, Regular* regular){
-    init_model_counters(model);
     change_model_counters(model);
     char* line = malloc(BUFFER_SIZE);
     int retval = 0;
@@ -191,10 +190,10 @@ void create_arrays(Model* model)
 
 void print_model_info(Model* model)
 {
-    printf("Vertices:\t\t%d\n",model->n_vertices);
-    printf("Texture vertices:\t%d\n",model->n_texture_vertices);
-    printf("Vertex normals:\t\t%d\n",model->n_normals);
-    printf("Face elements:\t\t%d\n\n",model->n_faces);
+    printf("Vertices:\t\t%d\n",model->n_vertices-1);
+    printf("Texture vertices:\t%d\n",model->n_texture_vertices-1);
+    printf("Vertex normals:\t\t%d\n",model->n_normals-1);
+    printf("Face elements:\t\t%d\n\n",model->n_faces-1);
     printf("Triangles:\t\t%d\n",model->n_triangles);
     printf("Quads:\t\t\t%d\n\n",model->n_quads);
 }
