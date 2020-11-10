@@ -50,7 +50,6 @@ void draw_quads(Model* model)
             texture_index = model->quads[i].points[k].texture_index;
             u = model->texture_vertices[texture_index].u;
             v = model->texture_vertices[texture_index].v;
-            // NOTE: The 1-v is model file specific!
             glTexCoord2f(u, 1-v);
 
             vertex_index = model->quads[i].points[k].vertex_index;

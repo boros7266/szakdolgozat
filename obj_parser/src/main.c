@@ -112,9 +112,9 @@ void initialize()
 	glLoadIdentity();
 
 	gluLookAt(
-        0.0, 0.0, -8, // eye
-        0.0, 0.0, 0.0, // look at
-        0.0, 1.0, 0.0  // up
+        0.0, 0.0, -8,
+        0.0, 0.0, 0.0,
+        0.0, 1.0, 0.0
     );
 
     glEnable(GL_DEPTH_TEST);
