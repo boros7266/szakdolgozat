@@ -1,10 +1,4 @@
 #include "draw.h"
-#include "vertex.h"
-#include "texture_vertex.h"
-#include "normal_vertex.h"
-#include "triangle.h"
-#include "quad.h"
-
 #include <GL/glut.h>
 
 #include <stdio.h>
@@ -42,8 +36,37 @@ void draw_triangles(Model* model)
     glEnd();
 }
 
+void draw_quads(Model* model)
+{
+    int i, k;
+    int vertex_index, texture_index;
+    double x, y, z, u, v;
+
+	glBegin(GL_QUADS);
+
+    for (i = 0; i < model->n_quads; ++i) {
+        for (k = 0; k < 4; ++k) {
+
+            texture_index = model->quads[i].points[k].texture_index;
+            u = model->texture_vertices[texture_index].u;
+            v = model->texture_vertices[texture_index].v;
+            // NOTE: The 1-v is model file specific!
+            glTexCoord2f(u, 1-v);
+
+            vertex_index = model->quads[i].points[k].vertex_index;
+            x = model->vertices[vertex_index].x;
+            y = model->vertices[vertex_index].y;
+            z = model->vertices[vertex_index].z;
+            glVertex3d(x, y, z);
+        }
+    }    
+
+    glEnd();
+} 
+
 void draw_model(Model* model)
 {
     draw_triangles(model);
+    draw_quads(model);
 }
 

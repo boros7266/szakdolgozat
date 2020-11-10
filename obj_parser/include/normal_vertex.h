@@ -4,7 +4,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include <model.h>
+#include "model.h"
 
 
 typedef struct NormalVertex

@@ -36,6 +36,10 @@ typedef struct Model
     struct Quad* quads;
 }Model;
 
+void init_model_counters(Model* model);
+
+void change_model_counters(Model* model);
+
 int load_model(char* filename, Model* model,Regular* regular);
 
 void regex_check(Regular* regular);

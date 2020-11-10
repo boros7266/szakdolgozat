@@ -127,10 +127,9 @@ void initialize()
 
 int main(int argc, char* argv[])
 {
+    start_timer();
     rotateX = 0.0;
     rotateY = 0.0;
-
-    start_timer();
     Regular regular;
     BoundingBox bounding_box;
     TextureBox texture_box;

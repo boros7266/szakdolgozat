@@ -13,7 +13,7 @@ const char *TEXTURE_VERTEX_LINE_PATTERN = "^vt[ \b]([ \t]*[+-]?[0-9]*.[0-9]*[ \t
 const char *VERTEX_NORMAL_LINE_PATTERN  = "^vn[ \b]([ \t]*[+-]?[0-9]*.[0-9]*[ \t]*)*";
 const char *FACE_LINE_PATTERN     	= "^f[ \b]([ \t]*[+-]?[0-9]*.[0-9]*[ \t]*)*";
 const char *TRIANGLE_LINE_PATTERN	= "^f[ \b]([ \t]*[+-]?[0-9]*.[0-9]*.[0-9]*){3}[\\ ]*$";
-const char *QUAD_LINE_PATTERN		= "^f[ \b]([ \t]*[+-]?[0-9]*.[0-9]*.[0-9]*){4}[\\ ]*$";
+const char *QUAD_LINE_PATTERN		= "^f[ \b]([ \t]*[+-]?[0-9]*.[0-9]*.[0-9]*){5}[\\ ]*$";
 
 void init_model_counters(Model* model)
 {
@@ -21,6 +21,16 @@ void init_model_counters(Model* model)
     model->n_texture_vertices = 0;
     model->n_normals = 0;
     model->n_faces = 0;
+    model->n_triangles = 0;
+    model->n_quads = 0;
+}
+
+void change_model_counters(Model* model)
+{
+    model->n_vertices = 1;
+    model->n_texture_vertices = 1;
+    model->n_normals = 1;
+    model->n_faces = 1;
     model->n_triangles = 0;
     model->n_quads = 0;
 }
@@ -125,8 +135,11 @@ int is_numeric(char c)
     }
 }
 
+
+
 void read_elements(FILE* file,Model* model, Regular* regular){
     init_model_counters(model);
+    change_model_counters(model);
     char* line = malloc(BUFFER_SIZE);
     int retval = 0;
     regmatch_t rm[2];
@@ -169,9 +182,9 @@ void read_elements(FILE* file,Model* model, Regular* regular){
 
 void create_arrays(Model* model)
 {
-    model->vertices =(Vertex*)malloc(model->n_vertices * sizeof(Vertex));
-    model->texture_vertices =(TextureVertex*)malloc(model->n_texture_vertices * sizeof(TextureVertex));
-    model->normals =(NormalVertex*)malloc(model->n_normals * sizeof(NormalVertex));
+    model->vertices =(Vertex*)malloc((model->n_vertices + 1) * sizeof(Vertex));
+    model->texture_vertices =(TextureVertex*)malloc((model->n_texture_vertices + 1) * sizeof(TextureVertex));
+    model->normals =(NormalVertex*)malloc((model->n_normals + 1) * sizeof(NormalVertex));
     model->triangles =(Triangle*)malloc(model->n_triangles * sizeof(Triangle));
     model->quads =(Quad*)malloc(model->n_quads * sizeof(Quad));
 }
@@ -194,3 +207,4 @@ void free_model(struct Model* model)
     free(model->triangles);
     free(model->quads);
 }
+
