@@ -126,7 +126,7 @@ int main(int argc, char* argv[])
     print_texture_box(&texture_box);
     write_to_file("output.obj", &model);
 
-     glutInit(&argc, argv);
+    glutInit(&argc, argv);
 
 	glutInitWindowSize(640, 480);
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);

@@ -50,6 +50,7 @@ int load_model(char* filename, Model* model,Regular* regular)
 	return true;
 }
 
+// TODO: Rename the function. It does not start with verb and the name is misleading!
 void regex_check(Regular* regular)
 {
     if (regcomp(&regular->vertex_regex, VERTEX_LINE_PATTERN, REG_EXTENDED) != 0)
@@ -88,6 +89,15 @@ void regex_check(Regular* regular)
     }
 }
 
+bool is_vertex_line(const Regular* const regular, const char* const line)
+{
+    int retval;
+    regmatch_t rm[2];
+
+    retval = regexec(&regular->vertex_regex, line, 2, rm, 0);
+    return retval == 0;
+}
+
 void count_elements(FILE* file,Model* model,Regular* regular)
 {
     init_model_counters(model);
@@ -98,7 +108,7 @@ void count_elements(FILE* file,Model* model,Regular* regular)
 	while (fgets(line, BUFFER_SIZE, file) != NULL)
     {
         line[strlen(line)-1] = '\0';
-        if ((retval = regexec(&regular->vertex_regex, line, 2, rm, 0)) == 0)
+        if (is_vertex_line(regular, line))
         {
           model->n_vertices++;
         }
