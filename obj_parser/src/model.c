@@ -12,8 +12,8 @@ const char *VERTEX_LINE_PATTERN 	= "^v[ \b]([ \t]*[+-]?[0-9]*.[0-9]*[ \t]*)*";
 const char *TEXTURE_VERTEX_LINE_PATTERN = "^vt[ \b]([ \t]*[+-]?[0-9]*.[0-9]*[ \t]*)*";
 const char *VERTEX_NORMAL_LINE_PATTERN  = "^vn[ \b]([ \t]*[+-]?[0-9]*.[0-9]*[ \t]*)*";
 const char *FACE_LINE_PATTERN     	= "^f[ \b]([ \t]*[+-]?[0-9]*.[0-9]*[ \t]*)*";
-const char *TRIANGLE_LINE_PATTERN	= "^f[ \b]([ \t]*[+-]?[0-9]*.[0-9]*.[0-9]*){3}[\\ ]*$";
-const char *QUAD_LINE_PATTERN		= "^f[ \b]([ \t]*[+-]?[0-9]*.[0-9]*.[0-9]*){5}[\\ ]*$";
+const char *TRIANGLE_LINE_PATTERN	= "^f[ \b]([ \t]*[+-]?[0-9]*.[0-9]*.[0-9]*){4}[\\ ]*$";
+const char *QUAD_LINE_PATTERN		= "^f[ \b]([ \t]*[+-]?[0-9]*.[0-9]*.[0-9]*){4}[\\ ]*";
 
 void init_model_counters(Model* model)
 {

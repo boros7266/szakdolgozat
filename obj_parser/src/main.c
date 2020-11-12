@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include "model.h"
 #include "timer.h"
-//#include "texture.h"
+#include "texture.h"
 #include "bounding_box.h"
 #include "texture_box.h"
 #include "draw.h"
+#include "write_to.h"
 
 #include <SOIL/SOIL.h>
 #include <GL/glut.h>
@@ -14,29 +15,12 @@ double rotateY;
 
 Model model;
 
-typedef GLubyte Pixel[3]; 
-
-GLuint load_texture(char* filename, Pixel* image)
-{
-    GLuint texture_name;
-    glGenTextures(1, &texture_name);
-
-    int width;
-    int height;
-
-    image = (Pixel*)SOIL_load_image(filename, &width, &height, 0, SOIL_LOAD_RGB);
-
-    glBindTexture(GL_TEXTURE_2D, texture_name);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, (Pixel*)image);
-
-    return texture_name;
-}
 
 void initialize_texture()
 {
 	glPixelStorei(GL_UNPACK_ALIGNMENT,1);
 	
-    char texture_filename[] = "OBJ/cube.png";
+    char texture_filename[] = "OBJ/cube/cube.png";
 
     int width;
     int height;
@@ -112,7 +96,7 @@ void initialize()
 	glLoadIdentity();
 
 	gluLookAt(
-        0.0, 0.0, -8,
+        0.0, 0.0, -6,
         0.0, 0.0, 0.0,
         0.0, 1.0, 0.0
     );
@@ -133,15 +117,14 @@ int main(int argc, char* argv[])
     Regular regular;
     BoundingBox bounding_box;
     TextureBox texture_box;
-    //Texture texture;
 
-    load_model("OBJ/cube.obj", &model, &regular);
+    load_model("OBJ/cube/cube.obj", &model, &regular);
     print_model_info(&model);
     calc_bounding_box(&model,&bounding_box);
     calc_texture_box(&model,&texture_box);
     print_bounding_box(&bounding_box);
     print_texture_box(&texture_box);
-    //load_texture("OBJ/12248_Bird_v1_diff.jpg",&texture);
+    write_to_file("output.obj", &model);
 
      glutInit(&argc, argv);
 
@@ -151,7 +134,7 @@ int main(int argc, char* argv[])
 	glutSetWindow(window);
 
     initialize();
-
+	
     glutDisplayFunc(display);
     glutReshapeFunc(reshape);
     glutMouseFunc(mouseHandler);

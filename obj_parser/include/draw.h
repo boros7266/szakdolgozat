@@ -14,5 +14,5 @@ void draw_triangles(Model* model);
 
 void draw_quads(Model* model);
 
-#endif // DRAW_H
+#endif /* DRAW_H */
 
