@@ -17,7 +17,7 @@ int write_to_file(char* filename, Model* model)
 	{
 	write_to_file_triangles(output_file,model);
 	}
-    if (model->n_quads > 0)
+    else if (model->n_quads > 0)
 	{
 	write_to_file_quads(output_file,model);
 	}
@@ -75,7 +75,7 @@ void write_to_file_triangles (FILE* file, Model* model)
 	int vertex_index, texture_index, normal_index;
 	for (i = 0; i < model->n_triangles; ++i) {
 	fprintf(file,"f ");
-	for (k = 0; k < 3; ++k) {
+	for (k = 0; k < 4; ++k) {
 	vertex_index = model->triangles[i].points[k].vertex_index;
 	fprintf(file,"%i",vertex_index);
 	fprintf(file,"/");
