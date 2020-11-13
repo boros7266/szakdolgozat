@@ -8,7 +8,6 @@
 #include <regex.h>
 #include <stdbool.h>
 
-
 #define BUFFER_SIZE 1024
 
 typedef struct Regular
@@ -43,6 +42,25 @@ void change_model_counters(Model* model);
 int load_model(char* filename, Model* model,Regular* regular);
 
 void regex_check(Regular* regular);
+
+/**
+ * Check that the given line of the OBJ file contains vertex data.
+ *
+ * @param line: line of the OBJ file
+ * @param regular: structure of compiled regular expressions
+ * @return: true on vertex line, else false
+ */
+bool is_vertex_line(const Regular* const regular, const char* const line);
+
+bool is_texture_vertex_line(const Regular* const regular, const char* const line);
+
+bool is_vertex_normal_line(const Regular* const regular, const char* const line);
+
+bool is_face_line(const Regular* const regular, const char* const line);
+
+bool is_triangle_line(const Regular* const regular, const char* const line);
+
+bool is_quad_line(const Regular* const regular, const char* const line);
 
 void count_elements(FILE* file,Model* model,Regular* regular);
 

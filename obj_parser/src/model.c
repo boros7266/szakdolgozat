@@ -8,12 +8,12 @@
 #include "bounding_box.h"
 #include "texture_box.h"
 
-const char *VERTEX_LINE_PATTERN 	= "^v[ \b]([ \t]*[+-]?[0-9]*.[0-9]*[ \t]*)*";
-const char *TEXTURE_VERTEX_LINE_PATTERN = "^vt[ \b]([ \t]*[+-]?[0-9]*.[0-9]*[ \t]*)*";
-const char *VERTEX_NORMAL_LINE_PATTERN  = "^vn[ \b]([ \t]*[+-]?[0-9]*.[0-9]*[ \t]*)*";
-const char *FACE_LINE_PATTERN     	= "^f[ \b]([ \t]*[+-]?[0-9]*.[0-9]*[ \t]*)*";
-const char *TRIANGLE_LINE_PATTERN	= "^f[ \b]([ \t]*[+-]?[0-9]*.[0-9]*.[0-9]*){4}[\\ ]*$";
-const char *QUAD_LINE_PATTERN		= "^f[ \b]([ \t]*[+-]?[0-9]*.[0-9]*.[0-9]*){4}[\\ ]*";
+const char *VERTEX_LINE_PATTERN 	= "v[ \b]([\\ ]*[0-9]*.[0-9]*.[0-9]*[\\ ]*)*";
+const char *TEXTURE_VERTEX_LINE_PATTERN = "vt[ \b]([\\ ]*[0-9]*.[0-9]*.[0-9]*[\\ ]*)*";
+const char *VERTEX_NORMAL_LINE_PATTERN  = "vn[ \b]([\\ ]*[0-9]*.[0-9]*.[0-9]*[\\ ]*)*";
+const char *FACE_LINE_PATTERN     	= "f[ \b]([\\ ]*[0-9]*.[0-9]*.[0-9]*[\\ ]*)*";
+const char *TRIANGLE_LINE_PATTERN	= "f[ \b][\\ ]*([0-9]+[\\/][0-9]+[\\/][0-9]+[\\ ]*){3}";
+const char *QUAD_LINE_PATTERN		= "f[ \b][\\ ]*([0-9]+[\\/][0-9]+[\\/][0-9]+[\\ ]*){4}";
 
 void init_model_counters(Model* model)
 {
@@ -50,6 +50,7 @@ int load_model(char* filename, Model* model,Regular* regular)
 	return true;
 }
 
+// TODO: Rename the function. It does not start with verb and the name is misleading!
 void regex_check(Regular* regular)
 {
     if (regcomp(&regular->vertex_regex, VERTEX_LINE_PATTERN, REG_EXTENDED) != 0)
@@ -82,10 +83,60 @@ void regex_check(Regular* regular)
         fprintf(stderr, "Failed to compile regex '%s'\n", QUAD_LINE_PATTERN);
         return ;
     }
-    else
-    {
-        printf("\nRegex compile completed!\n\n");
-    }
+}
+
+bool is_vertex_line(const Regular* const regular, const char* const line)
+{
+    int retval;
+    regmatch_t rm[2];
+
+    retval = regexec(&regular->vertex_regex, line, 2, rm, 0);
+    return retval == 0;
+}
+
+bool is_texture_vertex_line(const Regular* const regular, const char* const line)
+{
+    int retval;
+    regmatch_t rm[2];
+
+    retval = regexec(&regular->texture_vertex_regex, line, 2, rm, 0);
+    return retval == 0;
+}
+
+bool is_vertex_normal_line(const Regular* const regular, const char* const line)
+{
+    int retval;
+    regmatch_t rm[2];
+
+    retval = regexec(&regular->vertex_normal_regex, line, 2, rm, 0);
+    return retval == 0;
+}
+
+bool is_face_line(const Regular* const regular, const char* const line)
+{
+    int retval;
+    regmatch_t rm[2];
+
+    retval = regexec(&regular->face_regex, line, 2, rm, 0);
+    return retval == 0;
+}
+
+bool is_triangle_line(const Regular* const regular, const char* const line)
+{
+    int retval;
+    regmatch_t rm[2];
+
+    retval = regexec(&regular->triangle_regex, line, 2, rm, 0);
+    return retval == 0;
+}
+
+bool is_quad_line(const Regular* const regular, const char* const line)
+{
+    int retval;
+    regmatch_t rm[2];
+
+    retval = regexec(&regular->quad_regex, line, 2, rm, 0);
+    return retval == 0;
 }
 
 void count_elements(FILE* file,Model* model,Regular* regular)
@@ -98,7 +149,7 @@ void count_elements(FILE* file,Model* model,Regular* regular)
 	while (fgets(line, BUFFER_SIZE, file) != NULL)
     {
         line[strlen(line)-1] = '\0';
-        if ((retval = regexec(&regular->vertex_regex, line, 2, rm, 0)) == 0)
+        if (is_vertex_line(regular, line))
         {
           model->n_vertices++;
         }
