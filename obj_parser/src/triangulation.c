@@ -114,7 +114,7 @@ int v, vt, vn;
 	vt = model->quads[i].points[k+1].texture_index;
 	vn = model->quads[i].points[k+1].normal_index;	
 	fprintf(file,"%d/%d/%d ",v,vt,vn);
-	}
+		}
 	}
 	fprintf(file,"\n");
 	}
