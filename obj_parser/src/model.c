@@ -164,13 +164,13 @@ void count_elements(FILE* file,Model* model,Regular* regular)
         else if ((retval = regexec(&regular->face_regex, line, 2, rm, 0)) == 0)
         {
             model->n_faces++;
-		if ((retval = regexec(&regular->triangle_regex, line, 2, rm, 0)) == 0)
-		{
-           	model->n_triangles++;
-		}
-		else if ((retval = regexec(&regular->quad_regex, line, 2, rm, 0)) == 0)
+		if ((retval = regexec(&regular->quad_regex, line, 2, rm, 0)) == 0)
        		{	
             	model->n_quads++;
+		}
+		else if ((retval = regexec(&regular->triangle_regex, line, 2, rm, 0)) == 0)
+		{
+           	model->n_triangles++;
         	}
         }
     }
@@ -215,16 +215,16 @@ void read_elements(FILE* file,Model* model, Regular* regular){
         else if ((retval = regexec(&regular->face_regex, line, 2, rm, 0)) == 0)
         {
             model->n_faces++;
-		if ((retval = regexec(&regular->triangle_regex, line, 2, rm, 0)) == 0)
+		if ((retval = regexec(&regular->quad_regex, line, 2, rm, 0)) == 0)
+       		{
+		read_quad(&(model->quads[model->n_quads]), line);	
+            	model->n_quads++;
+		}
+		else if ((retval = regexec(&regular->triangle_regex, line, 2, rm, 0)) == 0)
 		{
  		read_triangle(&(model->triangles[model->n_triangles]), line);
            	model->n_triangles++;
 		}
-		else if ((retval = regexec(&regular->quad_regex, line, 2, rm, 0)) == 0)
-       		{
-		read_quad(&(model->quads[model->n_quads]), line);	
-            	model->n_quads++;
-        	}
         }
     }
 

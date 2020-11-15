@@ -16,7 +16,8 @@ SOURCES = \
     src/texture_box.c \
     src/bounding_box.c \
     src/draw.c \
-    src/write_to.c
+    src/write_obj.c \
+    src/triangulation.c
 
 OBJECTS = $(SOURCES:.c=.o)
 
@@ -42,4 +43,7 @@ $(TEST_RUNNER) : $(TEST_OBJECTS)
 	$(CC) $(CFLAGS) $(LDFLAGS) -c $< -o $@
 
 clean:
-	rm $(OBJECTS)
+	rm $(TEST_OBJECTS)
+	rm $(TEST_RUNNER)
+	rm $(EXECUTABLE)
+

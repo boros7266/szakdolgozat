@@ -5,7 +5,8 @@
 #include "bounding_box.h"
 #include "texture_box.h"
 #include "draw.h"
-#include "write_to.h"
+#include "write_obj.h"
+#include "triangulation.h"
 
 #include <SOIL/SOIL.h>
 #include <GL/glut.h>
@@ -118,13 +119,14 @@ int main(int argc, char* argv[])
     BoundingBox bounding_box;
     TextureBox texture_box;
 
-    load_model("OBJ/cube/cube.obj", &model, &regular);
+    load_model("OBJ/cube/cube_quads.obj", &model, &regular);
     print_model_info(&model);
     calc_bounding_box(&model,&bounding_box);
     calc_texture_box(&model,&texture_box);
     print_bounding_box(&bounding_box);
     print_texture_box(&texture_box);
-    write_to_file("output.obj", &model);
+    write_to_file("obj_output.obj", &model);
+    write_to_file_triangular("triangular_output.obj", &model);
 
     glutInit(&argc, argv);
 
@@ -133,8 +135,8 @@ int main(int argc, char* argv[])
 	int window = glutCreateWindow("GLUT Window");
 	glutSetWindow(window);
 
-    initialize();
-	
+    initialize();  
+ 
     glutDisplayFunc(display);
     glutReshapeFunc(reshape);
     glutMouseFunc(mouseHandler);
@@ -143,4 +145,5 @@ int main(int argc, char* argv[])
 
     glutMainLoop();
     return 0;
-}
+} 
+	

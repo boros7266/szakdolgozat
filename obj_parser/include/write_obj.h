@@ -1,5 +1,5 @@
-#ifndef WRITE_TO_H
-#define WRITE_TO_H
+#ifndef WRITE_OBJ_H
+#define WRITE_OBJ_H
 
 #include "model.h"
 #include "normal_vertex.h"
@@ -24,5 +24,5 @@ void write_to_file_triangles (FILE* file, Model* model);
 
 void write_to_file_quads (FILE* file, Model* model);
 
-#endif /* WRITE_TO_H */
+#endif /* WRITE_OBJ_H */
 
