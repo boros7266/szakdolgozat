@@ -97,21 +97,7 @@ int v, vt, vn;
 	for (i = 0; i < model->n_quads; ++i) {
 	fprintf(file,"f ");
 		for (k = 0; k < 3; ++k) {
-	if ( i == 0){
-		if (k==0){
-		v = model->quads[i].points[k].vertex_index;
-		vt = model->quads[i].points[k].texture_index;
-		vn = model->quads[i].points[k].normal_index;	
-		fprintf(file,"%d/%d/%d ",v,vt,vn);
-		}
-		else{
-		v = model->quads[i].points[k+1].vertex_index;
-		vt = model->quads[i].points[k+1].texture_index;
-		vn = model->quads[i].points[k+1].normal_index;	
-		fprintf(file,"%d/%d/%d ",v,vt,vn);
-		}
-	}
-	else if (k==0){
+	if (k==0){
 	v = model->quads[i].points[k].vertex_index;
 	vt = model->quads[i].points[k].texture_index;
 	vn = model->quads[i].points[k].normal_index;	
