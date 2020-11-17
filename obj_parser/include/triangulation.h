@@ -8,18 +8,10 @@
 #include "triangle.h"
 #include "quad.h"
 
-int write_to_file_triangular(char* filename,Triangle* triangle, Model* model);
+int write_to_file_triangular(char* filename, Model* model);
 
-void write_to_file_triangular_vertices (FILE* file, Model* model);
+void convert_quads_to_triangles(Model* model);
 
-void write_to_file_triangular_texture_vertices (FILE* file, Model* model);
-
-void write_to_file_triangular_normals (FILE* file, Model* model);
-
-void write_to_file_triangular_triangles (FILE* file, Model* model);
-
-void polygon_triangulation(FILE* file,Triangle* triangle,Model* model);
-
-void polygon_triangulation_extra(FILE* file,Triangle* triangle,Model* model);
+void create_arrays_triangulation(Model* model);
 
 #endif /* TRIANGULATION_H */

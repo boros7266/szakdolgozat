@@ -33,6 +33,8 @@ void calc_texture_box(Model* model,TextureBox* texture_box)
             texture_box->max_v = v;
         }
     }
+	
+    print_texture_box(texture_box);
 }
 
 void print_texture_box(TextureBox* texture_box)

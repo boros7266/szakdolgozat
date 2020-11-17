@@ -38,20 +38,21 @@ void change_model_counters(Model* model)
 int load_model(char* filename, Model* model,Regular* regular)
 {
     FILE* obj_file = fopen(filename, "r");
-    printf("Load model\t%s\n", filename);
+    printf("Load model '%s' ...\n", filename);
     if (obj_file == NULL) {
         printf("ERROR: Unable to open '%s' file!\n", filename);
     	return false;
     }
-    	printf("Filename:\t%s\n",filename);
-	count_elements(obj_file, model, regular);
-	create_arrays(model);
-        read_elements(obj_file, model, regular);
+    	printf("Count ..\n");
+		count_elements(obj_file, model, regular);
+	printf("Create ..\n");
+		create_arrays(model);
+	printf("Read ..\n");
+        	read_elements(obj_file, model, regular);
 	return true;
 }
 
-// TODO: Rename the function. It does not start with verb and the name is misleading!
-void regex_check(Regular* regular)
+void check_regex_regular_expressions(Regular* regular)
 {
     if (regcomp(&regular->vertex_regex, VERTEX_LINE_PATTERN, REG_EXTENDED) != 0)
     {
@@ -142,7 +143,7 @@ bool is_quad_line(const Regular* const regular, const char* const line)
 void count_elements(FILE* file,Model* model,Regular* regular)
 {
     init_model_counters(model);
-    regex_check(regular);
+    check_regex_regular_expressions(regular);
     char* line = malloc(BUFFER_SIZE);
     int retval = 0;
     regmatch_t rm[2];
@@ -249,7 +250,7 @@ void print_model_info(Model* model)
     printf("Quads:\t\t\t%d\n\n",model->n_quads);
 }
 
-void free_model(struct Model* model)
+void free_model(Model* model)
 {
     free(model->vertices);
     free(model->texture_vertices);

@@ -9,4 +9,6 @@ typedef GLubyte Pixel[3];
 
 GLuint load_texture(char* filename);
 
+void initialize_texture();
+
 #endif /* TEXTURE_H */

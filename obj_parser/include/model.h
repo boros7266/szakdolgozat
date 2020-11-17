@@ -41,7 +41,7 @@ void change_model_counters(Model* model);
 
 int load_model(char* filename, Model* model,Regular* regular);
 
-void regex_check(Regular* regular);
+void check_regex_regular_expressions(Regular* regular);
 
 /**
  * Check that the given line of the OBJ file contains vertex data.

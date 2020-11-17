@@ -43,6 +43,7 @@ void calc_bounding_box(Model* model,BoundingBox* bounding_box)
             bounding_box->max_z = z;
         }
     }
+	print_bounding_box(bounding_box);
 }
 void print_bounding_box(BoundingBox* bounding_box)
 {

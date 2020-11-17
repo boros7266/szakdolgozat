@@ -7,7 +7,7 @@
 #include "draw.h"
 #include "write_obj.h"
 #include "triangulation.h"
-#include "craw_order.h"
+#include "vertex_order.h"
 
 #include <SOIL/SOIL.h>
 #include <GL/glut.h>
@@ -16,32 +16,6 @@ double rotateX;
 double rotateY;
 
 Model model;
-
-
-void initialize_texture()
-{
-	glPixelStorei(GL_UNPACK_ALIGNMENT,1);
-	
-    char texture_filename[] = "OBJ/cube/cube.png";
-
-    int width;
-    int height;
-
-    unsigned char* image = SOIL_load_image(texture_filename, &width, &height, 0, SOIL_LOAD_RGB);
-
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE,
-            (Pixel*)image);
-
-	glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP);
-	glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_CLAMP);
-
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-	glTexEnvf(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_DECAL);
-
-	glEnable(GL_TEXTURE_2D);
-}
 
 void display()
 {
@@ -98,7 +72,7 @@ void initialize()
 	glLoadIdentity();
 
 	gluLookAt(
-        0.0, 0.0, -6,
+        0.0, 0.0, -50,
         0.0, 0.0, 0.0,
         0.0, 1.0, 0.0
     );
@@ -119,17 +93,14 @@ int main(int argc, char* argv[])
     Regular regular;
     BoundingBox bounding_box;
     TextureBox texture_box;
-    Triangle triangle;
 
-    load_model("OBJ/cube/cube_quads.obj", &model, &regular);
+    load_model("OBJ/skull/12140_Skull_v3_L2.obj", &model, &regular);
     print_model_info(&model);
     calc_bounding_box(&model,&bounding_box);
     calc_texture_box(&model,&texture_box);
-    print_bounding_box(&bounding_box);
-    print_texture_box(&texture_box);
-    write_to_file("obj_output.obj", &model); 
-    write_to_file_triangular("triangular_output.obj",&triangle, &model);
-    write_to_file_craw_order("craw_order_output.obj",&triangle, &model);
+    write_to_file("obj_output.obj", &model);
+    write_to_file_triangular("triangular_output.obj", &model);
+    write_to_file_craw_order("changed_vertex_order_output.obj", &model);
     glutInit(&argc, argv);
 
 	glutInitWindowSize(640, 480);
