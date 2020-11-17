@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include "triangulation.h"
 
-int write_to_file_triangular(char* filename, Model* model)
+#include <stdbool.h>
+
+int write_to_file_triangular(char* filename,Triangle* triangle, Model* model)
 {
     FILE* triangular_file = fopen(filename, "w");
     if (triangular_file == NULL) {
@@ -12,7 +14,7 @@ int write_to_file_triangular(char* filename, Model* model)
 	write_to_file_triangular_texture_vertices(triangular_file,model);
 	write_to_file_triangular_normals(triangular_file,model);
 	write_to_file_triangular_triangles (triangular_file,model);
-   	polygon_triangulation(triangular_file,model);
+   	polygon_triangulation(triangular_file,triangle,model);
 	return true;
 }
 
@@ -67,53 +69,53 @@ void write_to_file_triangular_triangles (FILE* file, Model* model)
 	vertex_index = model->triangles[i].points[k].vertex_index;
 	texture_index = model->triangles[i].points[k].texture_index;
 	normal_index = model->triangles[i].points[k].normal_index;
-	fprintf(file,"%i/%i/%i ",vertex_index,texture_index,normal_index);
+	fprintf(file,"%d/%d/%d ",vertex_index,texture_index,normal_index);
 	}
 	fprintf(file,"\n");
     }
 }
 
 
-void polygon_triangulation(FILE* file,Model* model)
+void polygon_triangulation(FILE* file,Triangle* triangle,Model* model)
 {
-int i,k;
-int v, vt, vn;
-	for (i = 0; i < model->n_quads; ++i) {
+int i,k,x;
+	x = model->n_quads;
+	for (i = 0; i < x; ++i) {
 	fprintf(file,"f ");
 		for (k = 0; k < 3; ++k) {
-	v = model->quads[i].points[k].vertex_index;
-	vt = model->quads[i].points[k].texture_index;
-	vn = model->quads[i].points[k].normal_index;
-	fprintf(file,"%d/%d/%d ",v,vt,vn);
+	triangle->points[k].vertex_index = model->quads[i].points[k].vertex_index;
+	triangle->points[k].texture_index = model->quads[i].points[k].texture_index;
+	triangle->points[k].normal_index = model->quads[i].points[k].normal_index;
+	fprintf(file,"%d/%d/%d ",triangle->points[k].vertex_index,triangle->points[k].texture_index,triangle->points[k].normal_index);
 	}
 	fprintf(file,"\n");
 	}
-	polygon_triangulation_extra(file,model);
+	polygon_triangulation_extra(file,triangle,model);
 }
-void polygon_triangulation_extra(FILE* file,Model* model)
+void polygon_triangulation_extra(FILE* file,Triangle* triangle,Model* model)
 {
-int i,k;
-int v, vt, vn;
-	for (i = 0; i < model->n_quads; ++i) {
+int i,k,x;
+	x = model->n_quads;
+	for (i = 0; i < x; ++i) {
 	fprintf(file,"f ");
 		for (k = 0; k < 3; ++k) {
 	if (k==0){
-	v = model->quads[i].points[k].vertex_index;
-	vt = model->quads[i].points[k].texture_index;
-	vn = model->quads[i].points[k].normal_index;	
-	fprintf(file,"%d/%d/%d ",v,vt,vn);
+	triangle->points[k].vertex_index = model->quads[i].points[k].vertex_index;
+	triangle->points[k].texture_index = model->quads[i].points[k].texture_index;
+	triangle->points[k].normal_index = model->quads[i].points[k].normal_index;	
+	fprintf(file,"%d/%d/%d ",triangle->points[k].vertex_index ,triangle->points[k].texture_index,triangle->points[k].normal_index);
 	}
 	else if(k==1){
-	v = model->quads[i].points[k+1].vertex_index;
-	vt = model->quads[i].points[k+1].texture_index;
-	vn = model->quads[i].points[k+1].normal_index;	
-	fprintf(file,"%d/%d/%d ",v,vt,vn);
+	triangle->points[k].vertex_index = model->quads[i].points[k+1].vertex_index;
+	triangle->points[k].texture_index = model->quads[i].points[k+1].texture_index;
+	triangle->points[k].normal_index = model->quads[i].points[k+1].normal_index;	
+	fprintf(file,"%d/%d/%d ",triangle->points[k].vertex_index ,triangle->points[k].texture_index,triangle->points[k].normal_index);
 	}
 	else if(k==2){
-	v = model->quads[i].points[k+1].vertex_index;
-	vt = model->quads[i].points[k+1].texture_index;
-	vn = model->quads[i].points[k+1].normal_index;	
-	fprintf(file,"%d/%d/%d ",v,vt,vn);
+	triangle->points[k].vertex_index = model->quads[i].points[k+1].vertex_index;
+	triangle->points[k].texture_index = model->quads[i].points[k+1].texture_index;
+	triangle->points[k].normal_index = model->quads[i].points[k+1].normal_index;	
+	fprintf(file,"%d/%d/%d ",triangle->points[k].vertex_index ,triangle->points[k].texture_index,triangle->points[k].normal_index);
 		}
 	}
 	fprintf(file,"\n");

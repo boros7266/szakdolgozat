@@ -7,6 +7,7 @@
 #include "draw.h"
 #include "write_obj.h"
 #include "triangulation.h"
+#include "craw_order.h"
 
 #include <SOIL/SOIL.h>
 #include <GL/glut.h>
@@ -118,16 +119,17 @@ int main(int argc, char* argv[])
     Regular regular;
     BoundingBox bounding_box;
     TextureBox texture_box;
+    Triangle triangle;
 
-    load_model("OBJ/cube/cube_quads.obj", &model, &regular);
+    load_model("OBJ/cube/cube.obj", &model, &regular);
     print_model_info(&model);
     calc_bounding_box(&model,&bounding_box);
     calc_texture_box(&model,&texture_box);
     print_bounding_box(&bounding_box);
     print_texture_box(&texture_box);
-    write_to_file("obj_output.obj", &model);
-    write_to_file_triangular("triangular_output.obj", &model);
-
+    write_to_file("obj_output.obj", &model); 
+    write_to_file_triangular("triangular_output.obj",&triangle, &model);
+    write_to_file_craw_order("craw_order_output.obj",&triangle, &model);
     glutInit(&argc, argv);
 
 	glutInitWindowSize(640, 480);
@@ -142,7 +144,6 @@ int main(int argc, char* argv[])
     glutMouseFunc(mouseHandler);
     glutMotionFunc(motionHandler);
     glutIdleFunc(idle);
-
     glutMainLoop();
     return 0;
 } 

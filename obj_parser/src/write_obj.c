@@ -74,7 +74,7 @@ void write_to_file_triangles (FILE* file, Model* model)
 	vertex_index = model->triangles[i].points[k].vertex_index;
 	texture_index = model->triangles[i].points[k].texture_index;
 	normal_index = model->triangles[i].points[k].normal_index;
-	fprintf(file,"%i/%i/%i ",vertex_index,texture_index,normal_index);
+	fprintf(file,"%d/%d/%d ",vertex_index,texture_index,normal_index);
 	}
 	fprintf(file,"\n");
     }
@@ -90,7 +90,7 @@ void write_to_file_quads (FILE* file, Model* model)
 	vertex_index = model->quads[i].points[k].vertex_index;
 	texture_index = model->quads[i].points[k].texture_index;
 	normal_index = model->quads[i].points[k].normal_index;
-	fprintf(file,"%i/%i/%i ",vertex_index,texture_index,normal_index);
+	fprintf(file,"%d/%d/%d ",vertex_index,texture_index,normal_index);
 	}
 	fprintf(file,"\n");
     }

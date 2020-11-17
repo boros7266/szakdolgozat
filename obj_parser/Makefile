@@ -17,7 +17,8 @@ SOURCES = \
     src/bounding_box.c \
     src/draw.c \
     src/write_obj.c \
-    src/triangulation.c
+    src/triangulation.c \
+    src/craw_order.c
 
 OBJECTS = $(SOURCES:.c=.o)
 
