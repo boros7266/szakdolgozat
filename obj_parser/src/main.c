@@ -121,7 +121,7 @@ int main(int argc, char* argv[])
     TextureBox texture_box;
     Triangle triangle;
 
-    load_model("OBJ/cube/cube.obj", &model, &regular);
+    load_model("OBJ/cube/cube_quads.obj", &model, &regular);
     print_model_info(&model);
     calc_bounding_box(&model,&bounding_box);
     calc_texture_box(&model,&texture_box);
