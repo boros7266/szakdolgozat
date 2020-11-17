@@ -8,8 +8,8 @@
 #include "triangle.h"
 #include "quad.h"
 
-int write_to_file_craw_order(char* filename,Model* model);
+void change_vertex_order(Model* model);
 
-void change_vertex_order (Model* model);
+void changing_vertex_order (Model* model);
 
 #endif /* VERTEX_ORDER_H */

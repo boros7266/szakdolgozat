@@ -3,21 +3,16 @@
 
 #include <stdbool.h>
 
-int write_to_file_craw_order(char* filename, Model* model)
+void change_vertex_order(Model* model)
 {
-    FILE* craw_order_file = fopen(filename, "w");
-    if (craw_order_file == NULL) {
-        printf("ERROR: Unable to open '%s' file!\n", filename);
-    	return false;
-    }
 	printf("\nChange ..\n");
-		change_vertex_order (model);
+		changing_vertex_order (model);
 	printf("Print model info: ..\n");
 		print_model_info(model);
-	return true;
+	printf("\nVerices orders have changed!\n");
 }
 
-void change_vertex_order (Model* model)
+void changing_vertex_order (Model* model)
 {
 	int i, k;
 	int vertex,texture;

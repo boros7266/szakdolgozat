@@ -8,9 +8,11 @@
 #include "triangle.h"
 #include "quad.h"
 
-int write_to_file_triangular(char* filename, Model* model);
-
 void convert_quads_to_triangles(Model* model);
+
+void replace_triangles(Model* model);
+
+void converting_quads_to_triangles(Model* model);
 
 void create_arrays_triangulation(Model* model);
 

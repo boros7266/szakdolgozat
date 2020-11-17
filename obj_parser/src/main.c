@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "model.h"
 #include "timer.h"
 #include "texture.h"
@@ -98,9 +99,22 @@ int main(int argc, char* argv[])
     print_model_info(&model);
     calc_bounding_box(&model,&bounding_box);
     calc_texture_box(&model,&texture_box);
+    char ch;
+    printf("\nDo you want to convert Quads to Triangles? [y/n] ");
+    scanf(" %c", &ch);
+    if(ch=='y'||ch == 'Y'){
+    convert_quads_to_triangles(&model);
+    }
+    printf("\nDo you want to change vertices orders? [y/n]\n");
+    scanf(" %c", &ch);
+    if(ch=='y'||ch == 'Y'){
+    change_vertex_order(&model);
+    }
+    printf("\nDo you want to save .obj to Output file? [y/n]\n");
+    scanf(" %c", &ch);
+    if(ch=='y'||ch == 'Y'){
     write_to_file("obj_output.obj", &model);
-    write_to_file_triangular("triangular_output.obj", &model);
-    write_to_file_craw_order("changed_vertex_order_output.obj", &model);
+    }
     glutInit(&argc, argv);
 
 	glutInitWindowSize(640, 480);
