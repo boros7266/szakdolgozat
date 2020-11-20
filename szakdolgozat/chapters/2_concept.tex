@@ -4,8 +4,7 @@
 
 Az OBJ fájlformátumot elsőnek a Wavefront Technologies kezdte kifejleszteni az 1980-as években az Advanced Visualizer animációs csomagjához. Ez a formátum egy olyan karakteres fájlformátum, ami utat enged geometriai objektumok leírásának egy aránylag egyszerű és egységes formában. \\
 Magát a formátumot ott logikus használni, ahol egyszerű modelleket jelenítünk meg és ezeket nem akarjuk animálni. Például egy olyan egyszerű autó szimulátoros játéknál, ahol maga az autó geometriáját tekintve nem változik maximum a pozíciója és az orientációja, ezeket a transzformációs mátrix állításával egyszerűen megadhatjuk, így nincs szükség a modell animálására.\\
-Wavefront formátumbemutatása egy egyszerű példával, ez a példa egy szimpla négyszöget definiál:\\
-
+Wavefront formátumbemutatása egy egyszerű példával, ez a példa egy szimpla négyszöget definiál:
 \begin{cpp} 
 # ez egy comment
 
@@ -26,7 +25,7 @@ f 1/1/1 2/2/1 3/3/1 4/4/1
 
 A fájl először felsorolja a csúcspontokat \textbf{v} (vertex), utána a textúra pontokat \textbf{vt} (vertex texture) és a normálvektorokat \textbf{vn} (vertex normal) utána  az \textbf{f} (face) kulcsszóval egymáshoz rendeli ezeket. A lap utasításban például a lapot négy csúcsponttal adtuk meg (ez egy négyszög), és / jellel elválasztva minden csúcshoz közöltük a csúcspont, a textúra pont és a normálvektor sorsszámát. \newpage
 
-\noindent A következő példa egy kockát fog definiálni:\\
+\noindent A következő példa egy kockát fog definiálni:
 \begin{cpp} 
 v 1.0 1.0 0.0
 v 1.0 1.0 -1.0
@@ -56,16 +55,15 @@ f 5/1/4 2/2/4 1/3/4 7/4/4
 f 8/1/5 4/2/5 3/3/5 6/4/5
 f 7/1/6 1/2/6 4/3/6 8/4/6
 \end{cpp}
-\noindent A kocka megjelenítése:
-
-\begin{figure}[h]
-\centering
-\includegraphics[scale=0.23]{images/cube_notexture.png}
-\caption{Kocka.}
-\end{figure}
 
 A négyzethez hasonlóan felsorolja a csúcspontokat \textbf{v} (vertex), de azzal ellentétben itt már nem 4 csúcspont található, hanem 8 mivel a kocka összes csúcspontját definiálni kell a formátumnak. A \textbf{vn} (vertex normal), illetve a \textbf{f} (face) szám is megváltozik a kocka lapjainak számával arányosan.\newline
 
+\noindent A kocka megjelenítése:
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.16]{images/cube_notexture.png}
+\caption{Kocka.}
+\end{figure}
 
 \noindent Most következzen pár gyakran előforduló face definíció:\newline
 
@@ -120,7 +118,6 @@ Az anyag \textsl{ambient} (MTL fájlban \textbf{Ka}) – a környezettől függe
 \caption{Ambient.}
 \end{figure}
 Fontos megjegyezni, hogy az \textsl{ambient} tulajdonság nem fényforrás, tehát attól, hogy egy testnek \textsl{ambient} színe van, nem fogja megvilágítani a mellette álló másik testet. Az értékét RGB-ben adjuk meg, a szokott módon.
-\newpage
 \noindent \textbf{Diffuse:}
 
 Az anyag \textsl{diffuse} "szórt" (MTL fájlban \textbf{Kd}) – alap színét írja le. Ez a legegyszerűbb, lényegében egy test színét határozza meg. Pontosítva a dolgot, azt mondhatjuk, hogy a diffuse tulajdonság határozza meg, hogy a felület, a rá eső fény mely komponenseit nyeli el.
