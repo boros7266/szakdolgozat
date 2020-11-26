@@ -1,0 +1,50 @@
+\Chapter{Tesztelés}
+
+\Section{Reguláris kifejezések}
+
+Regluráis kifejezések illesztési algoritmus gyakran eltérő, a szerzők másként értelmeznek bizonyos eseteket, vagyis nincs egységes szabvány belőle.
+Ezért ennek ellenőrzésére konzulensemmel készítettünk egységtesztet Cmockában. Amennyiben a tesztelésünk sikeres volt és a reguláris kifejezés sablonunk megfelelően illeszkedik az adott sorra abban az esetben teszt futtatás után a következő kimenetet kell kapjuk:
+\begin{python}
+[==========] Running 6 test(s).
+[ RUN      ] test_vertex_line
+[       OK ] test_vertex_line
+[ RUN      ] test_texture_vertex_line
+[       OK ] test_texture_vertex_line
+[ RUN      ] test_vertex_normal_line
+[       OK ] test_vertex_normal_line
+[ RUN      ] test_face_line
+[       OK ] test_face_line
+[ RUN      ] test_triangle_line
+[       OK ] test_triangle_line
+[ RUN      ] test_quad_line
+[       OK ] test_quad_line
+[==========] 6 test(s) run.
+[  PASSED  ] 6 test(s).
+\end{python}
+\noindent Abban az esetben, ha a tesztünk valamelyik fázisban elbukott, akkor a következővel tér vissza a teszt:
+\begin{python}
+[ RUN      ] test_quad_line
+[  ERROR   ] --- result
+[   LINE   ] --- tests/regex_tests.h:72: error: Failure!
+[  FAILED  ] test_quad_line
+[==========] 6 test(s) run.
+[  PASSED  ] 5 test(s).
+[  FAILED  ] 1 test(s), listed below:
+[  FAILED  ] test_quad_line
+\end{python}
+Ennél a példánál a \texttt{QUAD\_LINE\_PATTERN} nem megfelelően illeszkedett  a tesztben megadott formátumra, ezért hibával tér vissza.
+\Section{Modell betöltés sebességmérés}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{images/betoltesiido.png}
+\caption{Modell betöltési idő.}
+\label{fig:betolt}
+\end{figure}
+
+Modellek betöltési sebességét vizsgáltam a  \ref{fig:betolt}. grafikonon. Az X tengelyen a modellek összes elemszáma (geometria vektor, textúra koordináta, normál vektor,arc elem) számok összesítése látható az Y tengelyen pedig a betöltési idő milliszekundumban. Az összehasonlítás textúra, modell kirajzolás, és az OBJ fájlon történő bármilyen változtatás nélkül történt.\\
+
+A grafikonon jól látható hogy az idő növekedése közel exponenciális, tehát a modellek elemszámának növekedésének mértéke közel  arányos a beolvasáshoz szükséges idő nagyságával.
+
+
+\Section{Modell betöltés sebességmérés az egyes részeken}
