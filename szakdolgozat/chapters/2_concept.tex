@@ -106,7 +106,7 @@ A teljes OBJ formátum nagyon összetett, sok olyan szerkezeti egységet tartalm
 \Section{Anyagjellemzők}
 
 Az OBJ formátum 3D térben lévő objektumok csupán geometriáját írja le. Ezért szükségünk van még az anyagjellemzőkre is a képszintézis során. A különböző anyagokat fizikai jellemzőikkel írjuk le. Ezek a jellemzők például fényáteresztő képesség, fényvisszaverő képesség, törésmutató stb.\cite{diane1995mtl}\newpage
-Ezeket a tulajdonságokat az \textbf{MTL}(Material Template Library) tartalmazza, a formátum hasonlóan az OBJ formátumhoz szintén szöveges. Az OBJ fájl tartalmazza a hivatkozást az \textbf{MTL} fájlra:
+Ezeket a tulajdonságokat az {MTL}(Material Template Library) tartalmazza, a formátum hasonlóan az OBJ formátumhoz szintén szöveges. Az OBJ fájl tartalmazza a hivatkozást az {MTL} fájlra:
 \begin{python}
 mtllib fajlnev.mtl
 \end{python}
@@ -146,22 +146,22 @@ newmtl szines
 \end{python}
 \bigskip
 A newmtl egy új anyagot definiál, aminek a neve "szines".\\
-A Ka kulcsszó az anyag ambient - környezettől független színét adja. Ez úgy viselkedik, mint ha az anyag világítana, szóval ha a testet nem éri fény abban az esetben is ilyen lesz a színe. Viszont  az ambient tulajdonság nem viselkedik fényforrásként, attól hogy egy testnek ambient színe van az nem fogja megvilágítani a többi testet. Az értéke RGB-ben van megadva 0 és 1 között.
+A \textbf{Ka} kulcsszó az anyag ambient - környezettől független színét adja. Ez úgy viselkedik, mint ha az anyag világítana, szóval ha a testet nem éri fény abban az esetben is ilyen lesz a színe. Viszont  az ambient tulajdonság nem viselkedik fényforrásként, attól hogy egy testnek ambient színe van az nem fogja megvilágítani a többi testet. Az értéke RGB-ben van megadva 0 és 1 között.
 \begin{python}
 Ka 1.000 1.000 1.000
 \end{python}
 \bigskip
-A Kd kulcsszó az anyag diffúz -  színét határozza meg. Ez a tulajdonság a test színét írja le, lényegében a diffúz tulajdonság meghatározza, egy felület rá eső fény mely részleteit nyeli el. Az értéke szintén RGB-ben van megadva 0 és 1 között.
+A \textbf{Kd} kulcsszó az anyag diffúz -  színét határozza meg. Ez a tulajdonság a test színét írja le, lényegében a diffúz tulajdonság meghatározza, egy felület rá eső fény mely részleteit nyeli el. Az értéke szintén RGB-ben van megadva 0 és 1 között.
 \begin{python}
 Kd 1.000 1.000 1.000
 \end{python}
 \bigskip
-A Ks kulcsszó az anyag spekulár - színét adja. Ami az anyag tükröződéséért felelős. Értéke 0 és 1 között állítható. Amennyiben azt szeretnénk hogy az anyag minden ráeső fényt visszaverjen (tükörként működve), abban az esetben 1 1 1 értéket kell megadni ha pedig azt hogy mindet elnyeljen akkor 0 0 0 értékeket.
+A \textbf{Ks} kulcsszó az anyag spekulár - színét adja. Ami az anyag tükröződéséért felelős. Értéke 0 és 1 között állítható. Amennyiben azt szeretnénk hogy az anyag minden ráeső fényt visszaverjen (tükörként működve), abban az esetben 1 1 1 értéket kell megadni ha pedig azt hogy mindet elnyeljen akkor 0 0 0 értékeket.
 \begin{python}
 Ks 1,000 1,000 1,000
 \end{python}
 \bigskip
-Az Ns kulcsszó az anyag shininess - csillogását adja. Az anyagok felszíne nem csak tükörszerűen viselkedhetnek, hanem van saját fényük is. Ennek az értéke 0 és 1000 között határozható meg. Ezen skálán minél nagyobb értéket kap annál nagyobb lesz a fénysávok élessége.
+Az \textbf{Ns} kulcsszó az anyag shininess - csillogását adja. Az anyagok felszíne nem csak tükörszerűen viselkedhetnek, hanem van saját fényük is. Ennek az értéke 0 és 1000 között határozható meg. Ezen skálán minél nagyobb értéket kap annál nagyobb lesz a fénysávok élessége.
 \begin{python}
 Ns 10.000
 \end{python}
@@ -171,7 +171,7 @@ Bár az OBJ fájl formátumnak nem része mégis fontos megemlíteni a textúrá
 
 Textúrázás alatt általában kétdimenziós textúrázást értünk, de lehetnek ezek akár egy vagy háromdimenzionálisak is. A textúra geometriailag egy téglalap, ami sorokba és oszlopokba rendezet elemekből épül fel.\\
 
-A textúra tehát adatok 1,2 vagy 3 dimenziós tömbjének tekinthető. Az egyes textúra elemekhez tárolt adat képviselhet színt, fényerősséget vagy szín és alfa értéket, azaz 1, 2, 3 vagy 4 adat  tartozhat minden textúra elemhez.\\
+A textúra tehát adatok 1, 2 vagy 3 dimenziós tömbjének tekinthető. Az egyes textúra elemekhez tárolt adat képviselhet színt, fényerősséget vagy szín és alfa értéket, azaz 1, 2, 3 vagy 4 adat  tartozhat minden textúra elemhez.\\
 
 A téglalap alakú textúrákat azonban tetszőleges alakú sokszögekre, kell ráhelyezni. A ráhelyezés a modelltérben kell megadni, ezért  a textúráka is hatnak a modell- és vetítési transzformációk. Ennek érdekében az objektumok létrehozásakor a csúcspontok geometriai koordinátái mellett a textúrakoordinátákat is meg kell adni, ezeknek a textúra koordinátáknak[0, 1] x [0, 1] egységnégyzeten belül kell elhelyezkedniük. \cite{juhasz2003opengl}
 
@@ -232,7 +232,7 @@ Rajzfelülettől balra találhatóak az objektumunkról gyűjtött adatok. Felet
 
 A modellbetöltő gyors és egyszerű megjelenítést biztosít számunkra, tökéletesen működik a bonyolultabb geometriájú síkodomok megjelenítésével legyen szó háromszög, négyszög vagy akár ennél nagyobb csúcsszámmal rendelkező síkodomról. Ez nagy előnyt jelent felhasználó szempontból, amennyiben csak a modell megjelenítése a cél.\\
 
-Sajnos kép alapú textúrázás nem támogatott a program által, ezért a textúrázás nem lehetséges. Másik probléma a szoftverrel, hogy egy időben csak egy obj file kirajzolására alkalmas.\\
+Sajnos kép alapú textúrázás nem támogatott a program által, ezért a textúrázás nem lehetséges. Másik probléma a szoftverrel, hogy egy időben csak egy OBJ file kirajzolására alkalmas.\\
 
 Betöltő forráskódja illetve a programmal kapcsolatos rövid leírás megtalálható a következő weboldalon:\\
 \url{https://github.com/kovacsv/Online3DViewer}
@@ -244,7 +244,7 @@ Elérési útvonal: \url{https://www.creators3d.com/online-viewer}\\
 
 Hasonlóan az előző Online 3D Viewer-hez a betöltő kezdőfelületén \aref{fig:3d1} ábra szintén tájékoztatást ad a támogatott fájlformátumokról.
 
-Ez a betöltő is támogatja a \texttt{OBJ} fájl megjelenítését. A betöltő szintén támogatást ad a különböző sokaságú csúcspontal rendelkező síkidomokat, az előzőtől eltérően itt a megnyitás kétféle képpen történhet
+Ez a betöltő is támogatja a OBJ fájl megjelenítését. A betöltő szintén támogatást ad a különböző sokaságú csúcspontal rendelkező síkidomokat, az előzőtől eltérően itt a megnyitás kétféle képpen történhet
 
 \begin{itemize}
 \item Első lehetőség: \\

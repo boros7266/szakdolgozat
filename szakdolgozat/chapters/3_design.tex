@@ -72,7 +72,7 @@ A .obj model adatait egy közös model struktúrában tárolja a program a struk
 \end{figure}
 \bigskip
 
-Az integer típusú \texttt{n\_vertices}, \texttt{n\_texture\_vertices}, \texttt{n\_normals}, \texttt{n\_faces} illetve \texttt{n\_triangles}, \texttt{n\_quads} és \texttt{n\_polygons} változók feltöltésre kerülnek az OBJ fáj különböző változótípus darabasznámainak összeszámlálásával.
+Az integer típusú \texttt{n\_vertices}, \texttt{n\_texture\_vertices}, \texttt{n\_normals}, \texttt{n\_faces} illetve \texttt{n\_triangles}, \texttt{n\_quads} és \texttt{n\_polygons} változók feltöltésre kerülnek az OBJ fájl különböző változótípus darabasznámainak összeszámlálásával.
 \begin{python}
 typedef struct Model
 {
@@ -98,7 +98,7 @@ typedef struct Vertex
 \end{python}
 \bigskip
 
-Hasonlóan a Vertex struktúrához a \texttt{TextureVertex} csúcspontjai is kiolvasásra kerülnek az \texttt{n\_texture\_vertices} darabszámai.
+Hasonlóan a Vertex struktúrához a \texttt{TextureVertex} csúcspontjai is kiolvasásra kerülnek az \texttt{n\_texture\_vertices} darabszámaival.
 \begin{python}
 typedef struct TextureVertex
 {
@@ -140,7 +140,7 @@ typedef struct Quad
 \end{python}
 \bigskip
 
-Az összes adat  \texttt{Model} struktúrában kerül eltárolásra ennek előnye, hogy egy közös, kap helyet az objektum összes fontos adata, így egyszerűbben lehet rájuk hivatkozni illetve a modellen történő szükséges változásokat  így könnyebben elvégezhetjük
+Az összes adat  \texttt{Model} struktúrában kerül eltárolásra ennek előnye, hogy egy közös, kap helyet az OBJ fájl összes fontos adata, így egyszerűbben lehet rájuk hivatkozni illetve a modellen történő szükséges változásokat  így könnyebben elvégezhetjük
 \begin{python}
 typedef struct Model
 {
@@ -170,7 +170,7 @@ typedef struct Model
 \end{figure}
 \bigskip
 
-\Aref{fig:index_} ábrán megtervezésre került egyes arcelemek hogyan fognak mutatni a különböző vektorok koordinátájra. Ennek a segítségével fogja a program összeállítani a sÍkodomokat a
+\Aref{fig:index_} ábrán megtervezésre került egyes arcelemek hogyan fognak mutatni a különböző vektorok koordinátájra. Ennek a segítségével fogja a program összeállítani a síkodomokat.
 
 
 %\Section{Betöltők tárolási módjai}
