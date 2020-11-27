@@ -26,11 +26,11 @@ Geometriai vektorok:\\
 \begin{python} 
 v -0,123 0,345 0,678 [1,0]
 \end{python}
-
 \newpage
-Textúra koordináták:\\
+\noindent Textúra koordináták:\\
 
 \noindent \textbf{vt} kezdőbetűvel \textsl{textúra koordinátát} írunk le. Ezt (u, [, v, w]) koordináták követik, ezek 0 és 1 közötti értékek. A szögletes zárójel [ ] koordináta értékei opcionálisak és alapértelmezés szerint 0.0 az értékük.
+
 \bigskip
 \begin{python} 
 vt 0.500 1 [0]
@@ -48,7 +48,7 @@ Arcelemek:\\
 
 \noindent \textbf{f} kezdőbetűvel egy \textsl{arc elemet} írunk le. Az \textsl{arc elemet} \textsl{geometriai vektor}, \textsl{textúra koordináta}, \textsl{normál vektor} indexek listájával írjuk le {/} jellel elválasztva. Vektor{\_}index {/} textura{\_}index {/}  normál{\_}index formátumban. Minden index 1-ről indul és növekszik annak sorrendjében, amelyben a hivatkozott elemet definiálták.\\
 
-\noindent Pár gyakran előforduló face definíció:\newline
+\noindent \textbf{Pár gyakran előforduló face definíció:}\\
 
 \noindent Csak \textsl{geometriai vektorból} álló felület.
 \bigskip
@@ -56,17 +56,19 @@ Arcelemek:\\
 f v1 v2 v3 v4 ...
 \end{python}
 \bigskip
- Minden \textsl{geometriai vektorhoz} hozzá van rendelve egy \textsl{textúra koordináta} koordináta is.
+ Minden \textsl{geometriai vektorhoz} hozzá van rendelve egy \textsl{textúra koordináta} is.
 \begin{python} 
 f v1/vt1 v2/vt2 v3/vt3 ...
 \end{python}
 \bigskip
 Minden \textsl{geometriai vektor} tartalmaz \textsl{textúra koordinátát} és \textsl{normál vektort}.
+\bigskip
 \begin{python} 
 f v1/vt1/vn1 v2/vt2/vn2 v3/vt3/vn3 ...
 \end{python}
 \bigskip
 A \textsl{geometriai vektorhoz} csak a \textsl{normál vektor} lett hozzárendelve, a \textsl{textúra koordináta} opcionális.
+\bigskip
 \begin{python} 
 f v1/ /vn1 v2/ /vn2 v3/ /vn3 ...
 \end{python}
@@ -83,6 +85,7 @@ f v1/ /vn1 v2/ /vn2 v3/ /vn3 ...
 \noindent A szögeltes zárójelbe [  ] foglalt elemek opcionálisak, vagyis a bennük lévő fogalom egyszer vagy egyszer sem jelenik meg a leírás során. \\
 
 Wavefront formátum bemutatása példával, ez a példa egy szimpla négyszöget definiál:
+\bigskip
 \begin{python} 
 v 0.0 0.0 0.0
 v 1.0 0.0 0.0
@@ -99,29 +102,32 @@ vn 1.0 0.0 0.0
 f 1/1/1 2/2/1 3/3/1 4/4/1
 \end{python}
 \bigskip
-A fájl először felsorolja a \textsl{geometriai vektorokat} (\textbf{v}), utána a \textsl{textúra koordinátákat} (\textbf{vt}) és \textsl{normál vektorokat} (\textbf{vn}), majd az \textsl{arcelemekkel} (\textbf{f}) egymáshoz rendeli ezeket. Ebben az esetben például a lapot négy csúcsponttal adtuk meg és {/} jellel elválasztva hozzá rendeltük a  \textsl{geometriai vektorok} , a \textsl{textúra koordináták} és a \textsl{normál vektorok} sorszámát.\\
+A fájl először felsorolja a \textsl{geometriai vektorokat} (\textbf{v}), utána a \textsl{textúra koordinátákat} (\textbf{vt}) és \textsl{normál vektorokat} (\textbf{vn}), majd az \textsl{arcelemekkel} (\textbf{f}) egymáshoz rendeli ezeket. Ebben az esetben például a lapot négy csúcsponttal adtuk meg és {/} jellel elválasztva hozzá rendeltük a  \textsl{geometriai vektorok} , a \textsl{textúra koordináták} és a \textsl{normál vektorok} sorszámát.
 
 A teljes OBJ formátum nagyon összetett, sok olyan szerkezeti egységet tartalmaz, ami egy szimpla objektum modellezéséhez szükségtelennek mondható.
 
 \Section{Anyagjellemzők}
 
 Az OBJ formátum 3D térben lévő objektumok csupán geometriáját írja le. Ezért szükségünk van még az anyagjellemzőkre is a képszintézis során. A különböző anyagokat fizikai jellemzőikkel írjuk le. Ezek a jellemzők például fényáteresztő képesség, fényvisszaverő képesség, törésmutató stb.\cite{diane1995mtl}\newpage
-Ezeket a tulajdonságokat az {MTL}(Material Template Library) tartalmazza, a formátum hasonlóan az OBJ formátumhoz szintén szöveges. Az OBJ fájl tartalmazza a hivatkozást az {MTL} fájlra:
+Ezeket a tulajdonságokat az MTL (Material Template Library) tartalmazza, a formátum hasonlóan az OBJ formátumhoz szintén szöveges. Az OBJ fájl tartalmazza a hivatkozást az {MTL} fájlra:
+\bigskip
 \begin{python}
 mtllib fajlnev.mtl
 \end{python}
 \bigskip
-Az mtllib hívja meg az MTL fájlt, ezután a \textsl{fájlnév} és a kiterjesztés következik \textsl{.mtl}.\\
+Az \texttt{mtllib} hívja meg az MTL fájlt, ezután a \textsl{fájlnév} és a kiterjesztés következik \textsl{(.mtl)}.\\
 OBJ fájlból akár egynél több anyagfájlra is lehet hivatkozni és egy MTL fájl tartalmazhat akár több anyagdefiníciót is.\\
 
-A következő hívatkozással lehet beállítani a következő anyag anyagdefinícióját:
+\noindent A következő hívatkozással lehet beállítani a következő anyag anyagdefinícióját:
+\bigskip
 \begin{python}
 usemtl (anyag neve)
 \end{python}
 \bigskip
 Az anyag neve azonos egy anyagmeghatározással egy külső MTL fájlban.\\
 
-Az objektumokat és sokszögcsoportokat a következő hivatkozások adják meg.
+\noindent Az objektumokat és sokszögcsoportokat a következő hivatkozások adják meg.
+\bigskip
 \begin{python}
 o [objektum neve]
   ...
@@ -130,53 +136,61 @@ o [objektum neve]
 \end{python}
 \bigskip
 Sokszögek közötti árnyékolás a következővel állítható
+\bigskip
 \begin{python}
 s 1
   ...
   s ki
   ...
 \end{python}
+\bigskip
 
 \SubSection{MTL}
 MTL fájl felépítése röviden:\\
 
-Egy MTL ( Material Template Library) fájl tartalmazhat akár több anyagdefiníciót is. MTL fájl az anyagokat egymás után definiálja a fájlban, ezek a leírások newmtl paranccsal kezdődnek:
+Egy MTL ( Material Template Library) fájl tartalmazhat akár több anyagdefiníciót is. MTL fájl az anyagokat egymás után definiálja a fájlban, ezek a leírások \texttt{newmtl} paranccsal kezdődnek:
+\bigskip
 \begin{python}
 newmtl szines
 \end{python}
 \bigskip
-A newmtl egy új anyagot definiál, aminek a neve "szines".\\
-A \textbf{Ka} kulcsszó az anyag ambient - környezettől független színét adja. Ez úgy viselkedik, mint ha az anyag világítana, szóval ha a testet nem éri fény abban az esetben is ilyen lesz a színe. Viszont  az ambient tulajdonság nem viselkedik fényforrásként, attól hogy egy testnek ambient színe van az nem fogja megvilágítani a többi testet. Az értéke RGB-ben van megadva 0 és 1 között.
+A \texttt{newmtl} egy új anyagot definiál, aminek a neve \texttt{"szines"}.
+\newpage
+
+\noindent A \textbf{Ka} kulcsszó az anyag ambient - környezettől független színét adja. Ez úgy viselkedik, mintha az anyag világítana, szóval ha a testet nem éri fény abban az esetben is ilyen lesz a színe. Viszont  az ambient tulajdonság nem viselkedik fényforrásként, attól hogy egy testnek ambient színe van az nem fogja megvilágítani a körülötte lévő többi testet. Az értéke RGB-ben van megadva 0 és 1 között.
+\bigskip
 \begin{python}
 Ka 1.000 1.000 1.000
 \end{python}
 \bigskip
 A \textbf{Kd} kulcsszó az anyag diffúz -  színét határozza meg. Ez a tulajdonság a test színét írja le, lényegében a diffúz tulajdonság meghatározza, egy felület rá eső fény mely részleteit nyeli el. Az értéke szintén RGB-ben van megadva 0 és 1 között.
+\bigskip
 \begin{python}
 Kd 1.000 1.000 1.000
 \end{python}
 \bigskip
-A \textbf{Ks} kulcsszó az anyag spekulár - színét adja. Ami az anyag tükröződéséért felelős. Értéke 0 és 1 között állítható. Amennyiben azt szeretnénk hogy az anyag minden ráeső fényt visszaverjen (tükörként működve), abban az esetben 1 1 1 értéket kell megadni ha pedig azt hogy mindet elnyeljen akkor 0 0 0 értékeket.
+A \textbf{Ks} kulcsszó az anyag spekulár - színét adja. Ami az anyag tükröződéséért felelős. Értéke 0 és 1 között állítható. Amennyiben azt szeretnénk hogy az anyag minden ráeső fényt visszaverjen (tükörként működve), abban az esetben (1.0 1.0 1.0) értéket kell megadni ha pedig azt hogy mindet elnyeljen akkor (0.0 0.0 0.0) értékeket.
+\bigskip
 \begin{python}
 Ks 1,000 1,000 1,000
 \end{python}
 \bigskip
 Az \textbf{Ns} kulcsszó az anyag shininess - csillogását adja. Az anyagok felszíne nem csak tükörszerűen viselkedhetnek, hanem van saját fényük is. Ennek az értéke 0 és 1000 között határozható meg. Ezen skálán minél nagyobb értéket kap annál nagyobb lesz a fénysávok élessége.
+\bigskip
 \begin{python}
 Ns 10.000
 \end{python}
+\bigskip
 \Section{Textúrák}
 
-Bár az OBJ fájl formátumnak nem része mégis fontos megemlíteni a textúrázást, a valóságszerű képek létrehozásánál egy fontos eszközünk a textúránk leképzése, hiszen a valóságban körülöttünk lévő tárgyak sem egyszínűek.\\
+Bár az OBJ fájl formátumnak nem része mégis fontos megemlíteni a textúrázást, a valóságszerű képek létrehozásánál egy fontos eszközünk a textúránk leképzése, hiszen a valóságban körülöttünk lévő tárgyak sem egyszínűek.
 
-Textúrázás alatt általában kétdimenziós textúrázást értünk, de lehetnek ezek akár egy vagy háromdimenzionálisak is. A textúra geometriailag egy téglalap, ami sorokba és oszlopokba rendezet elemekből épül fel.\\
+Textúrázás alatt általában kétdimenziós textúrázást értünk, de lehetnek ezek akár egy vagy háromdimenzionálisak is. A textúra geometriailag egy téglalap, ami sorokba és oszlopokba rendezet elemekből épül fel.
 
-A textúra tehát adatok 1, 2 vagy 3 dimenziós tömbjének tekinthető. Az egyes textúra elemekhez tárolt adat képviselhet színt, fényerősséget vagy szín és alfa értéket, azaz 1, 2, 3 vagy 4 adat  tartozhat minden textúra elemhez.\\
+A textúra tehát adatok 1, 2 vagy 3 dimenziós tömbjének tekinthető. Az egyes textúra elemekhez tárolt adat képviselhet színt, fényerősséget vagy szín és alfa értékeket, azaz 1, 2, 3 vagy 4 adat  tartozhat minden textúra elemhez.
 
-A téglalap alakú textúrákat azonban tetszőleges alakú sokszögekre, kell ráhelyezni. A ráhelyezés a modelltérben kell megadni, ezért  a textúráka is hatnak a modell- és vetítési transzformációk. Ennek érdekében az objektumok létrehozásakor a csúcspontok geometriai koordinátái mellett a textúrakoordinátákat is meg kell adni, ezeknek a textúra koordinátáknak[0, 1] x [0, 1] egységnégyzeten belül kell elhelyezkedniük. \cite{juhasz2003opengl}
-
-\newpage
-\Section{Modellbetöltő Szofverek}
+A téglalap alakú textúrákat azonban tetszőleges alakú sokszögekre, kell ráhelyezni. Ráhelyezést a modelltérben kell megadni, ezért  a textúráka is hatnak a modell- és vetítési transzformációk. Ennek érdekében az objektumok létrehozásakor a csúcspontok geometriai koordinátái mellett a textúra koordinátákat is meg kell adni, ezeknek a textúra koordinátáknak [0, 1] x [0, 1] egységnégyzeten belül kell elhelyezkedniük. \cite{juhasz2003opengl}
+\Section{Modellbetöltő szofverek}
 
 Manapság rengeteg modell elemző és betöltő szoftver áll rendelkezésünkre. A legtöbb ilyen szoftverről általánosságban elmondható, hogy ingyenes illetve  nyílt forráskóddal rendelkezik. Akadnak köztük elemzők online betöltők illetve telepítés után használható megjelenítők. Ezen szoftverek bemutatása következik.
 \SubSection{Kixor modell elemző}
@@ -194,9 +208,9 @@ A program futtatás után kielemezte a benne található \texttt{test.obj} fájl
 \end{figure}
 \bigskip
 
-\Aref{fig:kixor}. ábrán jól láthatóan módon a program elvégezte a szükséges számításokat majd visszatért a számított adatokkal.\\
+\Aref{fig:kixor}. ábrán jól láthatóan módon a program elvégezte a szükséges számításokat majd visszatért a számított adatokkal.
 
-Ez a szoftver nem alkalmas a modell megjelenítésére csak annak elemzésére viszont azt sok szemppontból megteszi, ha csak elemezni szeretnénk a modellünk abban az esetben kiváló lehetőségként szolgál.
+Ez a szoftver nem alkalmas a modell megjelenítésére csak annak elemzésére viszont azt sok szemppontból megteszi, ha csak elemezni szeretnénk az OBJ fájlunkat abban az esetben kiváló lehetőségként szolgál.
 \newpage
 \SubSection{Online 3D Viewer}
 
@@ -204,37 +218,42 @@ Az első már megjelenítésre is alkalmas szoftver az Online 3D Viewer volt.\ci
 Elérési útvonal: \url{https://3dviewer.net/}\\
 
 Az oldalra érkezve \aref{fig:model_viewer1} ábran egy egyszerű és letisztult formátumot látunk, ahol rövid leírást ad a felhasználó számára, mik a támogatott fájlformátumok illetve azokat hogyan tudjuk megnyitni. 
+\bigskip
 \begin{figure}[h]
 \centering
 \includegraphics[width=\textwidth]{images/Model_Viewer.png}
 \caption{Online 3D Viewer kezdőfelelület.}
 \label{fig:model_viewer1}
 \end{figure}
+\bigskip
 
-Mint \aref{fig:model_viewer1}. ábrán látható a számunkra lényeges \texttt{.obj} kiterjesztésű fájl formátum szintén a támogatott fájlformátumok között szerepel.\\
+Mint \aref{fig:model_viewer1}. ábrán látható a számunkra lényeges \texttt{.obj} kiterjesztésű fájl formátum szintén a támogatott fájlformátumok között szerepel.
 
 Leírásban benne van, hogy a megnyitás háromféleképpen történhet meg az oldal segitségével:
 \begin{itemize}
-\item Első lehetőségként az oldal bal felső részében található megnyitás gombra kattintva kiválasztjuk a megnyitni kivánt objektumunkat.
-\item Második lehetőségként behúzzuk az oldalra a kívánt objektumunkat.
+\item Első lehetőségként az oldal bal felső részében található megnyitás gombra kattintva kiválasztjuk a megnyitni kivánt modellünket.
+\item Második lehetőségként behúzzuk az oldalra a kívánt mdellünket egér segítségével.
 \item Harmadik lehetőség pedig megadjuk a fájlok helyének webcímét.
 \end{itemize}
 \newpage
 Miután kiválasztottuk a megfelelő objektumot az automatikusan megjelenik a rajzfelületen \aref{fig:model_viewer2} ábra.
+\bigskip
 \begin{figure}[h]
 \centering
 \includegraphics[width=\textwidth]{images/Model_Viewer_2.png}
 \caption{Online 3D Viewer modell betöltéssel.}
 \label{fig:model_viewer2}
 \end{figure}
+\bigskip
 
-Rajzfelülettől balra találhatóak az objektumunkról gyűjtött adatok. Felette a model egyes síkidomjainak központba helyezése, a modellünk forgatása bal egérgomb folytonos nyomvatartásával és egér mozgatásával is történhet. Ezen felül kameránk közelítése és távolítása görgő segítségével kivitelezhető.\\
+Rajzfelülettől balra találhatóak az objektumunkról gyűjtött adatok. Felette a model egyes síkidomjainak központba helyezése, a modellünk forgatása bal egérgomb folytonos nyomva tartásával és egér mozgatásával történhet. Ezen felül kameránk közelítése és távolítása görgő segítségével kivitelezhető.
 
-A modellbetöltő gyors és egyszerű megjelenítést biztosít számunkra, tökéletesen működik a bonyolultabb geometriájú síkodomok megjelenítésével legyen szó háromszög, négyszög vagy akár ennél nagyobb csúcsszámmal rendelkező síkodomról. Ez nagy előnyt jelent felhasználó szempontból, amennyiben csak a modell megjelenítése a cél.\\
+A modellbetöltő gyors és egyszerű megjelenítést biztosít számunkra, tökéletesen működik a bonyolultabb geometriájú síkodomok megjelenítésével legyen szó háromszög, négyszög vagy akár ennél nagyobb csúcsszámmal rendelkező síkodomról. Ez nagy előnyt jelent felhasználó szempontból, amennyiben csak a modell megjelenítése a cél.
 
 Sajnos kép alapú textúrázás nem támogatott a program által, ezért a textúrázás nem lehetséges. Másik probléma a szoftverrel, hogy egy időben csak egy OBJ file kirajzolására alkalmas.\\
 
-Betöltő forráskódja illetve a programmal kapcsolatos rövid leírás megtalálható a következő weboldalon:\\
+Betöltő forráskódja illetve a programmal kapcsolatos rövid leírás megtalálható a következő weboldalon:
+
 \url{https://github.com/kovacsv/Online3DViewer}
 \newpage
 \SubSection{Creators 3D Online Viewer}
@@ -242,20 +261,24 @@ Betöltő forráskódja illetve a programmal kapcsolatos rövid leírás megtal�
 Másik ilyen internetes betöltő a Creators 3D Online Viewer.\cite{creators2018creators3d}\\
 Elérési útvonal: \url{https://www.creators3d.com/online-viewer}\\
 
-Hasonlóan az előző Online 3D Viewer-hez a betöltő kezdőfelületén \aref{fig:3d1} ábra szintén tájékoztatást ad a támogatott fájlformátumokról.
+\noindent Hasonlóan az előző Online 3D Viewer-hez a betöltő kezdőfelületén \aref{fig:3d1} ábra szintén tájékoztatást ad a támogatott fájlformátumokról.
 
-Ez a betöltő is támogatja a OBJ fájl megjelenítését. A betöltő szintén támogatást ad a különböző sokaságú csúcspontal rendelkező síkidomokat, az előzőtől eltérően itt a megnyitás kétféle képpen történhet
+Ez a betöltő is támogatja a OBJ fájl megjelenítését. A betöltő szintén támogatást nyújt a különböző sokaságú csúcspontal rendelkező síkidomok betöltésével, az előzőtől eltérően itt a megnyitás kétféle képpen történhet
 
 \begin{itemize}
 \item Első lehetőség: \\
 A rajzfelültre húzzuk a megjelenítésre szánt objektum fájlunkat .
 \item Második lehetőség:\\
+Rajzfelületre kattintva megadjuk a fájlunk lokális helyének az útvonalát.\\
+\bigskip
 \begin{figure}[h]
 \centering
 \includegraphics[width=\textwidth]{images/3D_creators.png}
 \caption{Online 3D Viewer kezdőfelület.}
 \label{fig:3d1}
 \end{figure}
+\bigskip
+
 Rajzfelületre kattintva megadjuk a fájlunk lokális helyének az útvonalát.\\
 \end{itemize}
 \newpage
@@ -290,17 +313,19 @@ Következő tesztelt szoftver, a Piller Imre által fejlesztett Model Loader vol
 
 \noindent A betöltő szoftverről részletes magyar nyelvű leírás és használati útmutató a következő webcímen található: \url{https://www.uni-miskolc.hu/~matip/grafika/}\\
 
-A weboldalon található teljes dokumentáció beleértve : fejlesztő környezet beüzemelése, egyszerű objektumok kirajzolás, anyagjellemzők beállítása illetve textúrázás.\\
+A weboldalon található teljes dokumentáció beleértve : fejlesztő környezet beüzemelése, egyszerű objektumok kirajzolás, anyagjellemzők beállítása illetve textúrázás.
 
 Ez a betöltő támogatja a kép alapú textúrázást, több objektum egy időben való betöltését  ezeket akár különböző textúrával illetve anyagjellemzővel is megjeleníthetjük.\\
 
 Fejlesztői környezet beállítása után első futtatásra a \texttt{cube.obj} nevű példa a hozzátartozó textúrával következőképpen néz ki betöltés után (\ref{fig:model1}. ábra).
+\bigskip
 \begin{figure}[h]
 \centering
 \includegraphics[width=\textwidth]{images/Model_loader.png}
 \caption{Cube.obj megjelenítése.}
 \label{fig:model1}
 \end{figure}
+\bigskip
 
 Megjelenítés teljesen jól történt a megjelenítendő objektumot egy külön ablakban kirajzolta a program. A textúra illesztésével nem volt gond.\\
 \newpage
@@ -308,14 +333,14 @@ Majd különböző komplexitású modellek betöltését teszteltem \ref{fig:mod
 \bigskip
 \begin{figure}[h]
 \centering
-\includegraphics[scale=0.3]{images/model1.png}
+\includegraphics[scale=0.35]{images/model1.png}
 \caption{Baby.obj modell megjelenítése.}
 \label{fig:modelbaby}
 \end{figure}
 \bigskip
 \begin{figure}[h]
 \centering
-\includegraphics[scale=0.3]{images/bird.png}
+\includegraphics[scale=0.35]{images/bird.png}
 \caption{Bird.obj modell megjelenítése.}
 \label{fig:modelbird}
 \end{figure}
@@ -323,7 +348,7 @@ Majd különböző komplexitású modellek betöltését teszteltem \ref{fig:mod
 
 Ezek a modellek szintén tökéletes megjelenítésre kerültek, a hozzájuk tartozó textúra betöltésével nem volt gond a modell megjelent a rajzfelületen.
 \newpage
-Pár ilyen betöltés után észrevettem,hogy a betöltő nem kezel háromszögnél nagyobb csúcspontal rendelkező síkidomokat,  \aref{fig:model1} megjelenített \texttt{cube.obj} háromszögeit át konvertáltam négyszögekké majd ezek után szintén betöltöttem a megjelenítőbe (betöltés \ref{fig:model2} ábra).
+Pár ilyen betöltés után észrevettem,hogy a betöltő nem kezel háromszögnél nagyobb csúcspontal rendelkező síkidomokat,  \aref{fig:model1} ábra megjelenített \texttt{cube.obj} háromszögeit át konvertáltam négyszögekké, majd ezek után szintén betöltöttem a megjelenítőbe (betöltés \ref{fig:model2} ábra).
 \bigskip
 \begin{figure}[h]
 \centering

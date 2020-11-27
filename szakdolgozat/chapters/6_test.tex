@@ -2,9 +2,9 @@
 
 \Section{Reguláris kifejezések}
 
-Regluráis kifejezések illesztési algoritmus gyakran eltérő, a szerzők másként értelmeznek bizonyos eseteket, vagyis nincs egységes szabvány belőle.\\
+Regluráis kifejezések illesztési algoritmus gyakran eltérő, a szerzők másként értelmeznek bizonyos eseteket, vagyis nincs egységes szabvány belőle.
 
-Ennek ellenőrzésére érdekében konzulensemmel készítettünk egységtesztet Cmockában(egységteszt C nyelvre). Amennyiben a tesztelésünk sikeres volt és a reguláris kifejezés sablonunk megfelelően illeszkedik az adott sorra abban az esetben teszt futtatás után a következő kimenetet kell kapjuk:
+Ennek ellenőrzésére érdekében konzulensemmel készítettünk egységtesztet Cmockában (ez egy egységteszt C nyelvre). Amennyiben a tesztelésünk sikeres volt és a reguláris kifejezés sablonunk megfelelően illeszkedik az adott sorra abban az esetben teszt futtatás után a következő kimenetet kell kapjuk:
 \bigskip
 \begin{python}
 [==========] Running 7 test(s).
@@ -28,6 +28,8 @@ Ennek ellenőrzésére érdekében konzulensemmel készítettünk egységtesztet
 \newpage
 
 \noindent Abban az esetben, ha a tesztünk valamelyik fázisban elbukott, akkor a következővel tér vissza a teszt:
+\bigskip
+
 \begin{python}
 [ RUN      ] test_quad_line
 [  ERROR   ] --- result
@@ -38,6 +40,8 @@ Ennek ellenőrzésére érdekében konzulensemmel készítettünk egységtesztet
 [  FAILED  ] 1 test(s), listed below:
 [  FAILED  ] test_quad_line
 \end{python}
+\bigskip
+
 Ennél a példánál a \texttt{QUAD\_LINE\_PATTERN} nem megfelelően illeszkedett  a tesztben megadott formátumra, ezért hibával tér vissza.
 \Section{Modell betöltés sebességmérés}
 
@@ -48,11 +52,12 @@ Ennél a példánál a \texttt{QUAD\_LINE\_PATTERN} nem megfelelően illeszkedet
 \label{fig:betolt}
 \end{figure}
 
-Modellek betöltési sebességét vizsgáltam a  \ref{fig:betolt}. grafikonon. Az X tengelyen a modellek összes elemszáma (geometria vektor, textúra koordináta, normál vektor,arc elem) számok összesítése látható az Y tengelyen pedig a betöltési idő milliszekundumban. Az összehasonlítás textúra, modell kirajzolás, és az OBJ fájlon történő bármilyen változtatás nélkül történt.\\
+Modellek betöltési sebességét vizsgáltam a  \ref{fig:betolt}. grafikonon. Az X tengelyen a modellek összes elemszáma (geometria vektor, textúra koordináta, normál vektor, arc elem) számok összesítése látható az Y tengelyen pedig a betöltési idő milliszekundumban. Az összehasonlítás textúra, modell kirajzolás, és az OBJ fájlon történő bármilyen változtatás nélkül történt.
 
 A grafikonon jól látható hogy az idő növekedése közel exponenciális, tehát a modellek elemszámának növekedésének mértéke közel  arányos a beolvasáshoz szükséges idő nagyságával.
 \bigskip
 \Section{Modell betöltés sebességmérés az egyes részeken}
+\bigskip
 \begin{figure}[h]
 \centering
 \includegraphics[width=\textwidth]{images/betoltesiido2.png}
@@ -70,5 +75,5 @@ A grafikonon jól látható hogy az idő növekedése közel exponenciális, teh
 
 \item Grafikonon zöld színnel lett jelölve modell teljes betöltésének ideje.
  \end{itemize}
-
-Grafikonról  jól leolvasható, hogy a tömbök lefoglalása szinte jelentéktelen időt vesz igénybe a folyamat során. Változók összeszámlálása közel azonos időt vesz igénybe, mint a kiolvasás, ez azért van, mert mindkét folyamatnál végig kell menni a teljes OBJ fájl minden elemén. 
+\bigskip
+\noindent Grafikonról  jól leolvasható, hogy a tömbök lefoglalása szinte jelentéktelen időt vesz igénybe a folyamat során. Változók összeszámlálása közel azonos időt vesz igénybe, mint a kiolvasás, ez azért van, mert mindkét folyamatnál végig kell menni a teljes OBJ fájl minden elemén. 

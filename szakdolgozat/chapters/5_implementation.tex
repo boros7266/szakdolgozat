@@ -1,4 +1,4 @@
-\Chapter{Javító Szoftver Megvalósítás}
+\Chapter{Javító szoftver megvalósítás}
 A szoftver egy C nyelvű csomagként került megvalósításra, obj\_corrector\_tool (Objektum Javító Eszköz) névvel ellátva. A mappa tartalmazza az összes fájl-t a programhoz illetve az egységtesztekhez.\\
 
 Csomag struktúrális felépítése a következő:
@@ -36,13 +36,14 @@ Csomag struktúrális felépítése a következő:
 \texttt{Include} mappa tartalmazza a szükséges header állományokat.  \texttt{OBJ} almappáiban találhatóak a felhasznált OBJ fájlok. Az \texttt{src}-ben találhatóak a C nyelvű programfájlok. \texttt{Tests} mappában található Cmockában írt egységtesztek . Végül közvetlen az \texttt{obj\_\\corrector\_tool} található a \texttt{Makefile} .\\
 
 \Section {Funkció hívás diagram}
+\bigskip
 \begin{figure}[h]
 \centering
 \includegraphics[width=\textwidth]{images/func.png}
 \caption{Teljes Funkcióhívás Diagram.}
 \label{fig:funk}
 \end{figure}
-
+\bigskip
 \Aref{fig:funk} diagramon látható a program teljes funkcióhívás diagramja. Ez a diagram nagyon komplex és rengetek különálló funkciót kezel egyben. A különböző függvények egymást hívják meg a program futattása során végül az összes főbb funkció a \texttt{main} funkcióban találkozik.\\
 
 Értelemszerűen, hogy egy OBJ javító alkalmazásról lévén szó az egyes funkciókat érdemes együtt  kezelni\\
@@ -58,7 +59,7 @@ Program főbb funkciói:
 \bigskip
 Feldolgozási folyamatot fentről-lefelé értelmezhetjük.
 \newpage
-\Section {Modell Beolvasás}
+\Section {Modell beolvasás}
 Az alkalmazás minden olyan OBJ fájl betöltésére alkalmas, ami nem tartalmaz négyszögnél nagyobb csúcsszámmal rendelkező síkodomot, amennyiben az OBJ fájlunk tartalmaz ennél magasabb számút, azok számát képes összeszámlálni, viszont kezelni nem.\\
 
 Elemzésre és javításra szánt OBJ fájl betöltése \texttt{main.c} (C nyelven írt programfájlon) belül \texttt{load\_model} függvénnyel történhet:
@@ -68,12 +69,13 @@ load_model("utvonal/pelda.kiterjesztes", &model, &regular);
 \end{cpp}
 \bigskip
 
-\texttt{utvonal}nál meg kell adni a fájl elérési útvonalát, majd a \texttt{pelda} helyére az \texttt{OBJ} fájlunk nevét majd a kiterjesztést (\texttt{.obj}).
+\texttt{utvonal}nál meg kell adni a fájl elérési útvonalát, majd a \texttt{pelda} helyére az OBJ fájlunk nevét majd a kiterjesztést (\texttt{.obj}).
 \bigskip
 
 \noindent Modell struktúra feltöltés bemutatása funkcióhívásokkal:\\
 
-\texttt{Load\_model} beolvassa a megadott \texttt{OBJ} fájlt.
+\texttt{Load\_model} beolvassa a megadott OBJ fájlt.
+\bigskip
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.5]{images/load.png}
@@ -81,6 +83,7 @@ load_model("utvonal/pelda.kiterjesztes", &model, &regular);
 \bigskip
 
 Beolvasás után \texttt{count\_elements} összeszámolja \texttt{model} struktúra \texttt{n\_vertices},  \texttt{\\n\_texture\_vertices}, \texttt{n\_normals}, \texttt{n\_faces} illetve \texttt{n\_triangles}, \texttt{n\_quads} és \texttt{n\\\_polygons} egyes értékeit.
+\bigskip
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.5]{images/count.png}
@@ -88,6 +91,7 @@ Beolvasás után \texttt{count\_elements} összeszámolja \texttt{model} strukt�
 \bigskip
 
 Majd az összeszámolt értékek számával \texttt{create\_arrays} lefoglalja a szükséges nagyságú tömböket.
+\bigskip
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.5]{images/create.png}
@@ -95,19 +99,22 @@ Majd az összeszámolt értékek számával \texttt{create\_arrays} lefoglalja a
 \bigskip
 \newpage
 Ezután lefoglalt tömböt  a \texttt{read\_elements} kiolvassa a fájlból és feltölti az egyes értékekkel.
+\bigskip
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.5]{images/read.png}
 \end{figure}
 \Section {Textúra}
 Textúra pontok \texttt{u}, \texttt{v} [0 ; 1] intervallumon belül kell elhelyezkedni,ez az OBJ fájlok egy részében nem ígyvan ennek ellenőrzésére  a  \texttt{print\_texture\_box} nyújthat segítséget. Amennyiben utasítjuk a programot  a texture\_box kiszámítására és megjelenítésére, abban az esetben egy fix struktúrát jelenít meg számunkra a program és benne jelzi a számított adatokat.
+\bigskip
 \begin{python}
 Texture box:
 u in [0.000000, 1.000000]
 v in [0.000000, 1.000000]
 \end{python}
+\bigskip
 
-Balról jobbra haladva először megjeleníti a fájlban \textbf{u} legkisebb és legnagyobb értékét, majd ugyanezt megcsinálja a \textbf{v} koordináta számított adataival is.\\
+Balról jobbra haladva először megjeleníti a fájlban \textbf{u} legkisebb és legnagyobb értékét, majd ugyanezt megvalósítja a \textbf{v} koordináta számított adataival is.\\
 
 Szoftver 2D (kép formátumú) textúrák megjelenítését támogatja  kívánt fájl megadása \texttt{texture.c} programfájlon belül \texttt{texture\_filename} után lehetséges.
 \bigskip
@@ -154,9 +161,9 @@ Javító szoftver lévén maga a megjelenítő minimális funkciókkal lett ell�
 \label{fig:demo}
 \end{figure}
 \newpage
-\Section {Javítható Hibák}
+\Section {Javítható hibák}
 \SubSection{Háromszögesítés}
-Korábbi észrevételeim alapján egyes betöltőknél gondot okoz, a háromszögeknél több csúcsszámú síkodomok kezelése ennek a problémának a javítása fejlesztettem ki a \texttt{triangulation\_of\_quads} funkciót. Funkció célja, hogy négyzögeket két háromszögre bontjunk szét.
+Korábbi észrevételeim alapján egyes betöltőknél gondot okoz, a háromszögeknél több csúcsszámú síkodomok kezelése, ennek a problémának a javítása fejlesztettem ki a \texttt{triangulation\_of\_quads} funkciót. Funkció célja, hogy négyszögeket két különálló  háromszögre bontjunk szét.
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.39]{images/triangulation.png}
@@ -164,15 +171,16 @@ Korábbi észrevételeim alapján egyes betöltőknél gondot okoz, a háromszö
 \label{fig:tri}
 \end{figure}
 
-\noindent A célünk ezzel, a \ref{fig:tri}. ábrán  látható módon minden négyszög síkodomot felbontsunk két különböző háromszögre szaggatott vonalon való metszéssel. Persze az ábrán látható négyszög egy szabályos négyzet, de ezek a négyszögek felvehetnek többféle alakzatot (téglalap, deltoid, rombusz stb...).\\
+\noindent A célünk ezzel, a \ref{fig:tri}. ábrán  látható módon minden négyszög síkodomot felbontsunk két különböző háromszögre szaggatott vonalon való metszéssel. Persze az ábrán látható négyszög egy szabályos négyzet, de ezek a négyszögek felvehetnek többféle alakzatot (téglalap, deltoid, rombusz stb...).
 
-Ez úgy valósul meg, hogy a program kiválasztja az első beolvasott négyszöget az OBJ fájlból annak első három csúcs koordinátájából képez egy háromszöget majd a következő háromszöget az előző négyszög első harmadik illetve negyedik koordinátájából képezi le, így végighaladva az összes négyszögön ami az OBJ fájlunkban található.\\Ennek szemléletetése a \ref{fig:tri1}. ábrán látható.
+Ez úgy valósul meg, hogy a program kiválasztja az első beolvasott négyszöget az OBJ fájlból annak első három csúcs koordinátájából képez egy háromszöget majd a következő háromszöget az előző négyszög első harmadik, illetve negyedik koordinátájából képezi le így végighaladva az összes négyszögön ami az OBJ fájlunkban található.\\Ennek szemléletetése a \ref{fig:tri1}. ábrán látható.
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.39]{images/haromszog.png}
 \caption{Háromszögesítés diagram.}
 \label{fig:tri1}
 \end{figure}
+\newpage
 
 Megvalósítás során \texttt{triangulation\_of\_quads} funkció modell struktúránkból elveszi az összes négyszöget és két háromszöggel tölti fel azok helyét, illetve a lapok számát is növeli minden felvágott négyszög esetében eggyel.
 
@@ -218,9 +226,9 @@ A program ezen része arra szolgál, hogy a háromszögeink bejárási irányát
 \end{figure}
 \bigskip
 
-Egy háromszög csúcsok közötti bejárást kétféleképpen tudjuk bejárni. \Aref{fig:bej1}. ábrán bal oldalt látható  óramutató járásával ellentétes bejárási sorrendben (1 -> 3 -> 2), amit a glut alapból használ, jobb oldalon pedig az ellenkezője óramutató járásával megegyező bejárás (1 -> 2 -> 3).\\
+Egy háromszög csúcsok közötti bejárást kétféleképpen tudjuk bejárni. \Aref{fig:bej1}. ábrán bal oldalt látható  óramutató járásával ellentétes bejárási sorrendben (1 -> 3 -> 2), amit a megjelenítőnk alapból használ, jobb oldalon pedig az ellenkezője óramutató járásával megegyező bejárás (1 -> 2 -> 3).
 
-Ez a funkció \texttt{change\_vertex\_order} függvény néven van a programba implementálva. Amennyiben úgy döntünk és ezt alkalmazzuk a programunk elvégzi a bejárási irány cserét model struktúrába betöltött objektomunkon.\\
+Ez a funkció \texttt{change\_vertex\_order} függvény néven van a programba implementálva. Amennyiben úgy döntünk és ezt alkalmazzuk a programunk elvégzi a bejárási irány cserét model struktúrába betöltött objektomunkon.
 
 Megjelenítés során a megjelenítő ugyanúgy óramutatójárásval ellentétesen fogja megjeleníteni a modellünket, viszont a programunk \texttt{change\_vertex\_order} függvény segítségével megváltoztatta csúcsok sorrendjét így a megjelenítés már óramutató járásával megegyező módon fog történni az eredeti OBJ fájlhoz képest.\\
 \newpage
@@ -234,7 +242,7 @@ Megjelenítés során a megjelenítő ugyanúgy óramutatójárásval ellentéte
 \end{figure}
 \bigskip
 
-Jól látható módon a felső modellünk hibás az alsó pedig jól került megjelenítésre. Két modell összesen az arcok közötti bejárási útvonal a különbség a két modell összes többi vektora ugyanaz \aref{fig:bej3} táblázatban bemutatásra kerül a két objektum közti eltérés. Ez a táblázat csak az arcok közötti eltérést mutatja.
+Jól látható módon a felső modellünk hibásan az alsó pedig jól került megjelenítésre. Két modell összesen az arcok közötti bejárási útvonal a különbség a két modell összes többi vektora ugyanaz \aref{fig:bej3} táblázatban bemutatásra kerül a két objektum közti eltérés. Ez a táblázat csak az arcok közötti eltérést mutatja.
 
 \newpage
 
