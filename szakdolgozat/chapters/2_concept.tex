@@ -19,9 +19,9 @@ Minden sor áll egy kezdő karakterből vagy szimbólumból, utána egy elválas
 # ez egy megjegyzes
 \end{python}
 \bigskip
-Geometriai vektorok:\\
+Geometriai csúcsok:\\
 
-\noindent \textbf{v} kezdőbetűvel ellátott sorok \textsl{geometriai vektort} definiálnak. Ezt követik (x, y, z [, w]) koordináták. A szögletes zárójel [ ] koordináta opcionális, alapértelmezés szerint 1.0 az értéke.
+\noindent \textbf{v} kezdőbetűvel ellátott sorok \textsl{geometriai csúcsot} definiálnak. Ezt követik (x, y, z [, w]) koordináták. A szögletes zárójel [ ] koordináta opcionális, alapértelmezés szerint 1.0 az értéke.
 \bigskip
 \begin{python} 
 v -0,123 0,345 0,678 [1,0]
@@ -36,38 +36,38 @@ v -0,123 0,345 0,678 [1,0]
 vt 0.500 1 [0]
 \end{python}
 \bigskip
-Normál vektorok:\\
+Normál csúcsok:\\
 
-\noindent \textbf{vn} kezdőbetűs sorok \textsl{normál vektort} definiálnak. Ezt  (x, y, z) koordináták követik.
+\noindent \textbf{vn} kezdőbetűs sorok \textsl{normál csúcsot} definiálnak. Ezt  (x, y, z) koordináták követik.
 \bigskip
 \begin{python} 
 vn -0.500 0.500 -0.500
 \end{python}
 \bigskip
-Arcelemek:\\
+Lapelemek:\\
 
-\noindent \textbf{f} kezdőbetűvel egy \textsl{arc elemet} írunk le. Az \textsl{arc elemet} \textsl{geometriai vektor}, \textsl{textúra koordináta}, \textsl{normál vektor} indexek listájával írjuk le {/} jellel elválasztva. Vektor{\_}index {/} textura{\_}index {/}  normál{\_}index formátumban. Minden index 1-ről indul és növekszik annak sorrendjében, amelyben a hivatkozott elemet definiálták.\\
+\noindent \textbf{f} kezdőbetűvel egy \textsl{lap elemet} írunk le. Az \textsl{lap elemet} \textsl{geometriai csúcs}, \textsl{textúra koordináta}, \textsl{normál csúcs} indexek listájával írjuk le {/} jellel elválasztva. Csúcs{\_}index {/} textura{\_}index {/}  normál{\_}index formátumban. Minden index 1-ről indul és növekszik annak sorrendjében, amelyben a hivatkozott elemet definiálták.\\
 
 \noindent \textbf{Pár gyakran előforduló face definíció:}\\
 
-\noindent Csak \textsl{geometriai vektorból} álló felület.
+\noindent Csak \textsl{geometriai csúcsokból} álló felület.
 \bigskip
 \begin{python} 
 f v1 v2 v3 v4 ...
 \end{python}
 \bigskip
- Minden \textsl{geometriai vektorhoz} hozzá van rendelve egy \textsl{textúra koordináta} is.
+ Minden \textsl{geometriai csúcshoz} hozzá van rendelve egy \textsl{textúra koordináta} is.
 \begin{python} 
 f v1/vt1 v2/vt2 v3/vt3 ...
 \end{python}
 \bigskip
-Minden \textsl{geometriai vektor} tartalmaz \textsl{textúra koordinátát} és \textsl{normál vektort}.
+Minden \textsl{geometriai csúcs} tartalmaz \textsl{textúra koordinátát} és \textsl{normál csúcsot}.
 \bigskip
 \begin{python} 
 f v1/vt1/vn1 v2/vt2/vn2 v3/vt3/vn3 ...
 \end{python}
 \bigskip
-A \textsl{geometriai vektorhoz} csak a \textsl{normál vektor} lett hozzárendelve, a \textsl{textúra koordináta} opcionális.
+A \textsl{geometriai csúcshoz} csak a \textsl{normál csúcs} lett hozzárendelve, a \textsl{textúra koordináta} opcionális.
 \bigskip
 \begin{python} 
 f v1/ /vn1 v2/ /vn2 v3/ /vn3 ...
@@ -75,12 +75,12 @@ f v1/ /vn1 v2/ /vn2 v3/ /vn3 ...
 \newpage
 \noindentÖsszefoglalva, az OBJ formális nyelv kulcsszavakból (<\textbf{v}>, <\textbf{vt}>, <\textbf{vn}>, <\textbf{f}>), speciális karakterekből (<\textbf{/}>,<\textbf{\#}>) és számokból (<\textbf{Float}>, <\textbf{Integer}>) épül fel. Az OBJ nyelvtanát következő szabályokkal adhatjuk meg:\\
 
-\noindent(OBJFájl) = {(Geometriai vektor)}+{(Textúra koordináta)}+{(Normál vektor)}+{(Arcelem)}\\
-(Geometriai vektor) = (v)+(Float)+(Float)+(Float)\\
+\noindent(OBJFájl) = {(Geometriai csúcs)}+{(Textúra koordináta)}+{(Normál csúcs)}+{(Lapelem)}\\
+(Geometriai csúcs) = (v)+(Float)+(Float)+(Float)\\
 (Textúra koordináta) = (vt)+(Float)+(Float)+[0]\\
-(Normál vektor) = (vn)+(Float)+(Float)+(Float)\\
-(Arcelem) = (f)+{(Arc{\_}indexek)}\\
-(Arc{\_}indexek) = (Integer)+[(/)+[(Integer)]+[(/)+[(Integer)]]]\\
+(Normál csúcs) = (vn)+(Float)+(Float)+(Float)\\
+(Lapelem) = (f)+{(Lap{\_}indexek)}\\
+(Lap{\_}indexek) = (Integer)+[(/)+[(Integer)]+[(/)+[(Integer)]]]\\
 
 \noindent A szögeltes zárójelbe [  ] foglalt elemek opcionálisak, vagyis a bennük lévő fogalom egyszer vagy egyszer sem jelenik meg a leírás során. \\
 
@@ -102,7 +102,7 @@ vn 1.0 0.0 0.0
 f 1/1/1 2/2/1 3/3/1 4/4/1
 \end{python}
 \bigskip
-A fájl először felsorolja a \textsl{geometriai vektorokat} (\textbf{v}), utána a \textsl{textúra koordinátákat} (\textbf{vt}) és \textsl{normál vektorokat} (\textbf{vn}), majd az \textsl{arcelemekkel} (\textbf{f}) egymáshoz rendeli ezeket. Ebben az esetben például a lapot négy csúcsponttal adtuk meg és {/} jellel elválasztva hozzá rendeltük a  \textsl{geometriai vektorok} , a \textsl{textúra koordináták} és a \textsl{normál vektorok} sorszámát.
+A fájl először felsorolja a \textsl{geometriai csúcsokat} (\textbf{v}), utána a \textsl{textúra koordinátákat} (\textbf{vt}) és \textsl{normál csúcsokat} (\textbf{vn}), majd az \textsl{lap elemekkel} (\textbf{f}) egymáshoz rendeli ezeket. Ebben az esetben például a lapot négy csúcsponttal adtuk meg és {/} jellel elválasztva hozzá rendeltük a  \textsl{geometriai csúcsok} , a \textsl{textúra koordináták} és a \textsl{normál csúcsok} sorszámát.
 
 A teljes OBJ formátum nagyon összetett, sok olyan szerkezeti egységet tartalmaz, ami egy szimpla objektum modellezéséhez szükségtelennek mondható.
 

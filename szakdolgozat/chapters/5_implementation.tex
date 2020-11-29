@@ -201,10 +201,10 @@ Az \ref{fig:tri2}. ábra bal oldali képen az eredeti \texttt{helmet.obj} modell
 \begin{tabular}{l|c|c|}
 & helmet.obj & helmet.obj háromszögesítés után \\
 \hline
-geometria vektorok & 6066 & 6066 \\
+geometria csúcsok & 6066 & 6066 \\
 textúra koordináták & 6409 & 6409 \\
-normál vektorok & 6650 & 6650 \\
-arc elemek & 6064 & 12128 \\
+normál csúcsok & 6650 & 6650 \\
+lap elemek & 6064 & 12128 \\
 háromszögek & 0 & 12128 \\
 négyszögek & 6064 & 0 \\
 \hline
@@ -212,7 +212,7 @@ négyszögek & 6064 & 0 \\
 \label{fig:tri3}
 \end{table}
 
-Az \ref{fig:tri3}. összesítő táblázat megmutatja hogyan változtak a \texttt{helmet.obj} adatai a háromszögesítés után. Láthatóan az összes négyszög eltünt a modellből ezeket két háromszögre bontotta a szoftver, az arc elemek száma is duplájára nőtt.
+Az \ref{fig:tri3}. összesítő táblázat megmutatja hogyan változtak a \texttt{helmet.obj} adatai a háromszögesítés után. Láthatóan az összes négyszög eltünt a modellből ezeket két háromszögre bontotta a szoftver, az lap elemek száma is duplájára nőtt.
 \newpage
 \SubSection{Bejárási irány megváltoztatás}
 \bigskip
@@ -242,13 +242,13 @@ Megjelenítés során a megjelenítő ugyanúgy óramutatójárásval ellentéte
 \end{figure}
 \bigskip
 
-Jól látható módon a felső modellünk hibásan az alsó pedig jól került megjelenítésre. Két modell összesen az arcok közötti bejárási útvonal a különbség a két modell összes többi vektora ugyanaz \aref{fig:bej3} táblázatban bemutatásra kerül a két objektum közti eltérés. Ez a táblázat csak az arcok közötti eltérést mutatja.
+Jól látható módon a felső modellünk hibásan az alsó pedig jól került megjelenítésre. Két modell összesen az lapok közötti bejárási útvonal a különbség a két modell összes többi csúcsa ugyanaz \aref{fig:bej3} táblázatban bemutatásra kerül a két objektum közti eltérés. Ez a táblázat csak az lapok közötti eltérést mutatja.
 
 \newpage
 
 \begin{table}[h]
 \centering
-\caption{Arc elemeket összehasonlító táblázat}
+\caption{Lap elemeket összehasonlító táblázat}
 \bigskip
 \begin{tabular}{|c|c|}
 Felső modell& Alsó modell \\
@@ -271,7 +271,7 @@ f  3//3 4//4 8//8 & f  3//3 8//8 4//4 \\
 \end{table}
 \bigskip 
 
-\Aref{fig:bej3} táblázatból láthatóan kivehető, hogy a háromszögünk arcfelsorolás iránya megváltozott a második és harmadik koordinátán, ezáltal a megjelenítés óramutató járásával megegyezően fog történni az eredeti OBJ fájl-hoz képest.
+\Aref{fig:bej3} táblázatból láthatóan kivehető, hogy a háromszögünk lap felsorolásának iránya megváltozott a második és harmadik koordinátán, ezáltal a megjelenítés óramutató járásával megegyezően fog történni az eredeti OBJ fájl-hoz képest.
 
 \Section {Fájlba írás}
 Változtatott OBJ fájl kiírása \texttt{obj\_output.obj} fájlba \texttt{write\_to\_file} függvény segítségével kivitelezhető. OBJ fájlunk betöltése és az elvégzett változtatások után a program megkérdezi kívánjuk menteni a változtatott OBJ fájlt, amennyiben így döntünk a program létrehozza az \texttt{obj\_output.obj} fájlt és azt feltölti model struktúránk aktuális adataival. A mentett fájlunkba kiírt OBJ fájl nem tartalmazza a betöltött fájl anyagjellemzőit illetve a megjegyzéseit sem.

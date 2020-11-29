@@ -9,7 +9,7 @@ Modellek kapcsán első lépésben összegyűjtöttem számos OBJ file-t, egy r�
 \bigskip
 \label{tab:modellek}
 \begin{tabular}{|l|c|c|c|c|c|c|c|c|}
-Modell neve& Vektor & T.vektor & N.vektor & Arc & H.szög & N.szög \\
+Modell neve& Csúcs & T.csúcs & N.csúcs & Lap & H.szög & N.szög \\
 \hline
 baby.obj & 12030 & 13154 & 12030 & 12028 & 0 & 12028 \\
 barrel.obj & 9348 & 9674 & 5411 & 5887 & 0 & 5880	\\
@@ -73,6 +73,7 @@ A OBJ fájl adatait egy közös model struktúrában tárolja a program a strukt
 \bigskip
 
 Az integer típusú \texttt{n\_vertices}, \texttt{n\_texture\_vertices}, \texttt{n\_normals}, \texttt{n\_faces} illetve \texttt{n\_triangles}, \texttt{n\_quads} és \texttt{n\_polygons} változók feltöltésre kerülnek az OBJ fájl különböző változótípus darabasznámainak összeszámlálásával.
+\newpage
 \begin{python}
 typedef struct Model
 {
@@ -175,9 +176,9 @@ typedef struct Model
 \end{figure}
 \bigskip
 
-\Aref{fig:index_}. ábrán látható az egyes arc elemek különböző vektorok koordinátjának összeolvasására szolgáló funkció megtervezése. Ennek a segítségével fogja a program összeállítani a különböző síkidomokat megjelenítés során.
+\Aref{fig:index_}. ábrán látható az egyes lap elemek különböző csúcsok koordinátjának összeolvasására szolgáló funkció megtervezése. Ennek a segítségével fogja a program összeállítani a különböző síkidomokat megjelenítés során.
 
-Triangle és Quad struktúrák index helyesen mutatnak az egyes vektorok koordinátáira.
+Triangle és Quad struktúrák index helyesen mutatnak az egyes csúcsok koordinátáira.
 
 Például az első fejezetben bemutatott négyszög példa esetében:
 
@@ -197,9 +198,9 @@ vn 1.0 0.0 0.0
 f 1/1/1 2/2/1 3/3/1 4/4/1
 \end{python}
 
-Arc (\textbf{f}) eleme elsőnek mutat \textbf{v}, \textbf{vt}, \textbf{vn} (\texttt{1, 1, 1}) koordinátáira, ami ennél a példánál (\texttt{v 0.0 0.0 0.0, vt 0.0 0.0, vn 1.0 0.0 0.0 }) . \\
+Lap (\textbf{f}) eleme elsőnek mutat \textbf{v}, \textbf{vt}, \textbf{vn} (\texttt{1, 1, 1}) koordinátáira, ami ennél a példánál (\texttt{v 0.0 0.0 0.0, vt 0.0 0.0, vn 1.0 0.0 0.0 }) . \\
 
-Majd a második esetnél \textbf{v}, \textbf{vt}, \textbf{vn} (\texttt{2, 2, 1}) koordinátáira ( \texttt{v 1.0 0.0 0.0, \\vt 1.0 0.0, vn 1.0 0.0 0.0} ) , így végighaladva az összes arc elemen.
+Majd a második esetnél \textbf{v}, \textbf{vt}, \textbf{vn} (\texttt{2, 2, 1}) koordinátáira ( \texttt{v 1.0 0.0 0.0, \\vt 1.0 0.0, vn 1.0 0.0 0.0} ) , így végighaladva az összes lap elemen.
 
 
 %\Section{Betöltők tárolási módjai}
