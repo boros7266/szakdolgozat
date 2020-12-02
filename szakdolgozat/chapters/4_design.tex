@@ -1,8 +1,8 @@
 \Chapter{Tervezés}
 \Section{Modellek}
 
-Modellek kapcsán első lépésben összegyűjtöttem számos OBJ file-t, egy részüknek az adatait \aref{fig:modellekt} táblázatban összegyűjtöttem.
-\bigskip
+Modellek kapcsán első lépésben összegyűjtöttem számos OBJ file-t, egy részüknek az adatait \aref{fig:modellekt} táblázatban összegeztem.
+
 \begin{table}[h]
 \centering
 \caption{Modellek táblázat}
@@ -36,44 +36,37 @@ wrench.obj & 11568 & 13326 & 10508 & 11568 & 0 & 11568 \\
 \label{fig:modellekt}
 \end{table}
 
-\Aref{fig:modellekt} tábázat modelleit a \url{https://free3d.com/} oldalról gyűjtöttem be. Ahol rengetek modell megtalálható. Ezeken a modelleken fellépő hibákat illetve különböző modellek kompatibilitási problémáit vizsgáltam.
+\Aref{fig:modellekt} tábázat modelljeit a \url{https://free3d.com/} oldalról szereztem be, ahol rengetek modell megtalálható. Ezeken a modelleken fellépő hibákat illetve különböző modellek kompatibilitási problémáit vizsgáltam.
 
-Vizsgálat során az  első szembetűnő dolog az volt, hogy ezek az objektumok komplexitásukban, jelentősen eltérnek egymástól. Voltak köztük olyan objektumok, amik viszonylag kevés komponensből állnak össze és voltak olyanok is, amik ezekhez képest jelentősen több elemből.
-Természetesen az oldalon található modell fájlok többsége teljesen jól működik, de akadtak köztük hibásak is.\\
+Vizsgálat során az első szembetűnő dolog az volt, hogy ezek az objektumok komplexitásukban, jelentősen eltérnek egymástól. Voltak köztük olyan objektumok, amik viszonylag kevés komponensből állnak össze és voltak olyanok is, amik ezekhez képest jelentősen több elemből.
+Természetesen az oldalon található modell fájlok többsége teljesen jól működik, de akadtak köztük hibásak is.
 
-Majd rendszereztem őket az alábbi kategóriákba:
+Rendszereztem őket az alábbi kategóriákba:
 \begin{itemize}
-\item Helyes modellek:\\
+\item \textit{Helyes modellek}:
 A megjelenítés tökéletesen megtörtént.
-\bigskip
-\item Javítható hibát tartalmazó modellek:\\
+\item \textit{Javítható hibát tartalmazó modellek}:
 A modellnek olyan javítható hibája van, ami a program segítségével majd javításra kerülhet.
-\bigskip
-\item Nem javítható hibák tartalmazó modellek:\\
+\item \textit{Nem javítható hibák tartalmazó modellek}:
 A modellnek olyan hibája van, ami nem kerülhet javításra a program segítségével.
 \end{itemize}
 \bigskip
 
-\newpage
-
 \Section{Saját modell struktúra megtervezése}
 
-\noindent Ennél a lépésnél megvizsgáltam és figyelembe vettem az általam vizsgált modell betöltők struktúrális felépítését és a következő konzekvenciát szűrtem le:
+Ennél a lépésnél megvizsgáltam, és figyelembe vettem az általam vizsgált modell betöltők struktúrális felépítését, és a következő konzekvenciát szűrtem le.
+Az általam megvizsgált modell betöltők tárolási módjai elég hasonlóak. Az objektum adatait egy közös modell struktúrában tárolják, ezt feltöltő adatokat pedig alstruktúrákban.
 
-Az általam megvizsgált modell betöltők tárolási módjai elég hasonlóak. Az objektum adataid egy közös modell struktúrában tárolják, ezt feltöltő adatokat pedig al struktúrákban.\\
+A saját tervezésű program az OBJ fájl adatait egy közös model struktúrában tárolja. A struktúrák és alstruktúrák felépítése és viszonyai \aref{fig:struct}. ábrán láthatók.
 
-A OBJ fájl adatait egy közös model struktúrában tárolja a program a struktúrák egymás közötti felépítése \aref{fig:struct}-es ábrán látható.
-\bigskip
 \begin{figure}[h]
 \centering
 \includegraphics[width=\textwidth]{images/struct.png}
-\caption{Model Struktúra.}
+\caption{A saját adatstruktúra felépítése a modellek adatainak tárolásához}
 \label{fig:struct}
 \end{figure}
-\bigskip
 
 Az integer típusú \texttt{n\_vertices}, \texttt{n\_texture\_vertices}, \texttt{n\_normals}, \texttt{n\_faces} illetve \texttt{n\_triangles}, \texttt{n\_quads} és \texttt{n\_polygons} változók feltöltésre kerülnek az OBJ fájl különböző változótípus darabasznámainak összeszámlálásával.
-\newpage
 \begin{python}
 typedef struct Model
 {
@@ -84,47 +77,35 @@ typedef struct Model
     int n_triangles;
     int n_quads;
     int n_polygons;
-}Model
+} Model;
 \end{python}
-\bigskip
-
 Ezt követően a \texttt{n\_vertices} számával közvetlen kiolvasásra kerülnek a \texttt{Vertex} struktúra különböző csúcspontjai.
-\bigskip
 \begin{python} 
 typedef struct Vertex
 {
     double x;
     double y;
     double z;
-}Vertex;
+} Vertex;
 \end{python}
-\bigskip
-
 Hasonlóan a \texttt{Vertex} struktúrához a \texttt{TextureVertex} csúcspontjai is kiolvasásra kerülnek az \texttt{n\_texture\_vertices} darabszámával.
-\bigskip
 \begin{python}
 typedef struct TextureVertex
 {
     double u;
     double v;
-}TextureVertex;
+} TextureVertex;
 \end{python}
-\bigskip
-
 Majd az előzőekhez hasonlóan a \texttt{NormalVertex}  struktúra csúcspontjai is feltöltődnek az \texttt{n\_normals} darabszámmal.
-\bigskip
 \begin{python}
 typedef struct NormalVertex
 {
     double x;
     double y;
     double z;
-}NormalVertex;
+} NormalVertex;
 \end{python}
-\bigskip
-\newpage
 Végül a \texttt{Triangle} és \texttt{Quad} struktúrák is feltöltésre kerülnek, \texttt{FacePoint} struktúra segítségével \texttt{n\_triangles} , illetve \texttt{n\_quads} darabszámmal.
-\bigskip
 \begin{python}
 typedef struct FacePoint
 {
@@ -143,10 +124,7 @@ typedef struct Quad
     struct FacePoint points[4];
 } Quad;
 \end{python}
-\bigskip
-
-Az összes adat  \texttt{Model} struktúrában kerül eltárolásra ennek előnye, hogy egy közös, kap helyet az OBJ fájl összes fontos adata, így egyszerűbben lehet rájuk hivatkozni illetve a modellen történő szükséges változásokat  így könnyebben elvégezhetjük
-\bigskip
+Az összes adat így a \texttt{Model} struktúrában kerül eltárolásra. Ennek előnye, hogy egy közös helyet kap az OBJ fájl összes fontos adata, így egyszerűbben lehet rájuk hivatkozni, illetve a modellen történő szükséges változásokat így könnyebben elvégezhetjük.
 \begin{python}
 typedef struct Model
 {
@@ -164,24 +142,22 @@ typedef struct Model
     struct Quad* quads;
 }Model;
 \end{python}
-\newpage
+
 \Section{Elem indexelés}
 
-\bigskip
+\Aref{fig:index_}. ábrán látható az egyes lap elemek különböző csúcsok koordinátjának összeolvasására szolgáló funkció megtervezése.
+
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.5]{images/point.png}
 \caption{Elem indexelés.}
 \label{fig:index_}
 \end{figure}
-\bigskip
 
-\Aref{fig:index_}. ábrán látható az egyes lap elemek különböző csúcsok koordinátjának összeolvasására szolgáló funkció megtervezése. Ennek a segítségével fogja a program összeállítani a különböző síkidomokat megjelenítés során.
+\noindent Ennek a segítségével fogja a program összeállítani a különböző síkidomokat megjelenítés során.
 
-Triangle és Quad struktúrák index helyesen mutatnak az egyes csúcsok koordinátáira.
-
-Például az első fejezetben bemutatott négyszög példa esetében:
-
+A \texttt{Triangle} és \texttt{Quad} struktúrák indexhelyesen mutatnak az egyes csúcsok koordinátáira.
+Például, az első fejezetben bemutatott négyszög objektum esetében:
 \begin{python} 
 v 0.0 0.0 0.0
 v 1.0 0.0 0.0
@@ -197,12 +173,5 @@ vn 1.0 0.0 0.0
 
 f 1/1/1 2/2/1 3/3/1 4/4/1
 \end{python}
-
-Lap (\textbf{f}) eleme elsőnek mutat \textbf{v}, \textbf{vt}, \textbf{vn} (\texttt{1, 1, 1}) koordinátáira, ami ennél a példánál (\texttt{v 0.0 0.0 0.0, vt 0.0 0.0, vn 1.0 0.0 0.0 }) . \\
-
-Majd a második esetnél \textbf{v}, \textbf{vt}, \textbf{vn} (\texttt{2, 2, 1}) koordinátáira ( \texttt{v 1.0 0.0 0.0, \\vt 1.0 0.0, vn 1.0 0.0 0.0} ) , így végighaladva az összes lap elemen.
-
-
-%\Section{Betöltők tárolási módjai}
-%\Section{Modellek}
-%\Section{Saját modell struktúra}
+A lap (\textbf{f}) eleme először mutat a \textbf{v}, \textbf{vt}, \textbf{vn} (\texttt{1, 1, 1}) koordinátáira, ami ennél a példánál (\texttt{v 0.0 0.0 0.0, vt 0.0 0.0, vn 1.0 0.0 0.0}).
+A második esetnél \textbf{v}, \textbf{vt}, \textbf{vn} (\texttt{2, 2, 1}) koordinátáira (\texttt{v 1.0 0.0 0.0, vt 1.0 0.0, vn 1.0 0.0 0.0}), így végighaladva az összes lap elemen.

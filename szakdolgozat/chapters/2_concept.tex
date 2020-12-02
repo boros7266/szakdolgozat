@@ -160,176 +160,157 @@ A téglalap alakú textúrákat azonban tetszőleges alakú sokszögekre, kell r
 
 \Section{Modellbetöltő szofverek}
 
-Manapság rengeteg modell elemző és betöltő szoftver áll rendelkezésünkre. A legtöbb ilyen szoftverről általánosságban elmondható, hogy ingyenes illetve  nyílt forráskóddal rendelkezik. Akadnak köztük elemzők, online betöltők, illetve telepítés után használható megjelenítők. A következő szakaszokban ezen szoftverek bemutatása következik.
+Manapság rengeteg modell elemző és betöltő szoftver áll rendelkezésünkre. A legtöbb ilyen szoftverről általánosságban elmondható, hogy ingyenes illetve  nyílt forráskóddal rendelkezik. Akadnak köztük elemzők, online betöltők, illetve telepítés után használható megjelenítők. A következő szakaszokban ezen szoftverek bemutatására kerül sor.
 
 \SubSection{Kixor modell elemző}
 
 Az első vizsgált elemző a Kixor modell elemzőszoftver volt \cite{micah1987markup}.
+Ez a következő webcímen érhető el: \url{https://www.kixor.net/dev/objloader/}.
 
-Elérési útvonal: \url{https://www.kixor.net/dev/objloader/}\\
+A program elemzi az adott OBJ fájlt, majd kiírja az abban lévő adatok egy részét.
 
-A program futtatás után kielemezte a benne található \texttt{test.obj} fájlt \ref{fig:kixor}. ábra.
-\bigskip
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.8]{images/kixor.png}
-\caption{Kixor Elemző.}
+\caption{A \textit{Kixor} elemző szoftver kimenete a \texttt{test.obj} állományra}
 \label{fig:kixor}
 \end{figure}
 \bigskip
 
-\Aref{fig:kixor}. ábrán jól láthatóan módon a program elvégezte a szükséges számításokat majd visszatért a számított adatokkal.
+\Aref{fig:kixor}. ábrán jól látható módon a program elvégezte a szükséges számításokat majd visszatért a számított adatokkal.
 
-Ez a szoftver nem alkalmas a modell megjelenítésére csak annak elemzésére viszont azt sok szemppontból megteszi, ha csak elemezni szeretnénk az OBJ fájlunkat abban az esetben kiváló lehetőségként szolgál.
-\newpage
+Ez a szoftver nem alkalmas a modell megjelenítésére, csak annak elemzésére viszont azt sok szemppontból megteszi. Amennyiben csak elemezni szeretnénk az OBJ fájlunkat, abban az esetben kiváló lehetőségként szolgál.
+
 \SubSection{Online 3D Viewer}
 
-Az első már megjelenítésre is alkalmas szoftver az Online 3D Viewer volt.\cite{online2014viktor}\\
-Elérési útvonal: \url{https://3dviewer.net/}\\
+Az első dolgozatban vizsgált már megjelenítésre is alkalmas szoftver az \textit{Online 3D Viewer} \cite{online2014viktor}.
+Ez a \url{https://3dviewer.net/} weboldalon található.
 
-Az oldalra érkezve \aref{fig:model_viewer1} ábran egy egyszerű és letisztult formátumot látunk, ahol rövid leírást ad a felhasználó számára, mik a támogatott fájlformátumok illetve azokat hogyan tudjuk megnyitni.
-\bigskip
+Az oldalra érkezve \aref{fig:model_viewer1}. ábrán látható egyszerű és letisztult felületet kapunk, ahol rövid leírást találhatunk, hogy melyek a támogatott fájlformátumok, illetve azokat hogyan tudjuk megnyitni.
+
 \begin{figure}[h]
 \centering
 \includegraphics[width=\textwidth]{images/Model_Viewer.png}
 \caption{Online 3D Viewer kezdőfelelület.}
 \label{fig:model_viewer1}
 \end{figure}
-\bigskip
 
-Mint \aref{fig:model_viewer1}. ábrán látható a számunkra lényeges \texttt{.obj} kiterjesztésű fájl formátum szintén a támogatott fájlformátumok között szerepel.
+Mint \aref{fig:model_viewer1}. ábrán látható, a számunkra lényeges \texttt{.obj} kiterjesztésű fájl formátum szintén a támogatott fájlformátumok között szerepel.
 
-Leírásban benne van, hogy a megnyitás háromféleképpen történhet meg az oldal segitségével:
+A program leírásában benne van, hogy a megnyitás háromféleképpen történhet meg az oldal segitségével.
 \begin{itemize}
 \item Első lehetőségként az oldal bal felső részében található megnyitás gombra kattintva kiválasztjuk a megnyitni kivánt modellünket.
-\item Második lehetőségként behúzzuk az oldalra a kívánt mdellünket egér segítségével.
-\item Harmadik lehetőség pedig megadjuk a fájlok helyének webcímét.
+\item Második lehetőségként behúzzuk az oldalra a kívánt modellünket egér segítségével (\textit{drag-and-drop} művelet).
+\item Harmadik lehetőség pedig megadhatjuk a fájlok helyének URL-jét.
 \end{itemize}
-\newpage
-Miután kiválasztottuk a megfelelő objektumot az automatikusan megjelenik a rajzfelületen \aref{fig:model_viewer2} ábra.
-\bigskip
+Miután kiválasztottuk a megfelelő objektumot az automatikusan megjelenik a rajzfelületen  (\ref{fig:model_viewer2}. ábra).
+
 \begin{figure}[h]
 \centering
 \includegraphics[width=\textwidth]{images/Model_Viewer_2.png}
 \caption{Online 3D Viewer modell betöltéssel.}
 \label{fig:model_viewer2}
 \end{figure}
-\bigskip
 
 Rajzfelülettől balra találhatóak az objektumunkról gyűjtött adatok. Felette a model egyes síkidomjainak központba helyezése, a modellünk forgatása bal egérgomb folytonos nyomva tartásával és egér mozgatásával történhet. Ezen felül kameránk közelítése és távolítása görgő segítségével kivitelezhető.
 
-A modellbetöltő gyors és egyszerű megjelenítést biztosít számunkra, tökéletesen működik a bonyolultabb geometriájú síkodomok megjelenítésével legyen szó háromszög, négyszög vagy akár ennél nagyobb csúcsszámmal rendelkező síkodomról. Ez nagy előnyt jelent felhasználó szempontból, amennyiben csak a modell megjelenítése a cél.
+A modellbetöltő gyors és egyszerű megjelenítést biztosít számunkra, tökéletesen működik a bonyolultabb geometriájú síkodomok megjelenítésével, legyen szó háromszög, négyszög vagy akár ennél nagyobb csúcsszámmal rendelkező sokszögről. Ez nagy előnyt jelent felhasználó szempontból, amennyiben csak a modell megjelenítése a cél.
 
-Sajnos kép alapú textúrázás nem támogatott a program által, ezért a textúrázás nem lehetséges. Másik probléma a szoftverrel, hogy egy időben csak egy OBJ file kirajzolására alkalmas.\\
+Sajnos kép alapú textúrázás nem támogatott a program által, ezért a textúrázás nem lehetséges. Másik probléma a szoftverrel, hogy egy időben csak egy OBJ file kirajzolására alkalmas.
 
-Betöltő forráskódja illetve a programmal kapcsolatos rövid leírás megtalálható a következő weboldalon:
+A betöltő forráskódja, illetve a programmal kapcsolatos rövid leírás megtalálható a következő weboldalon: \url{https://github.com/kovacsv/Online3DViewer}.
 
-\url{https://github.com/kovacsv/Online3DViewer}
-\newpage
 \SubSection{Creators 3D Online Viewer}
 
-Másik ilyen internetes betöltő a Creators 3D Online Viewer.\cite{creators2018creators3d}\\
-Elérési útvonal: \url{https://www.creators3d.com/online-viewer}\\
+Másik ilyen internetes betöltő a Creators 3D Online Viewer \cite{creators2018creators3d}.
+Ennek weboldala a  \url{https://www.creators3d.com/online-viewer} címen található.
 
-\noindent Hasonlóan az előző Online 3D Viewer-hez a betöltő kezdőfelületén \aref{fig:3d1} ábra szintén tájékoztatást ad a támogatott fájlformátumokról.
+Hasonlóan az előző Online 3D Viewer-hez a betöltő kezdőfelületén \aref{fig:3d1}. ábra szintén tájékoztatást ad a támogatott fájlformátumokról.
 
-Ez a betöltő is támogatja a OBJ fájl megjelenítését. A betöltő szintén támogatást nyújt a különböző sokaságú csúcspontal rendelkező síkidomok betöltésével, az előzőtől eltérően itt a megnyitás kétféle képpen történhet
-
+Ez a betöltő is támogatja a OBJ fájl megjelenítését. A betöltő szintén támogatást nyújt a különböző számú csúcspontal rendelkező sokszögek betöltésével, az előzőtől eltérően itt a megnyitás kétféle képpen történhet.
 \begin{itemize}
-\item Első lehetőség: \\
+\item Első lehetőség:
 A rajzfelültre húzzuk a megjelenítésre szánt objektum fájlunkat .
-\item Második lehetőség:\\
-Rajzfelületre kattintva megadjuk a fájlunk lokális helyének az útvonalát.\\
-\bigskip
-\begin{figure}[h]
-\centering
-\includegraphics[width=\textwidth]{images/3D_creators.png}
-\caption{Online 3D Viewer kezdőfelület.}
-\label{fig:3d1}
-\end{figure}
-\bigskip
-
-Rajzfelületre kattintva megadjuk a fájlunk lokális helyének az útvonalát.\\
+\item Második lehetőség:
+Rajzfelületre kattintva megadjuk a fájlunk lokális helyének az útvonalát.
+A rajzfelületre kattintva megadjuk a fájlunk lokális helyének az útvonalát.
 \end{itemize}
-\newpage
-\bigskip
-Amint kiválasztjuk a megjelenítésre szánt fájlunkat a felsorolt két lehetőség közül az objektum megjelenik a rajzfelületen \aref{fig:3d2}. ábra.
-\bigskip
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{images/3D_creators.png}
+	\caption{Online 3D Viewer kezdőfelület.}
+	\label{fig:3d1}
+\end{figure}
+
+Amint kiválasztjuk a megjelenítésre szánt fájlunkat a felsorolt két lehetőség közül, az objektum megjelenik a rajzfelületen (\ref{fig:3d2}. ábra).
+
 \begin{figure}[h]
 \centering
 \includegraphics[width=\textwidth]{images/3D_creators_2.png}
 \caption{Online 3D Viewer modell betöltéssel.}
 \label{fig:3d2}
 \end{figure}
-\bigskip
 
-Előző betöltőhöz hasonlóan szintén nagyon gyorsan megjelenítette a betöltésre szánt modellünket. Nyilván minél komplexebb a modellünk annál arányosabban több időbe telik a betöltés.
+Az előző betöltőhöz hasonlóan szintén nagyon gyorsan megjelenítette a betöltésre szánt modellünket. Nyilván minél komplexebb a modellünk, azzal arányosan több időbe telik a betöltés.
 
-\newpage
-Rajzfelülettől jobbra találhatóak különböző beállítások a megjelenítéssel kapcsolatban. Ilyenek például a keret kirajzolása (wireframe), aminek bekapcsolásával csak a modell hálója látszódik a \ref{fig:3d3}. ábrán.
+A rajzfelülettől jobbra találhatóak különböző beállítások a megjelenítéssel kapcsolatban. Ilyenek például a keret kirajzolása (\textit{wireframe}), aminek bekapcsolásával csak a modell hálója látszódik (\ref{fig:3d3}. ábra).
+
 \begin{figure}[h]
-\bigskip
 \centering
 \includegraphics[width=\textwidth]{images/3D_creators_4.png}
 \caption{Online 3D Viewer keret kirajzolással.}
 \label{fig:3d3}
 \end{figure}
-\bigskip
 
-De sok más egyéb funkcióval is ellátott például megjeleníthető koordináta tengely (grid), aminek segítségével vizsgálhatjuk az objektumunk irányultságát illetve elhelyeszkedését az x, y tengely kék és piros vonallal lettek jelezve a z tengely pedig zöldel  \ref{fig:3d3}. ábra.
-\newpage
+Sok más további funkcióval is rendelkezik, például megjeleníthető a koordináta tengely (\textit{grid}), aminek segítségével vizsgálhatjuk az objektumunk irányultságát, illetve elhelyeszkedését. Az $x$, $y$ tengely kék és piros vonallal lettek jelezve a $z$ tengely pedig zöldel  (\ref{fig:3d3}. ábra).
+
 \SubSection{Model Loader}
-Következő tesztelt szoftver, a Piller Imre által fejlesztett Model Loader volt.\cite{imre2020model}\\
 
-\noindent A betöltő szoftverről részletes magyar nyelvű leírás és használati útmutató a következő webcímen található: \url{https://www.uni-miskolc.hu/~matip/grafika/}\\
+Következő tesztelt szoftver, a Piller Imre által fejlesztett Model Loader volt \cite{imre2020model}.
 
-A weboldalon található teljes dokumentáció beleértve : fejlesztő környezet beüzemelése, egyszerű objektumok kirajzolás, anyagjellemzők beállítása illetve textúrázás.
+A betöltő szoftverről részletes magyar nyelvű leírás és használati útmutató a következő webcímen található: \url{https://www.uni-miskolc.hu/~matip/grafika/}.
 
-Ez a betöltő támogatja a kép alapú textúrázást, több objektum egy időben való betöltését  ezeket akár különböző textúrával illetve anyagjellemzővel is megjeleníthetjük.\\
+A weboldalon található teljes dokumentáció a következő részeket tartalmazza: fejlesztő környezet beüzemelése, egyszerű objektumok kirajzolás, anyagjellemzők beállítása, illetve textúrázás.
 
-Fejlesztői környezet beállítása után első futtatásra a \texttt{cube.obj} nevű példa a hozzátartozó textúrával következőképpen néz ki betöltés után (\ref{fig:model1}. ábra).
-\bigskip
+Ez a betöltő támogatja a kép alapú textúrázást, több objektum egy időben való betöltését. Ezeket akár különböző textúrával illetve anyagjellemzővel is megjeleníthetjük.
+
+A fejlesztői környezet beállítása után az első futtatásra a \texttt{cube.obj} nevű példa a hozzátartozó textúrával \aref{fig:model1}. ábrán látható módon néz ki.
+
 \begin{figure}[h]
 \centering
 \includegraphics[width=\textwidth]{images/Model_loader.png}
 \caption{Cube.obj megjelenítése.}
 \label{fig:model1}
 \end{figure}
-\bigskip
 
-Megjelenítés teljesen jól történt a megjelenítendő objektumot egy külön ablakban kirajzolta a program. A textúra illesztésével nem volt gond.\\
-\newpage
-Majd különböző komplexitású modellek betöltését teszteltem \ref{fig:modelbaby}. és  \ref{fig:modelbird}. ábrák.
-\bigskip
+A megjelenítés teljesen jól történ,t a megjelenítendő objektumot egy külön ablakban kirajzolta a program. A textúra illesztésével nem volt gond.
+
+Különböző komplexitású modellek betöltését teszteltem (\ref{fig:modelbaby}. és  \ref{fig:modelbird}. ábrák).
+
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.35]{images/model1.png}
 \caption{Baby.obj modell megjelenítése.}
 \label{fig:modelbaby}
 \end{figure}
-\bigskip
+
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.35]{images/bird.png}
 \caption{Bird.obj modell megjelenítése.}
 \label{fig:modelbird}
 \end{figure}
-\bigskip
 
 Ezek a modellek szintén tökéletes megjelenítésre kerültek, a hozzájuk tartozó textúra betöltésével nem volt gond a modell megjelent a rajzfelületen.
-\newpage
-Pár ilyen betöltés után észrevettem,hogy a betöltő nem kezel háromszögnél nagyobb csúcspontal rendelkező síkidomokat,  \aref{fig:model1} ábra megjelenített \texttt{cube.obj} háromszögeit át konvertáltam négyszögekké, majd ezek után szintén betöltöttem a megjelenítőbe (betöltés \ref{fig:model2} ábra).
-\bigskip
+
+Pár ilyen betöltés után észrevettem, hogy a betöltő nem kezel háromszögnél nagyobb csúcspontal rendelkező sokszögeket. \Aref{fig:model1} ábrán megjelenített \texttt{cube.obj} háromszögeit átkonvertáltam négyszögekké, majd ezek után szintén betöltöttem a megjelenítőbe. A betöltés utáni eredmény \aref{fig:model2}. ábrán látható.
+
 \begin{figure}[h]
 \centering
 \includegraphics[width=\textwidth]{images/Model_quads.png}
 \caption{Cube Model négyszögekkel.}
 \label{fig:model2}
 \end{figure}
-\bigskip
 
-Az ábrán jól látható hogy az objektum megjelent az ablakban viszont a kirajzolás nem megfelelő módon történt a kockánk eléggé hiányos, hiányzik a síkidomokról a negyedik csúcspont. A javító programunk egyik tervezett része ennek a hibának a javítására szolgál.
-%\Section{Obj fájl formátum}
-%\Section{Obj elemző szoftverek}
-%\Section{Obj Bickbucket}
-%\Section{Obj Bickbucket teszt}
+Az ábrán jól látható, hogy az objektum megjelent az ablakban, viszont a kirajzolás nem megfelelő módon történt, a kockánk eléggé hiányos. Hiányzik a síkidomokról a negyedik csúcspont. A javító programunk egyik tervezett része ennek a hibának a javítására szolgál.
