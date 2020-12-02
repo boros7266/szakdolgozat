@@ -16,16 +16,16 @@ Minden karakter, ami egy kettőskereszt (\#) karakter után helyezkedik el, az e
 # ez egy megjegyzes
 \end{python}
 A \textbf{v} kezdőbetűvel ellátott sorok \textsl{geometriai csúcsot} definiálnak. Ezt követik a koordináták $(x, y, z [, w])$. (A szögletes zárójel opcionális koordinátát jelent ebben az esetben, amelynek alapértelmezett értéke 1.) Egy csúcspontot leíró sor például a következőképpen néz ki:
-\begin{python} 
+\begin{python}
 v -0.123 0.345 0.678
 \end{python}
 A \textbf{vt} kezdőbetűvel \textsl{textúra koordinátát} írunk le. Ezt (u, [, v, w]) koordináták követik, ezek 0 és 1 közötti értékek. A szögletes zárójel [ ] koordináta értékei opcionálisak és alapértelmezés szerint 0.0 az értékük.
-\begin{python} 
+\begin{python}
 vt 0.500 1 [0]
 \end{python}
 \bigskip
 A \textbf{vn} kezdőbetűs sorok \textsl{normál vektorokat} definiálnak. Ezt $(x, y, z)$ koordináták követik.
-\begin{python} 
+\begin{python}
 vn -0.500 0.500 -0.500
 \end{python}
 \bigskip
@@ -34,20 +34,20 @@ Az \textbf{f} kezdőbetűvel egy \textsl{lap elemet} írunk le. A \textsl{lap el
 \SubSection{Lap definiálási formák}
 
 A kizárólagosan \textsl{geometriai csúcsokból} álló lapot a következő formában definiálja a szabvány:
-\begin{python} 
+\begin{python}
 f v1 v2 v3 v4 ...
 \end{python}
 Amennyiben minden \textsl{geometriai csúcshoz} hozzá van rendelve egy \textsl{textúra koordináta} is, akkor az az alábbi forma szerint néz ki:
-\begin{python} 
+\begin{python}
 f v1/vt1 v2/vt2 v3/vt3 ...
 \end{python}
 \bigskip
 Minden \textsl{geometriai csúcs} tartalmazhat \textsl{textúra koordinátát} és \textsl{normál csúcsot} az alábbiak szerint:
-\begin{python} 
+\begin{python}
 f v1/vt1/vn1 v2/vt2/vn2 v3/vt3/vn3 ...
 \end{python}
 Előfordulhat, hogy a \textsl{geometriai csúcshoz} csak a \textsl{normál csúcs} lett hozzárendelve, vagyis a \textsl{textúra koordináta} opcionális:
-\begin{python} 
+\begin{python}
 f v1/ /vn1 v2/ /vn2 v3/ /vn3 ...
 \end{python}
 
@@ -65,7 +65,7 @@ f v1/ /vn1 v2/ /vn2 v3/ /vn3 ...
 \noindent A szögeltes zárójelbe foglalt elemek opcionálisak, vagyis a bennük lévő fogalom egyszer vagy egyszer sem jelenik meg a leírás során.
 
 A következőkben egy példát láthatunk arra, hogy egy négyszög hogyan definiálható a Wavefront szabvány segítségével.
-\begin{python} 
+\begin{python}
 v 0.0 0.0 0.0
 v 1.0 0.0 0.0
 v 1.0 1.0 0.0
@@ -76,7 +76,7 @@ vt 1.0 0.0
 vt 1.0 1.0
 vt 0.0 1.0
 
-vn 1.0 0.0 0.0 
+vn 1.0 0.0 0.0
 
 f 1/1/1 2/2/1 3/3/1 4/4/1
 \end{python}
@@ -150,19 +150,22 @@ Ns 10.000
 
 \Section{Textúrák}
 
-Bár az OBJ fájl formátumnak nem része, mégis fontos megemlíteni a textúrázást, a valóságszerű képek létrehozásánál egy fontos eszközünk a textúránk leképzése, hiszen a valóságban körülöttünk lévő tárgyak sem egyszínűek.
+Bár az OBJ formátumnak nem része, mégis fontos megemlíteni a textúrázást. A valósághű képek létrehozásánál egy fontos eszközünk a képként megadott mintázatok térbeli objektumokra való leképzése, hiszen a valóságban körülöttünk lévő tárgyak sem egyszínűek.
 
-Textúrázás alatt általában kétdimenziós textúrázást értünk, de lehetnek ezek akár egy vagy háromdimenzionálisak is. A textúra geometriailag egy téglalap, ami sorokba és oszlopokba rendezet elemekből épül fel.
+Textúrázás alatt általában kétdimenziós textúrázást értünk, de lehetnek ezek akár egy vagy háromdimenziósak is. A textúra geometriailag egy téglalap, ami sorokba és oszlopokba rendezet elemekből épül fel.
 
 A textúra tehát adatok 1, 2 vagy 3 dimenziós tömbjének tekinthető. Az egyes textúra elemekhez tárolt adat képviselhet színt, fényerősséget vagy szín és alfa értékeket, azaz 1, 2, 3 vagy 4 adat  tartozhat minden textúra elemhez.
 
-A téglalap alakú textúrákat azonban tetszőleges alakú sokszögekre, kell ráhelyezni. Ráhelyezést a modelltérben kell megadni, ezért  a textúráka is hatnak a modell- és vetítési transzformációk. Ennek érdekében az objektumok létrehozásakor a csúcspontok geometriai koordinátái mellett a textúra koordinátákat is meg kell adni, ezeknek a textúra koordinátáknak [0, 1] x [0, 1] egységnégyzeten belül kell elhelyezkedniük. \cite{juhasz2003opengl}
+A téglalap alakú textúrákat azonban tetszőleges alakú sokszögekre, kell ráhelyezni. Ehhez a hozzárendelést a modelltérben kell megadni, ezért  a textúráka is hatnak a modell- és vetítési transzformációk. Ennek érdekében az objektumok létrehozásakor a csúcspontok geometriai koordinátái mellett a textúra koordinátákat is meg kell adni, ezeknek a textúra koordinátáknak $[0, 1] \times [0, 1]$ egységnégyzeten belül kell elhelyezkedniük \cite{juhasz2003opengl}.
+
 \Section{Modellbetöltő szofverek}
 
-Manapság rengeteg modell elemző és betöltő szoftver áll rendelkezésünkre. A legtöbb ilyen szoftverről általánosságban elmondható, hogy ingyenes illetve  nyílt forráskóddal rendelkezik. Akadnak köztük elemzők online betöltők illetve telepítés után használható megjelenítők. Ezen szoftverek bemutatása következik.
+Manapság rengeteg modell elemző és betöltő szoftver áll rendelkezésünkre. A legtöbb ilyen szoftverről általánosságban elmondható, hogy ingyenes illetve  nyílt forráskóddal rendelkezik. Akadnak köztük elemzők, online betöltők, illetve telepítés után használható megjelenítők. A következő szakaszokban ezen szoftverek bemutatása következik.
+
 \SubSection{Kixor modell elemző}
 
-Az első ilyen elemző a Kixor modell elemzőszoftver volt.\cite{micah1987markup}\\
+Az első vizsgált elemző a Kixor modell elemzőszoftver volt \cite{micah1987markup}.
+
 Elérési útvonal: \url{https://www.kixor.net/dev/objloader/}\\
 
 A program futtatás után kielemezte a benne található \texttt{test.obj} fájlt \ref{fig:kixor}. ábra.
@@ -184,7 +187,7 @@ Ez a szoftver nem alkalmas a modell megjelenítésére csak annak elemzésére v
 Az első már megjelenítésre is alkalmas szoftver az Online 3D Viewer volt.\cite{online2014viktor}\\
 Elérési útvonal: \url{https://3dviewer.net/}\\
 
-Az oldalra érkezve \aref{fig:model_viewer1} ábran egy egyszerű és letisztult formátumot látunk, ahol rövid leírást ad a felhasználó számára, mik a támogatott fájlformátumok illetve azokat hogyan tudjuk megnyitni. 
+Az oldalra érkezve \aref{fig:model_viewer1} ábran egy egyszerű és letisztult formátumot látunk, ahol rövid leírást ad a felhasználó számára, mik a támogatott fájlformátumok illetve azokat hogyan tudjuk megnyitni.
 \bigskip
 \begin{figure}[h]
 \centering
