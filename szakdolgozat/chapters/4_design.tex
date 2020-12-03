@@ -79,7 +79,10 @@ typedef struct Model
     int n_polygons;
 } Model;
 \end{python}
-Ezt követően a \texttt{n\_vertices} számával közvetlen kiolvasásra kerülnek a \texttt{Vertex} struktúra különböző csúcspontjai.
+
+\newpage
+
+\noindent Ezt követően a \texttt{n\_vertices} számával közvetlen kiolvasásra kerülnek a \texttt{Vertex} struktúra különböző csúcspontjai.
 \begin{python} 
 typedef struct Vertex
 {
@@ -96,7 +99,10 @@ typedef struct TextureVertex
     double v;
 } TextureVertex;
 \end{python}
-Majd az előzőekhez hasonlóan a \texttt{NormalVertex}  struktúra csúcspontjai is feltöltődnek az \texttt{n\_normals} darabszámmal.
+
+\newpage
+
+\noindent Majd az előzőekhez hasonlóan a \texttt{NormalVertex}  struktúra csúcspontjai is feltöltődnek az \texttt{n\_normals} darabszámmal.
 \begin{python}
 typedef struct NormalVertex
 {
@@ -140,7 +146,7 @@ typedef struct Model
     struct NormalVertex* normals;
     struct Triangle* triangles;
     struct Quad* quads;
-}Model;
+} Model;
 \end{python}
 
 \Section{Elem indexelés}
