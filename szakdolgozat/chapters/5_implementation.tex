@@ -135,15 +135,9 @@ gluLookAt
 );
 \end{cpp}
 A Kamera pozíciót a \texttt{gluLookAt} paraméterei állításával lehet pozícionálni.
-<<<<<<< HEAD
 
 Javító szoftverről lévén szó, maga a megjelenítő minimális funkciókkal lett ellátva, tehát nem tudjuk mozgatni  a modellünket, illetve kamera pozíciója sem változtatható megjelenítés után. Egyedül a modell forgatása lehetséges egér segítségével.
 
-=======
-
-Javító szoftverről lévén szó, maga a megjelenítő minimális funkciókkal lett ellátva, tehát nem tudjuk mozgatni  a modellünket, illetve kamera pozíciója sem változtatható megjelenítés után. Egyedül a modell forgatása lehetséges egér segítségével.
-
->>>>>>> d90ab7ad850e6073308db2fb32cf995d4f8fdada
 A \texttt{house.obj} megjelenítése a hozzátartozó textúrával \aref{fig:demo}. ábrán látható.
 \bigskip
 
@@ -153,11 +147,7 @@ A \texttt{house.obj} megjelenítése a hozzátartozó textúrával \aref{fig:dem
 \caption{House.obj modell megjelenítés.}
 \label{fig:demo}
 \end{figure}
-<<<<<<< HEAD
 \newpage
-=======
-
->>>>>>> d90ab7ad850e6073308db2fb32cf995d4f8fdada
 \Section{Javítható hibák}
 
 \SubSection{Háromszögesítés}
@@ -213,11 +203,7 @@ négyszögek & 6064 & 0 \\
 \end{table}
 
 \Aref{fig:tri3}. összesítő táblázat megmutatja hogyan változtak a \texttt{helmet.obj} adatai a háromszögesítés után. Láthatóan az összes négyszög eltünt a modellből ezeket két háromszögre bontotta a szoftver, az lap elemek száma is duplájára nőtt.
-<<<<<<< HEAD
 \newpage
-=======
-
->>>>>>> d90ab7ad850e6073308db2fb32cf995d4f8fdada
 \SubSection{Bejárási irány megváltoztatás}
 
 A program ezen része arra szolgál, hogy a háromszögeink bejárási irányát meg tudjuk változtatni \aref{fig:bej1}. ábrán látható módon.
@@ -232,15 +218,9 @@ A program ezen része arra szolgál, hogy a háromszögeink bejárási irányát
 Egy háromszög csúcsok közötti bejárást kétféleképpen tudjuk megad. \Aref{fig:bej1}. ábrán bal oldalt látható az óramutató járásával ellentétes bejárási sorrendben ($1 \rightarrow 3 \rightarrow 2$), amit a megjelenítőnk alapvetően használ, jobb oldalon pedig az ellenkezője, az óramutató járásával megegyező bejárás ($1 \rightarrow 2 \rightarrow 3$).
 
 Ez a funkció \texttt{change\_vertex\_order} függvény néven van a programban implementálva. Amennyiben úgy döntünk, és ezt alkalmazzuk a programunk elvégzi a bejárási irány cserét model struktúrába betöltött objektomunkon.
-<<<<<<< HEAD
 
 Megjelenítés során a megjelenítő ugyanúgy óramutatójárásval ellentétesen fogja megjeleníteni a modellünket, viszont a programunk \texttt{change\_vertex\_order} függvény segítségével megváltoztatta csúcsok sorrendjét így a megjelenítés már óramutató járásával megegyező módon fog történni az eredeti OBJ fájlhoz képest.
 \newpage
-=======
-
-Megjelenítés során a megjelenítő ugyanúgy óramutatójárásval ellentétesen fogja megjeleníteni a modellünket, viszont a programunk \texttt{change\_vertex\_order} függvény segítségével megváltoztatta csúcsok sorrendjét így a megjelenítés már óramutató járásával megegyező módon fog történni az eredeti OBJ fájlhoz képest.
-
->>>>>>> d90ab7ad850e6073308db2fb32cf995d4f8fdada
 \Aref{fig:bej2}. ábra egy egyszerű modellen keresztül ezt hivatott bemutatni.
 
 \begin{figure}[h]

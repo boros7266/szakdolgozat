@@ -51,11 +51,7 @@ A modellnek olyan javítható hibája van, ami a program segítségével majd ja
 A modellnek olyan hibája van, ami nem kerülhet javításra a program segítségével.
 \end{itemize}
 \bigskip
-<<<<<<< HEAD
 \newpage
-=======
-
->>>>>>> d90ab7ad850e6073308db2fb32cf995d4f8fdada
 \Section{Saját modell struktúra megtervezése}
 
 Ennél a lépésnél megvizsgáltam, és figyelembe vettem az általam vizsgált modell betöltők struktúrális felépítését, és a következő konzekvenciát szűrtem le.
@@ -103,12 +99,6 @@ typedef struct TextureVertex
     double v;
 } TextureVertex;
 \end{python}
-<<<<<<< HEAD
-=======
-
-\newpage
-
->>>>>>> d90ab7ad850e6073308db2fb32cf995d4f8fdada
 \noindent Majd az előzőekhez hasonlóan a \texttt{NormalVertex}  struktúra csúcspontjai is feltöltődnek az \texttt{n\_normals} darabszámmal.
 \begin{python}
 typedef struct NormalVertex
@@ -137,10 +127,7 @@ typedef struct Quad
     struct FacePoint points[4];
 } Quad;
 \end{python}
-<<<<<<< HEAD
 \newpage
-=======
->>>>>>> d90ab7ad850e6073308db2fb32cf995d4f8fdada
 Az összes adat így a \texttt{Model} struktúrában kerül eltárolásra. Ennek előnye, hogy egy közös helyet kap az OBJ fájl összes fontos adata, így egyszerűbben lehet rájuk hivatkozni, illetve a modellen történő szükséges változásokat így könnyebben elvégezhetjük.
 \begin{python}
 typedef struct Model
@@ -159,7 +146,7 @@ typedef struct Model
     struct Quad* quads;
 } Model;
 \end{python}
-
+\newpage
 \Section{Elem indexelés}
 
 \Aref{fig:index_}. ábrán látható az egyes lap elemek különböző csúcsok koordinátjának összeolvasására szolgáló funkció megtervezése.
