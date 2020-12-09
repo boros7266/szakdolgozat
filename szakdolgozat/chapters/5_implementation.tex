@@ -1,5 +1,5 @@
 \Chapter{Javító szoftver megvalósítás}
-A szoftver egy C nyelvű csomagként került megvalósításra, obj\_corrector\_tool (Objektum Javító Eszköz) névvel ellátva. A mappa tartalmazza az összes fájl-t a programhoz illetve az egységtesztekhez.\\
+A szoftver egy C nyelvű csomagként került megvalósításra, \texttt{obj\_corrector\_tool} (Objektum Javító Eszköz) névvel ellátva. A mappa tartalmazza az összes fájlt a programhoz illetve az egységtesztekhez.
 
 Csomag struktúrális felépítése a következő:
 \bigskip
@@ -33,99 +33,89 @@ Csomag struktúrális felépítése a következő:
 .2 Makefile.
 }
 \newpage
-\texttt{Include} mappa tartalmazza a szükséges header állományokat.  \texttt{OBJ} almappáiban találhatóak a felhasznált OBJ fájlok. Az \texttt{src}-ben találhatóak a C nyelvű programfájlok. \texttt{Tests} mappában található Cmockában írt egységtesztek . Végül közvetlen az \texttt{obj\_\\corrector\_tool} található a \texttt{Makefile} .\\
+Az \texttt{Include} mappa tartalmazza a szükséges fejléc állományokat. Az \texttt{OBJ} almappáiban találhatóak a felhasznált OBJ fájlok. Az \texttt{src}-ben találhatóak a C nyelvű forrásfájlok. \texttt{Tests} mappában találhatók a CMocka könyvtárral készített egységtesztek. Végül, közvetlen az \texttt{obj\_corrector\_tool} található a \texttt{Makefile}.
 
 \Section {Funkció hívás diagram}
-\bigskip
+
+\Aref{fig:funk} diagramon látható a program teljes funkcióhívás diagramja.
+
 \begin{figure}[h]
-\centering
-\includegraphics[width=\textwidth]{images/func.png}
-\caption{Teljes Funkcióhívás Diagram.}
-\label{fig:funk}
+	\centering
+	\includegraphics[width=\textwidth]{images/func.png}
+	\caption{Teljes Funkcióhívás Diagram.}
+	\label{fig:funk}
 \end{figure}
-\bigskip
-\Aref{fig:funk} diagramon látható a program teljes funkcióhívás diagramja. Ez a diagram nagyon komplex és rengetek különálló funkciót kezel egyben. A különböző függvények egymást hívják meg a program futattása során végül az összes főbb funkció a \texttt{main} funkcióban találkozik.\\
 
-Értelemszerűen, hogy egy OBJ javító alkalmazásról lévén szó az egyes funkciókat érdemes együtt  kezelni\\
-
-Program főbb funkciói:
+Ez a diagram nagyon komplex és rengetek különálló funkciót kezel egyben. A különböző függvények egymást hívják meg a program futattása során, végül az összes főbb funkció a \texttt{main} függvényben találkozik.
+Értelemszerűen, mivel egy OBJ javító alkalmazásról lévén szó, az egyes funkciókat érdemes együtt  kezelni. A program főbb funkciói:
  \begin{itemize}
-\item modell beolvasás
-\item textúra beolvasás
-\item hibák javítása
-\item fájlba írás
-\item megjelenítés
+\item modell beolvasás,
+\item textúra beolvasás,
+\item hibák javítása,
+\item fájlba írás,
+\item megjelenítés.
 \end{itemize}
-\bigskip
-Feldolgozási folyamatot fentről-lefelé értelmezhetjük.
-\newpage
-\Section {Modell beolvasás}
-Az alkalmazás minden olyan OBJ fájl betöltésére alkalmas, ami nem tartalmaz négyszögnél nagyobb csúcsszámmal rendelkező síkodomot, amennyiben az OBJ fájlunk tartalmaz ennél magasabb számút, azok számát képes összeszámlálni, viszont kezelni nem.\\
+A feldolgozási folyamatot fentről-lefelé értelmezhetjük.
+A következő szakaszok ezeket tekintik át.
 
-Elemzésre és javításra szánt OBJ fájl betöltése \texttt{main.c} (C nyelven írt programfájlon) belül \texttt{load\_model} függvénnyel történhet:
-\bigskip
+\Section{Modell beolvasás}
+
+Az alkalmazás minden olyan OBJ fájl betöltésére alkalmas, ami nem tartalmaz négyszögnél nagyobb csúcsszámmal rendelkező sokszöget. Amennyiben az OBJ fájlunk tartalmaz ennél magasabb számút, azok számát képes összeszámlálni, viszont kezelni nem.
+
+Elemzésre és javításra szánt OBJ fájl betöltése \texttt{main.c} (C nyelven írt programfájlon) belül a \texttt{load\_model} függvénnyel történhet:
 \begin{cpp}
 load_model("utvonal/pelda.kiterjesztes", &model, &regular);
 \end{cpp}
-\bigskip
+Az \texttt{utvonal}-nál meg kell adni a fájl elérési útvonalát, majd a \texttt{pelda} helyére az OBJ fájlunk nevét majd a kiterjesztést (\texttt{.obj}) írjuk.
 
-\texttt{utvonal}nál meg kell adni a fájl elérési útvonalát, majd a \texttt{pelda} helyére az OBJ fájlunk nevét majd a kiterjesztést (\texttt{.obj}).
-\bigskip
+\SubSection{A \texttt{Model} struktúra feltöltésének lépései}
 
-\noindent Modell struktúra feltöltés bemutatása funkcióhívásokkal:\\
-
-\texttt{Load\_model} beolvassa a megadott OBJ fájlt.
-\bigskip
+A \texttt{load\_model} függvény beolvassa a megadott OBJ fájlt.
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.5]{images/load.png}
 \end{figure}
 \bigskip
 
-Beolvasás után \texttt{count\_elements} összeszámolja \texttt{model} struktúra \texttt{n\_vertices},  \texttt{\\n\_texture\_vertices}, \texttt{n\_normals}, \texttt{n\_faces} illetve \texttt{n\_triangles}, \texttt{n\_quads} és \texttt{n\\\_polygons} egyes értékeit.
-\bigskip
+Beolvasás után \texttt{count\_elements} összeszámolja \texttt{model} struktúra \texttt{n\_vertices},  \texttt{\\n\_texture\_vertices}, \texttt{n\_normals}, \texttt{n\_faces} illetve \texttt{n\_triangles}, \texttt{n\_quads} és \\ \texttt{n\_\-polygons} egyes értékeit.
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.5]{images/count.png}
 \end{figure}
-\bigskip
 
-Majd az összeszámolt értékek számával \texttt{create\_arrays} lefoglalja a szükséges nagyságú tömböket.
-\bigskip
+Ezt követően az összeszámolt értékek számával \texttt{create\_arrays} lefoglalja a szükséges nagyságú tömböket.
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.5]{images/create.png}
 \end{figure}
-\bigskip
-\newpage
-Ezután lefoglalt tömböt  a \texttt{read\_elements} kiolvassa a fájlból és feltölti az egyes értékekkel.
-\bigskip
-\begin{figure}[h]
+
+Ez után a lefoglalt tömböt a \texttt{read\_elements} kiolvassa a fájlból, és feltölti az egyes értékekkel.
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.5]{images/read.png}
 \end{figure}
-\Section {Textúra}
-Textúra pontok \texttt{u}, \texttt{v} [0 ; 1] intervallumon belül kell elhelyezkedni,ez az OBJ fájlok egy részében nem ígyvan ennek ellenőrzésére  a  \texttt{print\_texture\_box} nyújthat segítséget. Amennyiben utasítjuk a programot  a texture\_box kiszámítására és megjelenítésére, abban az esetben egy fix struktúrát jelenít meg számunkra a program és benne jelzi a számított adatokat.
-\bigskip
+
+\newpage
+
+\Section{Textúrák kezelése}
+
+A textúra pontok az $(u, v) \in [0, 1]^2$ formában adhatók meg. Az intervallum az OBJ fájlok egy részében nem így van. Ennek ellenőrzésére a  \texttt{print\_texture\_box} függvény nyújthat segítséget. Amennyiben utasítjuk a programot  a \texttt{texture\_box} kiszámítására és megjelenítésére, abban az esetben egy fix struktúrát jelenít meg számunkra a program, és benne jelzi a számított adatokat, helyes esetben a következő formában
 \begin{python}
 Texture box:
 u in [0.000000, 1.000000]
 v in [0.000000, 1.000000]
 \end{python}
 \bigskip
-
-Balról jobbra haladva először megjeleníti a fájlban \textbf{u} legkisebb és legnagyobb értékét, majd ugyanezt megvalósítja a \textbf{v} koordináta számított adataival is.\\
-
-Szoftver 2D (kép formátumú) textúrák megjelenítését támogatja  kívánt fájl megadása \texttt{texture.c} programfájlon belül \texttt{texture\_filename} után lehetséges.
-\bigskip
+Balról jobbra haladva először megjeleníti a fájlban \textbf{u} legkisebb és legnagyobb értékét, majd ugyanezt megvalósítja a \textbf{v} koordináta számított adataival is.
+Az elkészült szoftver 2D (kép formátumú) textúrák megjelenítését támogatja. A kívánt fájl megadása a \texttt{texture.c} forrásfájlon belül a \texttt{texture\_filename} után lehetséges.
 \begin{cpp}
 char texture_filename[] = "utvonal/pelda.kiterjesztes";
 \end{cpp}
-\bigskip
-
 Saját képfájlunk megadásánál \texttt{utvonal} helyére a fájlunk elérési útvonala \texttt{pelda} helyére a képfájlunk neve \texttt{kiterjesztes} helyére pedig kiterjesztés kerül (\texttt{.jpg , .png, .tga}).
-\Section {Megjelenítés}
-Modellek mérete és elhelyezkedése nagy mértékben eltérő lehet. Ennek elemzése érdekében érdemes megnézni a \texttt{print\_bounding\_box} által számított adatokat és a kamerát ennek megfelelően pozíciónálni.
+
+\Section{Modell megjelenítése}
+
+A modellek mérete és elhelyezkedése nagy mértékben eltérő lehet. Ennek elemzése érdekében érdemes megnézni a \texttt{print\_bounding\_box} által számított adatokat és a kamerát ennek megfelelően pozíciónálni.
 \bigskip
 \begin{python}
 Bounding box:
@@ -134,24 +124,21 @@ y in [-0.500000, 0.500000]
 z in [-0.500000, 0.500000]
 \end{python}
 \bigskip
-
-Ezen számok megadják, hogy az OBJ fájlunk mérete mekkora lesz a térben. Minden koordináta első száma a legkisebb második száma pedig a legnagyobb csúcs értékének elhelyezkedését adja az adott síkon.
-\bigskip
+Ezen számok megadják, hogy az objektumunk mérete mekkora lesz a térben. Minden koordináta első száma a legkisebb második száma pedig a legnagyobb csúcs értékének elhelyezkedését adja az adott tengely szerint.
+A kamerapozíció beállítása ezt követően az alábbi kódrész formájában történhet
 \begin{cpp}
 gluLookAt
 (
-        0.0, 0.0, -200, //eye (X, Y, Z)
-        0.0, 0.0, 0.0,  //center (X, Y, Z)
-        0.0, 1.0, 0.0 //up (X, Y, Z)
+    0.0, 0.0, -200, // eye (X, Y, Z)
+    0.0, 0.0, 0.0,  // center (X, Y, Z)
+    0.0, 1.0, 0.0   // up (X, Y, Z)
 );
 \end{cpp}
-\bigskip
+A Kamera pozíciót a \texttt{gluLookAt} paraméterei állításával lehet pozícionálni.
 
-Kamera pozíciót a \texttt{gluLookAt} paraméterei állításával lehet pozícionálni.\\
+Javító szoftverről lévén szó, maga a megjelenítő minimális funkciókkal lett ellátva, tehát nem tudjuk mozgatni  a modellünket, illetve kamera pozíciója sem változtatható megjelenítés után. Egyedül a modell forgatása lehetséges egér segítségével.
 
-Javító szoftver lévén maga a megjelenítő minimális funkciókkal lett ellátva, tehát nem tudjuk mozgatni  a modellünket, illetve kamera pozíciója sem változtatható megjelenítés után. Egyedül a modell forgatása lehetséges egér segítségével.\\
-
-\texttt{house.obj} megjelenítése a hozzátartozó textúrával.(\ref{fig:demo} ábra)
+A \texttt{house.obj} megjelenítése a hozzátartozó textúrával \aref{fig:demo}. ábrán látható.
 \bigskip
 
 \begin{figure}[h]
@@ -161,28 +148,30 @@ Javító szoftver lévén maga a megjelenítő minimális funkciókkal lett ell�
 \label{fig:demo}
 \end{figure}
 \newpage
-\Section {Javítható hibák}
+\Section{Javítható hibák}
+
 \SubSection{Háromszögesítés}
-Korábbi észrevételeim alapján egyes betöltőknél gondot okoz, a háromszögeknél több csúcsszámú síkodomok kezelése, ennek a problémának a javítása fejlesztettem ki a \texttt{triangulation\_of\_quads} funkciót. Funkció célja, hogy négyszögeket két különálló  háromszögre bontjunk szét.
+
+Korábbi észrevételeim alapján egyes betöltőknél gondot okoz, a háromszögeknél több csúcsszámú sokszögek kezelése. Ennek a problémának a javítására fejlesztettem ki a \texttt{triangulation\_of\_quads} funkciót. A funkció célja, hogy a négyszögeket két különálló  háromszögre bontsa szét.
+
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.39]{images/triangulation.png}
-\caption{Háromszögesítés elémletben.}
+\caption{Háromszögesítés elméletben.}
 \label{fig:tri}
 \end{figure}
 
-\noindent A célünk ezzel, a \ref{fig:tri}. ábrán  látható módon minden négyszög síkodomot felbontsunk két különböző háromszögre szaggatott vonalon való metszéssel. Persze az ábrán látható négyszög egy szabályos négyzet, de ezek a négyszögek felvehetnek többféle alakzatot (téglalap, deltoid, rombusz stb...).
+A célünk ezzel, a \ref{fig:tri}. ábrán  látható módon minden négyszöget felbontsunk két különböző háromszögre a szaggatott vonalon való metszéssel. Persze, az ábrán látható négyszög egy szabályos négyzet, de ezek a négyszögek lehetnek általánosak.
+A felbontás úgy valósul meg, hogy a program kiválasztja az első beolvasott négyszöget az OBJ fájlból annak első három csúcs koordinátájából képez egy háromszöget, majd a következő háromszöget az előző négyszög első harmadik, illetve negyedik koordinátájából képezi le így végighaladva az összes négyszögön ami az OBJ fájlunkban található.\\Ennek szemléletetése a \ref{fig:tri1}. ábrán látható.
 
-Ez úgy valósul meg, hogy a program kiválasztja az első beolvasott négyszöget az OBJ fájlból annak első három csúcs koordinátájából képez egy háromszöget majd a következő háromszöget az előző négyszög első harmadik, illetve negyedik koordinátájából képezi le így végighaladva az összes négyszögön ami az OBJ fájlunkban található.\\Ennek szemléletetése a \ref{fig:tri1}. ábrán látható.
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.39]{images/haromszog.png}
 \caption{Háromszögesítés diagram.}
 \label{fig:tri1}
 \end{figure}
-\newpage
 
-Megvalósítás során \texttt{triangulation\_of\_quads} funkció modell struktúránkból elveszi az összes négyszöget és két háromszöggel tölti fel azok helyét, illetve a lapok számát is növeli minden felvágott négyszög esetében eggyel.
+A megvalósítás során \texttt{triangulation\_of\_quads} funkció modell struktúránkból elveszi az összes négyszöget és két háromszöggel tölti fel azok helyét, illetve a lapok számát is növeli minden felvágott négyszög esetében eggyel.
 
 \begin{figure}[h]
 \centering
@@ -193,6 +182,7 @@ Megvalósítás során \texttt{triangulation\_of\_quads} funkció modell strukt�
 \end{figure}
 
 Az \ref{fig:tri2}. ábra bal oldali képen az eredeti \texttt{helmet.obj} modell látható, a modell hálójának megjelenítésével, a jobb oldali képen pedig már a háromszögelt változat. Jól láthatóak az eltérések a két modell rajzolt állapota között.
+
 \begin{table}[h]
 \centering
 \caption{helmet.obj adatait tartalmazó táblázat}
@@ -212,39 +202,35 @@ négyszögek & 6064 & 0 \\
 \label{fig:tri3}
 \end{table}
 
-Az \ref{fig:tri3}. összesítő táblázat megmutatja hogyan változtak a \texttt{helmet.obj} adatai a háromszögesítés után. Láthatóan az összes négyszög eltünt a modellből ezeket két háromszögre bontotta a szoftver, az lap elemek száma is duplájára nőtt.
+\Aref{fig:tri3}. összesítő táblázat megmutatja hogyan változtak a \texttt{helmet.obj} adatai a háromszögesítés után. Láthatóan az összes négyszög eltünt a modellből ezeket két háromszögre bontotta a szoftver, az lap elemek száma is duplájára nőtt.
 \newpage
 \SubSection{Bejárási irány megváltoztatás}
-\bigskip
+
 A program ezen része arra szolgál, hogy a háromszögeink bejárási irányát meg tudjuk változtatni \aref{fig:bej1}. ábrán látható módon.
-\bigskip
+
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.5]{images/bejarasi.png}
 \caption{Bejárási irány változtatás elméletben.}
 \label{fig:bej1}
 \end{figure}
-\bigskip
 
-Egy háromszög csúcsok közötti bejárást kétféleképpen tudjuk bejárni. \Aref{fig:bej1}. ábrán bal oldalt látható  óramutató járásával ellentétes bejárási sorrendben (1 -> 3 -> 2), amit a megjelenítőnk alapból használ, jobb oldalon pedig az ellenkezője óramutató járásával megegyező bejárás (1 -> 2 -> 3).
+Egy háromszög csúcsok közötti bejárást kétféleképpen tudjuk megad. \Aref{fig:bej1}. ábrán bal oldalt látható az óramutató járásával ellentétes bejárási sorrendben ($1 \rightarrow 3 \rightarrow 2$), amit a megjelenítőnk alapvetően használ, jobb oldalon pedig az ellenkezője, az óramutató járásával megegyező bejárás ($1 \rightarrow 2 \rightarrow 3$).
 
-Ez a funkció \texttt{change\_vertex\_order} függvény néven van a programba implementálva. Amennyiben úgy döntünk és ezt alkalmazzuk a programunk elvégzi a bejárási irány cserét model struktúrába betöltött objektomunkon.
+Ez a funkció \texttt{change\_vertex\_order} függvény néven van a programban implementálva. Amennyiben úgy döntünk, és ezt alkalmazzuk a programunk elvégzi a bejárási irány cserét model struktúrába betöltött objektomunkon.
 
-Megjelenítés során a megjelenítő ugyanúgy óramutatójárásval ellentétesen fogja megjeleníteni a modellünket, viszont a programunk \texttt{change\_vertex\_order} függvény segítségével megváltoztatta csúcsok sorrendjét így a megjelenítés már óramutató járásával megegyező módon fog történni az eredeti OBJ fájlhoz képest.\\
+Megjelenítés során a megjelenítő ugyanúgy óramutatójárásval ellentétesen fogja megjeleníteni a modellünket, viszont a programunk \texttt{change\_vertex\_order} függvény segítségével megváltoztatta csúcsok sorrendjét így a megjelenítés már óramutató járásával megegyező módon fog történni az eredeti OBJ fájlhoz képest.
 \newpage
 \Aref{fig:bej2}. ábra egy egyszerű modellen keresztül ezt hivatott bemutatni.
-\bigskip
+
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.5]{images/order.png}
 \caption{Bejárási irány hiba.}
 \label{fig:bej2}
 \end{figure}
-\bigskip
 
-Jól látható módon a felső modellünk hibásan az alsó pedig jól került megjelenítésre. Két modell összesen az lapok közötti bejárási útvonal a különbség a két modell összes többi csúcsa ugyanaz \aref{fig:bej3} táblázatban bemutatásra kerül a két objektum közti eltérés. Ez a táblázat csak az lapok közötti eltérést mutatja.
-
-\newpage
+Jól látható módon a felső modellünk hibásan, az alsó pedig jól került megjelenítésre. A két modell összesen az lapok közötti bejárási sorrend a különbség, az összes többi csúcsa ugyanaz. \Aref{fig:bej3} táblázatban bemutatásra kerül a két objektum közötti eltérés. (A táblázat csak a lapok közötti eltérést mutatja.)
 
 \begin{table}[h]
 \centering
@@ -270,11 +256,12 @@ f  3//3 4//4 8//8 & f  3//3 8//8 4//4 \\
 \label{fig:bej3}
 \end{table}
 \bigskip 
-
+\newpage
 \Aref{fig:bej3} táblázatból láthatóan kivehető, hogy a háromszögünk lap felsorolásának iránya megváltozott a második és harmadik koordinátán, ezáltal a megjelenítés óramutató járásával megegyezően fog történni az eredeti OBJ fájl-hoz képest.
 
-\Section {Fájlba írás}
-Változtatott OBJ fájl kiírása \texttt{obj\_output.obj} fájlba \texttt{write\_to\_file} függvény segítségével kivitelezhető. OBJ fájlunk betöltése és az elvégzett változtatások után a program megkérdezi kívánjuk menteni a változtatott OBJ fájlt, amennyiben így döntünk a program létrehozza az \texttt{obj\_output.obj} fájlt és azt feltölti model struktúránk aktuális adataival. A mentett fájlunkba kiírt OBJ fájl nem tartalmazza a betöltött fájl anyagjellemzőit illetve a megjegyzéseit sem.
+\Section{Fájlba írás}
+
+A javított OBJ fájl kiírása az \texttt{obj\_output.obj} fájlba a \texttt{write\_to\_file} függvény segítségével kivitelezhető. OBJ fájlunk betöltése, és az elvégzett változtatások után a program megkérdezi, hogy kívánjuk menteni a változtatott OBJ fájlt, amennyiben így döntünk a program létrehozza az \texttt{obj\_output.obj} fájlt és azt feltölti model struktúránk aktuális adataival. A mentett fájlunkba kiírt OBJ fájl nem tartalmazza a betöltött fájl anyagjellemzőit illetve a megjegyzéseit sem.
 \bigskip
 \dirtree{%
 .1 /obj\_corrector\_tool.
@@ -288,9 +275,3 @@ Változtatott OBJ fájl kiírása \texttt{obj\_output.obj} fájlba \texttt{write
 \bigskip
 
 Ez a kimeneti fájl közvetlen az \texttt{obj\_corrector\_tool} könyvtárba kerül eltárolásra a program futtatása után.
-
-
-
-
-
-

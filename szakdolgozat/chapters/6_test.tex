@@ -2,10 +2,9 @@
 
 \Section{Reguláris kifejezések}
 
-Regluráis kifejezések illesztési algoritmus gyakran eltérő, a szerzők másként értelmeznek bizonyos eseteket, vagyis nincs egységes szabvány belőle.
+A reguláris kifejezések illesztését megvalósító algoritmusok gyakran eltérnek, a szerzők másként értelmeznek bizonyos eseteket, vagyis nincs egységes szabvány belőle.
 
-Ennek ellenőrzésére érdekében konzulensemmel készítettünk egységtesztet Cmockában (ez egy egységteszt C nyelvre).\cite{andreas2014cmocka} Amennyiben a tesztelésünk sikeres volt és a reguláris kifejezés sablonunk megfelelően illeszkedik az adott sorra abban az esetben teszt futtatás után a következő kimenetet kell kapjuk:
-\bigskip
+Ennek ellenőrzésére érdekében konzulensemmel készítettünk egységtesztet CMocka függvénykönytvár segítségével. (Ez egy egységtesztek írásához készített függvénykönyvtár C nyelvre \cite{andreas2014cmocka}.) Amennyiben a tesztelésünk sikeres volt, és a reguláris kifejezés sablonunk megfelelően illeszkedik az adott sorra, abban az esetben teszt futtatás után a következő kimenetet kell kapjuk:
 \begin{python}
 [==========] Running 7 test(s).
 [ RUN      ] test_vertex_line
@@ -25,11 +24,7 @@ Ennek ellenőrzésére érdekében konzulensemmel készítettünk egységtesztet
 [==========] 7 test(s) run.
 [  PASSED  ] 7 test(s).
 \end{python}
-\newpage
-
-\noindent Abban az esetben, ha a tesztünk valamelyik fázisban elbukott, akkor a következővel tér vissza a teszt:
-\bigskip
-
+Abban az esetben, ha a tesztünk valamelyik fázisban elbukott, akkor a következővel tér vissza a teszt:
 \begin{python}
 [ RUN      ] test_quad_line
 [  ERROR   ] --- result
@@ -40,9 +35,8 @@ Ennek ellenőrzésére érdekében konzulensemmel készítettünk egységtesztet
 [  FAILED  ] 1 test(s), listed below:
 [  FAILED  ] test_quad_line
 \end{python}
-\bigskip
-
 Ennél a példánál a \texttt{QUAD\_LINE\_PATTERN} nem megfelelően illeszkedett  a tesztben megadott formátumra, ezért hibával tér vissza.
+
 \Section{Modell betöltés sebességmérés}
 
 \begin{figure}[h]
@@ -52,28 +46,26 @@ Ennél a példánál a \texttt{QUAD\_LINE\_PATTERN} nem megfelelően illeszkedet
 \label{fig:betolt}
 \end{figure}
 
-Modellek betöltési sebességét vizsgáltam a  \ref{fig:betolt}. grafikonon. A vízszintes tengelyen a modellek összes elemszáma (geometria csúcs, textúra koordináta, normál csúcs, lap elem) számok összesítése látható a függőleges tengelyen pedig a betöltési idő milliszekundumban. Az összehasonlítás textúra, modell kirajzolás, és az OBJ fájlon történő bármilyen változtatás nélkül történt.
+Modellek betöltési sebességét vizsgáltam \aref{fig:betolt}. grafikonon. A vízszintes tengelyen a modellek összes elemszáma (geometria csúcs, textúra koordináta, normál csúcs, lap elem) számok összesítése látható, a függőleges tengelyen pedig a betöltési idő milliszekundumban. Az összehasonlítás textúra, modell kirajzolás, és az OBJ fájlon történő bármilyen változtatás nélkül történt.
 
-A grafikonon jól látható hogy az idő növekedése közel exponenciális, tehát a modellek elemszámának növekedésének mértéke közel  arányos a beolvasáshoz szükséges idő nagyságával.
-\bigskip
+A grafikonon jól látható, hogy az idő növekedése közel exponenciális, tehát a modellek elemszámának növekedésének mértéke közel arányos a beolvasáshoz szükséges idő nagyságával.
+
 \Section{Modell betöltés sebességmérés az egyes részeken}
-\bigskip
+
+\Aref{fig:betolt2}. diagramon látható modell betöltés a különböző részekre lebontva. Vízszintes tengelyen kapott helyet a modellek összes elemszáma. Függőleges tengelyen az idő milliszekundumban.
+
 \begin{figure}[h]
 \centering
 \includegraphics[width=\textwidth]{images/betoltesiido2.png}
 \caption{Modell betöltési az egyes részeken grafikon.}
 \label{fig:betolt2}
 \end{figure}
-\bigskip
-\Aref{fig:betolt2}. diagramon látható modell betöltés a különböző részekre lebontva. Vízszintes tengelyen kapott helyet a modellek összes elemszáma. Függőleges tengelyen az idő milliszekundumban.
+
 \begin{itemize}
 \item Kék színnel különböző adatok feltöltéséhez szükséges tömbök lefoglalása.
-
 \item Narancssárga színnel lett jelölve a különböző változók összeszámlálása.
-
 \item Sárga színnel lett jelölve az adatok tényleges kiolvasása a fájlból.
-
 \item Grafikonon zöld színnel lett jelölve modell teljes betöltésének ideje.
  \end{itemize}
 \bigskip
-\noindent Grafikonról  jól leolvasható, hogy a tömbök lefoglalása szinte jelentéktelen időt vesz igénybe a folyamat során. Változók összeszámlálása közel azonos időt vesz igénybe, mint a kiolvasás, ez azért van, mert mindkét folyamatnál végig kell menni a teljes OBJ fájl minden elemén. 
+A grafikonról jól leolvasható, hogy a tömbök lefoglalása szinte jelentéktelen időt vesz igénybe a folyamat során. Változók összeszámlálása közel azonos időt vesz igénybe, mint a kiolvasás, ez azért van, mert mindkét folyamatnál végig kell menni a teljes OBJ fájl minden elemén.
