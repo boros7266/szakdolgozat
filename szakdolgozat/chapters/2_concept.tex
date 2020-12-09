@@ -90,7 +90,11 @@ Az OBJ formátum 3D térben lévő objektumok csupán geometriáját írja le. E
 
 \SubSection{Az MTL fájl felépítése}
 
+<<<<<<< HEAD
 Ezeket a tulajdonságokat az MTL (\textit{Material Template Library}) tartalmazza, a formátum hasonlóan az OBJ formátumhoz szintén szöveges. Az OBJ fájl tartalmazza a hivatkozást az {MTL} fájlra: \cite{diane1995mtl}.
+=======
+Ezeket a tulajdonságokat az MTL (\textit{Material Template Library}) tartalmazza, a formátum hasonlóan az OBJ formátumhoz szintén szöveges. Az OBJ fájl tartalmazza a hivatkozást az {MTL} fájlra:
+>>>>>>> d90ab7ad850e6073308db2fb32cf995d4f8fdada
 \begin{python}
 mtllib fajlnev.mtl
 \end{python}
@@ -112,7 +116,11 @@ o [objektum neve]
   ...
 \end{python}
 
+<<<<<<< HEAD
 Sokszögek közötti árnyékolás a következővel állítható:
+=======
+Sokszögek közötti árnyékolás a következővel állítható
+>>>>>>> d90ab7ad850e6073308db2fb32cf995d4f8fdada
 \begin{python}
 s 1
   ...
@@ -143,7 +151,11 @@ A \textbf{Ks} kulcsszó az anyag spekuláris színét adja. Ez az anyag tükröz
 Ks 1.000 1.000 1.000
 \end{python}
 
+<<<<<<< HEAD
 Az \textbf{Ns} kulcsszó az anyag \textit{shininess} évtékét, vagyis csillogását adja. Az anyagok felszíne nem csak tükörszerűen viselkedhetnek, hanem van saját fényük is. Ennek az értéke 0 és 1000 között határozható meg. Ezen skálán minél nagyobb értéket kap, annál nagyobb lesz a fénysávok élessége.\cite{johnmtl}
+=======
+Az \textbf{Ns} kulcsszó az anyag \textit{shininess} évtékét, vagyis csillogását adja. Az anyagok felszíne nem csak tükörszerűen viselkedhetnek, hanem van saját fényük is. Ennek az értéke 0 és 1000 között határozható meg. Ezen skálán minél nagyobb értéket kap, annál nagyobb lesz a fénysávok élessége.
+>>>>>>> d90ab7ad850e6073308db2fb32cf995d4f8fdada
 \begin{python}
 Ns 10.000
 \end{python}
@@ -203,7 +215,10 @@ A program leírásában benne van, hogy a megnyitás háromféleképpen történ
 \item Második lehetőségként behúzzuk az oldalra a kívánt modellünket egér segítségével (\textit{drag-and-drop} művelet).
 \item Harmadik lehetőség pedig megadhatjuk a fájlok helyének URL-jét.
 \end{itemize}
+<<<<<<< HEAD
 \newpage
+=======
+>>>>>>> d90ab7ad850e6073308db2fb32cf995d4f8fdada
 Miután kiválasztottuk a megfelelő objektumot az automatikusan megjelenik a rajzfelületen  (\ref{fig:model_viewer2}. ábra).
 
 \begin{figure}[h]
@@ -216,11 +231,19 @@ Miután kiválasztottuk a megfelelő objektumot az automatikusan megjelenik a ra
 Rajzfelülettől balra találhatóak az objektumunkról gyűjtött adatok. Felette a model egyes síkidomjainak központba helyezése, a modellünk forgatása bal egérgomb folytonos nyomva tartásával és egér mozgatásával történhet. Ezen felül kameránk közelítése és távolítása görgő segítségével kivitelezhető.
 
 A modellbetöltő gyors és egyszerű megjelenítést biztosít számunkra, tökéletesen működik a bonyolultabb geometriájú síkodomok megjelenítésével, legyen szó háromszög, négyszög vagy akár ennél nagyobb csúcsszámmal rendelkező sokszögről. Ez nagy előnyt jelent felhasználó szempontból, amennyiben csak a modell megjelenítése a cél.
+<<<<<<< HEAD
 
 Sajnos kép alapú textúrázás nem támogatott a program által, ezért a textúrázás nem lehetséges. Másik probléma a szoftverrel, hogy egy időben csak egy OBJ file kirajzolására alkalmas.
 
 A betöltő forráskódja, illetve a programmal kapcsolatos rövid leírás megtalálható a következő weboldalon: \url{https://github.com/kovacsv/Online3DViewer}.
 \newpage
+=======
+
+Sajnos kép alapú textúrázás nem támogatott a program által, ezért a textúrázás nem lehetséges. Másik probléma a szoftverrel, hogy egy időben csak egy OBJ file kirajzolására alkalmas.
+
+A betöltő forráskódja, illetve a programmal kapcsolatos rövid leírás megtalálható a következő weboldalon: \url{https://github.com/kovacsv/Online3DViewer}.
+
+>>>>>>> d90ab7ad850e6073308db2fb32cf995d4f8fdada
 \SubSection{Creators 3D Online Viewer}
 
 Másik ilyen internetes betöltő a Creators 3D Online Viewer \cite{creators2018creators3d}.
@@ -243,7 +266,11 @@ A rajzfelületre kattintva megadjuk a fájlunk lokális helyének az útvonalát
 	\caption{Online 3D Viewer kezdőfelület.}
 	\label{fig:3d1}
 \end{figure}
+<<<<<<< HEAD
 \newpage
+=======
+
+>>>>>>> d90ab7ad850e6073308db2fb32cf995d4f8fdada
 Amint kiválasztjuk a megjelenítésre szánt fájlunkat a felsorolt két lehetőség közül, az objektum megjelenik a rajzfelületen (\ref{fig:3d2}. ábra).
 
 \begin{figure}[h]
@@ -254,7 +281,11 @@ Amint kiválasztjuk a megjelenítésre szánt fájlunkat a felsorolt két lehet�
 \end{figure}
 
 Az előző betöltőhöz hasonlóan szintén nagyon gyorsan megjelenítette a betöltésre szánt modellünket. Nyilván minél komplexebb a modellünk, azzal arányosan több időbe telik a betöltés.
+<<<<<<< HEAD
  \newpage
+=======
+
+>>>>>>> d90ab7ad850e6073308db2fb32cf995d4f8fdada
 A rajzfelülettől jobbra találhatóak különböző beállítások a megjelenítéssel kapcsolatban. Ilyenek például a keret kirajzolása (\textit{wireframe}), aminek bekapcsolásával csak a modell hálója látszódik (\ref{fig:3d3}. ábra).
 
 \begin{figure}[h]
@@ -265,7 +296,11 @@ A rajzfelülettől jobbra találhatóak különböző beállítások a megjelen�
 \end{figure}
 
 Sok más további funkcióval is rendelkezik, például megjeleníthető a koordináta tengely (\textit{grid}), aminek segítségével vizsgálhatjuk az objektumunk irányultságát, illetve elhelyeszkedését. Az $x$, $y$ tengely kék és piros vonallal lettek jelezve a $z$ tengely pedig zöldel  (\ref{fig:3d3}. ábra).
+<<<<<<< HEAD
 \newpage
+=======
+
+>>>>>>> d90ab7ad850e6073308db2fb32cf995d4f8fdada
 \SubSection{Model Loader}
 
 Következő tesztelt szoftver, a Piller Imre által fejlesztett Model Loader volt \cite{imre2020model}.
@@ -286,7 +321,11 @@ A fejlesztői környezet beállítása után az első futtatásra a \texttt{cube
 \end{figure}
 
 A megjelenítés teljesen jól történ,t a megjelenítendő objektumot egy külön ablakban kirajzolta a program. A textúra illesztésével nem volt gond.
+<<<<<<< HEAD
 \newpage
+=======
+
+>>>>>>> d90ab7ad850e6073308db2fb32cf995d4f8fdada
 Különböző komplexitású modellek betöltését teszteltem (\ref{fig:modelbaby}. és  \ref{fig:modelbird}. ábrák).
 
 \begin{figure}[h]
@@ -304,7 +343,11 @@ Különböző komplexitású modellek betöltését teszteltem (\ref{fig:modelba
 \end{figure}
 
 Ezek a modellek szintén tökéletes megjelenítésre kerültek, a hozzájuk tartozó textúra betöltésével nem volt gond a modell megjelent a rajzfelületen.
+<<<<<<< HEAD
 \newpage
+=======
+
+>>>>>>> d90ab7ad850e6073308db2fb32cf995d4f8fdada
 Pár ilyen betöltés után észrevettem, hogy a betöltő nem kezel háromszögnél nagyobb csúcspontal rendelkező sokszögeket. \Aref{fig:model1} ábrán megjelenített \texttt{cube.obj} háromszögeit átkonvertáltam négyszögekké, majd ezek után szintén betöltöttem a megjelenítőbe. A betöltés utáni eredmény \aref{fig:model2}. ábrán látható.
 
 \begin{figure}[h]
