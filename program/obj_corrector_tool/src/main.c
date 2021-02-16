@@ -74,7 +74,7 @@ void initialize()
 	glLoadIdentity();
 
 	gluLookAt(
-        0.0, 0.0, -6, //eye (X, Y, Z)
+        0.0, 0.0, -50, //eye (X, Y, Z)
         0.0, 0.0, 0.0,  //center (X, Y, Z)
         0.0, 1.0, 0.0 //up (X, Y, Z)
     );
@@ -99,7 +99,7 @@ int main(int argc, char* argv[])
     BoundingBox bounding_box;
     TextureBox texture_box;
 
-    load_model("OBJ/cube/cube.obj", &model, &regular);
+    load_model("OBJ/skull/skull.obj", &model, &regular);
     print_model_info(&model);
     calc_bounding_box(&model,&bounding_box);
     calc_texture_box(&model,&texture_box);

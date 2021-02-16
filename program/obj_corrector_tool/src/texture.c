@@ -9,7 +9,7 @@ void initialize_texture()
 {
 	glPixelStorei(GL_UNPACK_ALIGNMENT,1);
 	
-    char texture_filename[] = "OBJ/cube/cube.png";
+    char texture_filename[] = "OBJ/skull/skull.jpg";
 
     int width;
     int height;
